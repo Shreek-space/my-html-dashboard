@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Practice — Compliance Tracker</title>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<title>Practice Compliance Tracker</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -668,58 +667,71 @@ tbody tr:hover .del-btn{opacity:1}
 .cell-na     {background:repeating-linear-gradient(45deg,#f9fafb,#f9fafb 4px,#f3f4f6 4px,#f3f4f6 8px)!important}
 
 /* ─── DASHBOARD ──────────────────────────────────────────── */
-.dsb{padding:6px 13px;border:1.5px solid var(--border);border-radius:20px;background:#fff;font-size:.69rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .13s;white-space:nowrap}
+.dsb{padding:5px 12px;border:1.5px solid var(--border);border-radius:20px;background:#fff;font-size:.69rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .13s;white-space:nowrap}
 .dsb:hover{border-color:var(--brand);color:var(--brand)}
 .dsb.on{background:var(--brand);color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(108,71,255,.25)}
 
-/* KPI cards */
-.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px}
-.kpi-card{border-radius:var(--r2);padding:16px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--s2);transition:transform .18s,box-shadow .18s;cursor:default}
-.kpi-card:hover{transform:translateY(-2px);box-shadow:var(--s3)}
-.kpi-card::after{content:'';position:absolute;right:-15px;top:-15px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none}
-.kpi-icon{font-size:1.3rem;margin-bottom:8px;position:relative;z-index:1}
-.kpi-val,.kpi-value{font-size:2rem;font-weight:900;letter-spacing:-1.5px;line-height:1;position:relative;z-index:1}
-.kpi-lbl,.kpi-label{font-size:.59rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;opacity:.85;margin-top:3px;position:relative;z-index:1}
-.kpi-sub{font-size:.61rem;opacity:.65;margin-top:6px;position:relative;z-index:1}
-.kpi-bar{height:3px;background:rgba(255,255,255,.2);border-radius:10px;margin-top:10px;overflow:hidden;position:relative;z-index:1}
-.kpi-fill{height:100%;background:rgba(255,255,255,.7);border-radius:10px;transition:width .8s cubic-bezier(.4,0,.2,1)}
-.kpi-card.kpi-acc {background:linear-gradient(135deg,#0096c7,#0077b6);box-shadow:0 6px 20px rgba(0,150,199,.3)}
-.kpi-card.kpi-gst {background:linear-gradient(135deg,#6c47ff,#5537e0);box-shadow:0 6px 20px rgba(108,71,255,.3)}
-.kpi-card.kpi-tds {background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 20px rgba(245,158,11,.3)}
-.kpi-card.kpi-comp{background:linear-gradient(135deg,#00c875,#00a65e);box-shadow:0 6px 20px rgba(0,200,117,.3)}
-.kpi-card.kpi-reg {background:linear-gradient(135deg,#e2445c,#c0143a);box-shadow:0 6px 20px rgba(226,68,92,.3)}
+/* ── DASHBOARD TOOLBAR ──────────────────────────────────── */
+.dash-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.dash-search-inp{flex:1;min-width:180px;padding:8px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:.78rem;outline:none;background:#fff;color:var(--ink);transition:border-color .15s}
+.dash-search-inp:focus{border-color:var(--brand)}
+.dash-seg{display:flex;align-items:center;gap:4px}
+.dash-add-btn{padding:8px 16px;border:none;border-radius:10px;background:var(--brand);color:#fff;font-size:.73rem;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap}
+.dash-add-btn:hover{background:var(--brand-d);transform:translateY(-1px)}
+.dash-export-btn{padding:7px 12px;border:1.5px solid var(--border);border-radius:9px;background:#fff;font-size:.69rem;font-weight:700;color:var(--sub);cursor:pointer;transition:all .13s;white-space:nowrap}
+.dash-export-btn:hover{border-color:var(--brand);color:var(--brand)}
 
-/* Module overview cards */
-.dmod{background:#fff;border-radius:var(--r2);border:1.5px solid var(--border);padding:14px;cursor:pointer;transition:all .18s;box-shadow:var(--s1);position:relative;overflow:hidden}
-.dmod:hover{transform:translateY(-2px);box-shadow:var(--s2);border-color:var(--border2)}
-.dmod-strip{height:3px;border-radius:3px 3px 0 0;position:absolute;top:0;left:0;right:0}
-.dmod-icon{font-size:1.4rem;margin-bottom:6px;margin-top:4px}
-.dmod-name{font-size:.8rem;font-weight:800;color:var(--ink);margin-bottom:2px}
-.dmod-sub{font-size:.59rem;color:var(--sub);margin-bottom:10px;line-height:1.4}
-.dmod-cnt,.dmod-count{font-size:1.5rem;font-weight:900;letter-spacing:-1px}
-.dmod-cnt-lbl{font-size:.58rem;color:var(--sub)}
-.dmod-pct-row{display:flex;align-items:center;gap:6px;margin-top:6px}
-.dmod-pct-bar{flex:1;height:5px;background:var(--surf3);border-radius:10px;overflow:hidden}
-.dmod-pct-fill{height:100%;border-radius:10px;transition:width .8s .2s}
-.dmod-pct-num{font-size:.62rem;font-weight:800}
-.dmod.dmod-acc  .dmod-strip{background:linear-gradient(90deg,#0096c7,#38b6d8)}
-.dmod.dmod-gst  .dmod-strip{background:linear-gradient(90deg,var(--brand),#8b6fff)}
-.dmod.dmod-tds  .dmod-strip{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
-.dmod.dmod-comp .dmod-strip{background:linear-gradient(90deg,#00c875,#34d399)}
-.dmod.dmod-reg  .dmod-strip{background:linear-gradient(90deg,#e2445c,#f87194)}
-.dmod.dmod-acc  .dmod-cnt{color:#0096c7}
-.dmod.dmod-gst  .dmod-cnt{color:var(--brand)}
-.dmod.dmod-tds  .dmod-cnt{color:#d97706}
-.dmod.dmod-comp .dmod-cnt{color:#00a65e}
-.dmod.dmod-reg  .dmod-cnt{color:#e2445c}
-.dmod.dmod-acc  .dmod-pct-fill{background:#0096c7}
-.dmod.dmod-gst  .dmod-pct-fill{background:var(--brand)}
-.dmod.dmod-tds  .dmod-pct-fill{background:#f59e0b}
-.dmod.dmod-comp .dmod-pct-fill{background:#00c875}
-.dmod.dmod-reg  .dmod-pct-fill{background:#e2445c}
+/* ── KPI STRIP (top summary) ────────────────────────────── */
+.kpi-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px}
+.kpi-tile{background:#fff;border-radius:12px;border:1px solid var(--border);padding:14px 16px;position:relative;overflow:hidden;transition:box-shadow .15s,transform .15s;cursor:default}
+.kpi-tile:hover{transform:translateY(-1px);box-shadow:var(--s2)}
+.kpi-tile-accent{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:12px 0 0 12px}
+.kpi-tile-num{font-size:1.7rem;font-weight:900;letter-spacing:-1px;line-height:1;margin-bottom:3px}
+.kpi-tile-lbl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--sub)}
+.kpi-tile-sub{font-size:.58rem;color:var(--muted);margin-top:4px}
+.kpi-tile-bar{height:2px;background:var(--surf3);border-radius:10px;margin-top:10px;overflow:hidden}
+.kpi-tile-fill{height:100%;border-radius:10px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+
+/* ── MODULE HEALTH ROW ──────────────────────────────────── */
+.mod-health-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.mod-health-card{background:#fff;border-radius:11px;border:1px solid var(--border);padding:12px 14px;cursor:pointer;transition:all .16s;box-shadow:var(--s1);display:flex;align-items:center;gap:11px}
+.mod-health-card:hover{transform:translateY(-1px);box-shadow:var(--s2);border-color:var(--border2)}
+.mod-health-icon-wrap{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.mod-health-body{flex:1;min-width:0}
+.mod-health-name{font-size:.72rem;font-weight:800;color:var(--ink);margin-bottom:1px}
+.mod-health-count{font-size:.61rem;color:var(--sub);margin-bottom:6px}
+.mod-health-bar-wrap{height:4px;background:var(--surf3);border-radius:10px;overflow:hidden}
+.mod-health-bar-fill{height:100%;border-radius:10px;transition:width .7s .1s}
+.mod-health-pct{font-size:.68rem;font-weight:800;margin-left:auto;flex-shrink:0}
+
+/* ── CLIENT ROSTER TABLE ────────────────────────────────── */
+.cl-roster-wrap{background:#fff;border-radius:12px;border:1px solid var(--border);box-shadow:var(--s1);overflow:hidden;margin-bottom:12px}
+.cl-roster-hd{display:grid;grid-template-columns:2fr repeat(5,1fr) 80px;align-items:center;padding:10px 16px;background:var(--surf2);border-bottom:1px solid var(--border);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--sub)}
+.cl-roster-row{display:grid;grid-template-columns:2fr repeat(5,1fr) 80px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);transition:background .1s;cursor:pointer}
+.cl-roster-row:last-child{border-bottom:none}
+.cl-roster-row:hover{background:#fafbff}
+.cl-roster-row.expanded{background:#f9f8ff}
+.cl-name-cell{display:flex;align-items:center;gap:9px}
+.cl-av-sm{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.67rem;font-weight:800;color:#fff;flex-shrink:0}
+.cl-roster-name{font-size:.78rem;font-weight:700;color:var(--ink)}
+.cl-roster-pan{font-size:.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.svc-dot{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;font-size:.72rem;cursor:default}
+.svc-dot.active{opacity:1}
+.svc-dot.inactive{opacity:.15;filter:grayscale(1)}
+.cl-expand-btn{font-size:.6rem;color:var(--brand);background:var(--brand-l);border:1.5px solid rgba(108,71,255,.15);cursor:pointer;padding:4px 10px;border-radius:6px;transition:all .12s;white-space:nowrap;font-weight:700}
+.cl-expand-btn:hover{background:var(--brand);color:#fff;border-color:transparent}
+.cl-detail-row{display:none;padding:0 16px 14px;border-bottom:1px solid var(--border);background:#f9f8ff}
+.cl-detail-row.open{display:block}
+.cl-detail-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;padding-top:12px}
+.cl-svc-panel{border-radius:9px;padding:10px 12px;border-left:3px solid}
+.cl-svc-panel-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cl-svc-panel-lbl{font-size:.7rem;font-weight:800}
+.cl-svc-open-btn{font-size:.58rem;padding:2px 8px;border-radius:5px;border:1px solid;cursor:pointer;background:#fff;font-weight:700;transition:all .12s}
+.cl-svc-dots{display:flex;flex-wrap:wrap;gap:2px}
+.cl-svc-dot{width:11px;height:11px;border-radius:3px;cursor:default;transition:transform .1s}
+.cl-svc-dot:hover{transform:scale(1.3)}
 
 /* Dash panels */
-.dash-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;margin-bottom:18px}
 .dash-lower{display:grid;grid-template-columns:1fr 360px;gap:14px}
 .dash-panel{background:#fff;border-radius:var(--r2);border:1px solid var(--border);padding:16px;box-shadow:var(--s1)}
 .dash-panel-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:11px;border-bottom:1px solid var(--border)}
@@ -737,6 +749,11 @@ tbody tr:hover .del-btn{opacity:1}
 .ring-track{flex:1;height:7px;background:var(--surf3);border-radius:10px;overflow:hidden}
 .ring-fill{height:100%;border-radius:10px;transition:width .9s .3s}
 .ring-pct{font-size:.65rem;font-weight:800;min-width:32px;text-align:right}
+
+/* ── OLD STYLE COMPAT (kpi-card etc still used elsewhere) ─ */
+.kpi-row{display:none}
+.dash-grid{display:none}
+.kpi-card,.dmod{display:none}
 
 /* ─── CALENDAR ────────────────────────────────────────────── */
 .cal-shell{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
@@ -824,7 +841,6 @@ tbody tr:hover .del-btn{opacity:1}
 .team-table tbody tr:hover td{background:rgba(108,71,255,.025)}
 .member-av{width:32px;height:32px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:800;color:#fff;flex-shrink:0}
 .role-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:.59rem;font-weight:700;text-transform:uppercase}
-.rp-superadmin{background:#fef9ec;color:#b45309;border:1px solid rgba(245,158,11,.2)}
 .rp-admin{background:rgba(108,71,255,.1);color:var(--brand);border:1px solid rgba(108,71,255,.15)}
 .rp-member{background:rgba(0,200,117,.1);color:#065f46;border:1px solid rgba(0,200,117,.15)}
 .team-act-btn{padding:4px 10px;border-radius:6px;font-size:.61rem;font-weight:700;border:1.5px solid var(--border);background:var(--surf2);color:var(--sub);cursor:pointer;transition:all .12s;margin-right:4px}
@@ -840,8 +856,6 @@ tbody tr:hover .del-btn{opacity:1}
 .inv-lbl{font-size:.59rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--sub)}
 .inv-inp,.inv-sel{padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--r);background:var(--surf2);font-size:.75rem;color:var(--ink);outline:none;transition:all .14s;font-family:inherit;width:100%}
 .inv-inp:focus,.inv-sel:focus{border-color:var(--brand);background:#fff}
-.ejs-panel{background:rgba(108,71,255,.04);border:1.5px solid rgba(108,71,255,.12);border-radius:var(--r);padding:14px}
-.ejs-title{font-size:.72rem;font-weight:700;color:var(--brand);margin-bottom:10px}
 .invite-result{padding:12px;background:#e6faf0;border:1.5px solid #a7f3d0;border-radius:var(--r);display:none;font-size:.72rem;margin-top:10px}
 
 /* Audit */
@@ -984,6 +998,232 @@ tbody tr:hover .del-btn{opacity:1}
 .exp-chk-label:hover{border-color:var(--border2)}
 .exp-chk-label input[type=checkbox]{accent-color:#7c3aed;width:14px;height:14px;cursor:pointer;flex-shrink:0}
 
+
+/* ═══════════════════════════════════════════════════════
+   CALENDAR — MONDAY.COM STYLE + DUE DATE POPUP
+   Sidebar always visible. Full-screen grid. Click any day.
+═══════════════════════════════════════════════════════ */
+
+/* ── DUE DATE FLOATING POPUP ── */
+#due-popup {
+  position: fixed; bottom: 24px; right: 24px; z-index: 990;
+  width: 340px; background: #fff;
+  border: 1px solid #e8e3dd; border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(26,22,18,.16), 0 2px 8px rgba(26,22,18,.08);
+  overflow: hidden; display: none;
+  animation: popSlide .28s cubic-bezier(.4,0,.2,1);
+}
+#due-popup.show { display: block; }
+@keyframes popSlide { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
+.due-popup-hd {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 16px; background: linear-gradient(135deg,#2b1461,#4c1d95);
+  color: #fff;
+}
+.due-popup-title { font-size: .82rem; font-weight: 800; }
+.due-popup-close { width:24px;height:24px;border-radius:6px;border:none;
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer;font-size:.8rem; }
+.due-popup-list { max-height: 360px; overflow-y: auto; }
+.due-popup-list::-webkit-scrollbar { width: 3px; }
+.due-popup-list::-webkit-scrollbar-thumb { background:#e0d9f7;border-radius:10px; }
+.due-item { display:flex;align-items:flex-start;gap:10px;padding:10px 14px;
+  border-bottom:1px solid #f5f0eb;transition:background .1s;cursor:default; }
+.due-item:last-child { border-bottom:none }
+.due-item:hover { background:#faf9f7 }
+.due-badge { min-width:42px;text-align:center;border-radius:9px;padding:5px 4px;
+  background:#f5f0eb;border:1px solid #ede8e3;flex-shrink:0; }
+.due-badge-d { font-size:1.1rem;font-weight:900;line-height:1;color:#1a1612 }
+.due-badge-m { font-size:.55rem;font-weight:700;color:#6b6560;text-transform:uppercase }
+.due-info { flex:1;min-width:0 }
+.due-info-title { font-size:.73rem;font-weight:700;color:#1a1612;line-height:1.3;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.due-info-type { display:inline-block;margin-top:3px;font-size:.58rem;font-weight:800;
+  padding:2px 7px;border-radius:10px;text-transform:uppercase; }
+.due-days { font-size:.68rem;font-weight:800;flex-shrink:0;padding-top:2px; }
+.due-today { color:#e11d48;background:#fff0f3;padding:2px 7px;border-radius:8px;font-size:.63rem }
+.due-urgent { color:#e11d48 }
+.due-warn { color:#d97706 }
+.due-ok { color:#059669 }
+.due-past { color:#a09a94 }
+.due-empty { padding:24px;text-align:center;color:#a09a94;font-size:.74rem }
+
+/* ── CAL NOTE INLINE EDITOR ── */
+.cal-note-editor {
+  position:absolute;top:0;left:100%;z-index:200;
+  width:260px;background:#fff;border-radius:12px;
+  border:1px solid #e8e3dd;box-shadow:0 8px 24px rgba(26,22,18,.14);
+  padding:12px;display:none;
+}
+.cal-note-editor.show { display:block;animation:popSlide .18s ease }
+.cal-note-editor textarea {
+  width:100%;min-height:80px;border:1.5px solid #e8e3dd;border-radius:8px;
+  padding:8px 10px;font-size:.74rem;font-family:inherit;outline:none;resize:vertical;
+  color:#1a1612;line-height:1.5;background:#faf9f7;
+}
+.cal-note-editor textarea:focus { border-color:#7c3aed;background:#fff }
+.cal-note-editor-footer { display:flex;gap:6px;margin-top:8px;justify-content:flex-end }
+.cal-note-save { padding:5px 12px;border:none;border-radius:7px;
+  background:#7c3aed;color:#fff;font-size:.68rem;font-weight:700;cursor:pointer }
+.cal-note-cancel { padding:5px 10px;border:1px solid #e8e3dd;border-radius:7px;
+  background:#fff;color:#6b6560;font-size:.68rem;cursor:pointer }
+
+/* ── MONDAY.COM CALENDAR GRID ── */
+.cal-monday-wrap { display:flex;flex-direction:column;height:100%;min-height:600px }
+.cal-monday-toolbar {
+  display:flex;align-items:center;gap:10px;padding:12px 0 14px;flex-wrap:wrap;
+}
+.cal-monday-nav { display:flex;align-items:center;gap:6px }
+.cal-mnav-btn {
+  width:32px;height:32px;border-radius:8px;border:1.5px solid #e8e3dd;
+  background:#fff;color:#6b6560;font-size:.95rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .13s;
+}
+.cal-mnav-btn:hover { border-color:#7c3aed;color:#7c3aed;background:#f5f3ff }
+.cal-month-title { font-size:1.1rem;font-weight:900;color:#1a1612;letter-spacing:-.3px;min-width:170px }
+.cal-today-pill { padding:5px 13px;border:1.5px solid #e8e3dd;border-radius:20px;
+  background:#fff;font-size:.7rem;font-weight:700;color:#6b6560;cursor:pointer;transition:all .13s }
+.cal-today-pill:hover { border-color:#7c3aed;color:#7c3aed }
+
+/* Filter pills */
+.cal-filter-row { display:flex;gap:6px;flex-wrap:wrap;margin-left:auto }
+.cal-fpill { display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;
+  font-size:.62rem;font-weight:700;cursor:pointer;border:1.5px solid;transition:all .14s;user-select:none }
+.cal-fpill.off { opacity:.3;filter:grayscale(.5) }
+
+/* Grid */
+.cal-grid-container { flex:1;display:flex;flex-direction:column;overflow:hidden }
+.cal-grid-header {
+  display:grid;grid-template-columns:repeat(7,1fr);
+  background:#f5f3ff;border:1px solid #e8e3dd;
+  border-bottom:2px solid #ddd6fe;border-radius:12px 12px 0 0;overflow:hidden;
+}
+.cal-grid-dow {
+  padding:10px 8px;text-align:center;font-size:.64rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.5px;color:#6b6560;
+}
+.cal-grid-dow.wknd { color:#7c3aed;opacity:.7 }
+.cal-grid-body {
+  flex:1;display:grid;grid-template-columns:repeat(7,1fr);
+  border:1px solid #e8e3dd;border-top:none;
+  border-radius:0 0 12px 12px;overflow-y:auto;
+  background:#e8e3dd;gap:1px;
+}
+.cal-grid-body::-webkit-scrollbar { width:4px }
+.cal-grid-body::-webkit-scrollbar-thumb { background:#ddd6fe;border-radius:10px }
+.cal-day-cell {
+  background:#fff;min-height:108px;padding:7px 6px;
+  display:flex;flex-direction:column;gap:2px;cursor:pointer;
+  transition:background .12s;position:relative;
+}
+.cal-day-cell:hover { background:#faf8ff }
+.cal-day-cell.other-month { background:#f9f9f9;opacity:.55 }
+.cal-day-cell.is-today { background:#faf5ff }
+.cal-day-cell.is-today .cal-dn { background:#7c3aed;color:#fff;box-shadow:0 2px 6px rgba(124,58,237,.35) }
+.cal-day-cell.is-weekend .cal-dn { color:#a09a94 }
+.cal-day-cell.has-notes { background:#fffcf5 }
+
+.cal-dn {
+  width:26px;height:26px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.74rem;font-weight:800;color:#1a1612;flex-shrink:0;margin-bottom:2px;
+}
+.cal-ev-chip {
+  display:flex;align-items:center;gap:3px;padding:2px 6px;border-radius:4px;
+  font-size:.58rem;font-weight:700;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;max-width:100%;cursor:default;
+}
+.cal-ev-chip .ev-dot { width:5px;height:5px;border-radius:50%;flex-shrink:0 }
+.cal-more { font-size:.55rem;color:#a09a94;font-weight:700;
+  padding:1px 5px;background:#f5f0eb;border-radius:4px;cursor:pointer }
+.cal-note-chip {
+  display:flex;align-items:center;gap:3px;padding:2px 6px;border-radius:4px;
+  font-size:.58rem;font-weight:600;background:#fffbeb;color:#92400e;
+  border-left:2px solid #f59e0b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.cal-add-note {
+  margin-top:auto;font-size:.55rem;color:#c0b9b2;
+  text-align:right;transition:color .13s;opacity:0;padding-top:2px;
+}
+.cal-day-cell:hover .cal-add-note { opacity:1;color:#7c3aed }
+
+/* Prep/lock strips */
+.cal-prep-strip { position:absolute;top:0;left:0;right:0;height:3px;
+  background:rgba(245,158,11,.45);pointer-events:none }
+.cal-lock-strip { position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:rgba(225,29,72,.3);pointer-events:none }
+
+/* Event chip colours */
+.ev-tds     { background:rgba(217,119,6,.12);color:#92400e }
+.ev-gst     { background:rgba(0,150,199,.1); color:#0e7490 }
+.ev-esi     { background:rgba(124,58,237,.1);color:#5b21b6 }
+.ev-invoice { background:rgba(8,145,178,.1); color:#0e7490 }
+.ev-data    { background:rgba(5,150,105,.1); color:#065f46 }
+.ev-qret    { background:rgba(245,158,11,.18);color:#78350f;font-weight:800 }
+.ev-adv     { background:rgba(225,29,72,.12); color:#9f1239;font-weight:800 }
+.ev-annual  { background:rgba(99,102,241,.12);color:#3730a3;font-weight:800 }
+.ev-prep    { background:rgba(245,158,11,.08);color:#78350f;font-style:italic;font-size:.54rem }
+.ev-lock    { background:rgba(225,29,72,.07); color:#7f1d1d;font-style:italic;font-size:.54rem }
+
+/* Right panel */
+.cal-right-panel {
+  width:260px;flex-shrink:0;display:flex;flex-direction:column;gap:12px;
+  overflow-y:auto;
+}
+.cal-right-panel::-webkit-scrollbar { width:3px }
+.cal-right-panel::-webkit-scrollbar-thumb { background:#e0d9f7;border-radius:10px }
+.cal-panel-card {
+  background:#fff;border-radius:12px;border:1px solid #e8e3dd;overflow:hidden;
+  box-shadow:0 1px 4px rgba(26,22,18,.06);
+}
+.cal-panel-hd {
+  padding:11px 14px;font-size:.75rem;font-weight:800;color:#1a1612;
+  background:linear-gradient(135deg,#faf9f7,#f5f0eb);border-bottom:1px solid #e8e3dd;
+}
+.cal-stats-row { display:flex;align-items:center;justify-content:space-between;
+  padding:9px 14px;border-bottom:1px solid #f5f0eb; }
+.cal-stats-row:last-child { border-bottom:none }
+.cal-stats-dot { width:9px;height:9px;border-radius:3px;flex-shrink:0 }
+.cal-stats-lbl { font-size:.7rem;font-weight:600;color:#6b6560;flex:1;margin-left:7px }
+.cal-stats-val { font-size:.75rem;font-weight:800;color:#1a1612 }
+.cal-dl-item-sm { display:flex;gap:9px;align-items:flex-start;
+  padding:8px 14px;border-bottom:1px solid #f5f0eb;cursor:pointer;transition:background .1s }
+.cal-dl-item-sm:last-child { border-bottom:none }
+.cal-dl-item-sm:hover { background:#faf9f7 }
+.cal-dl-date-sm { min-width:36px;text-align:center;background:#f5f0eb;
+  border-radius:8px;padding:4px 2px;flex-shrink:0 }
+.cal-dl-d-sm { font-size:.95rem;font-weight:900;line-height:1;color:#1a1612 }
+.cal-dl-m-sm { font-size:.52rem;font-weight:700;color:#6b6560;text-transform:uppercase }
+.cal-dl-info-sm { flex:1;min-width:0 }
+.cal-dl-title-sm { font-size:.7rem;font-weight:700;color:#1a1612;line-height:1.3;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+.cal-dl-tag-sm { font-size:.55rem;font-weight:800;padding:1px 6px;
+  border-radius:8px;display:inline-block;margin-top:2px; }
+.cal-dl-days { font-size:.63rem;font-weight:800;flex-shrink:0;white-space:nowrap }
+
+/* Day detail modal */
+.cal-day-modal {
+  position:fixed;inset:0;z-index:700;background:rgba(26,22,18,.4);
+  backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;
+}
+.cal-day-modal.open { display:flex;animation:fadeIn .15s ease }
+.cal-day-modal-box {
+  background:#fff;border-radius:18px;width:480px;max-width:95vw;
+  max-height:85vh;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 20px 60px rgba(26,22,18,.2);animation:cardIn .2s ease;
+}
+.cal-day-modal-hd {
+  padding:16px 20px;border-bottom:1px solid #e8e3dd;
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+}
+.cal-day-modal-title { font-size:.95rem;font-weight:900;color:#1a1612 }
+.cal-day-modal-body { flex:1;overflow-y:auto;padding:16px 20px }
+.cal-day-modal-body::-webkit-scrollbar { width:4px }
+.cal-day-modal-body::-webkit-scrollbar-thumb { background:#e8e3dd;border-radius:10px }
+
+/* Full-screen calendar layout */
+.cal-full-layout { display:flex;gap:16px;height:calc(100vh - 140px) }
+.cal-main-area { flex:1;display:flex;flex-direction:column;min-width:0 }
+
 </style>
 </head>
 <body>
@@ -1050,7 +1290,7 @@ tbody tr:hover .del-btn{opacity:1}
       <!-- ── SIGN IN PANEL ── -->
       <div class="auth-panel active" id="auth-signin">
         <div class="auth-form-title">Welcome back</div>
-        <div class="auth-form-sub">Sign in to your practice account</div>
+        <div class="auth-form-sub">Sign in with your email to continue</div>
 
         <div class="auth-err" id="auth-err-signin"></div>
 
@@ -1081,7 +1321,7 @@ tbody tr:hover .del-btn{opacity:1}
       <!-- ── CREATE ACCOUNT PANEL ── -->
       <div class="auth-panel" id="auth-signup">
         <div class="auth-form-title">Create your account</div>
-        <div class="auth-form-sub">Create your free account — no invite needed</div>
+        <div class="auth-form-sub">Sign up with your work email to join the practice</div>
 
         <div class="auth-err" id="auth-err-signup"></div>
 
@@ -1119,7 +1359,6 @@ tbody tr:hover .del-btn{opacity:1}
         <button class="auth-btn" onclick="authSignUp()">Create Account →</button>
 
 
-      </div>
 
       <!-- ── FORGOT PASSWORD PANEL ── -->
       <div class="auth-panel" id="auth-forgot">
@@ -1199,7 +1438,7 @@ tbody tr:hover .del-btn{opacity:1}
         <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
       </div>
       <div>
-        <div class="top-nav-brand-name">Your Practice</div>
+        <div class="top-nav-brand-name">Practice Tracker</div>
         <div class="top-nav-brand-fy" id="tn-fy-lbl">FY 2026–27</div>
       </div>
     </div>
@@ -1260,6 +1499,7 @@ tbody tr:hover .del-btn{opacity:1}
           </div>
           <div class="tum-item" onclick="openEditProfile()">✏️ &nbsp;Edit Profile</div>
           <div class="tum-sep"></div>
+
           <div class="tum-item" onclick="exportBackup()">⬇️ &nbsp;Export Backup</div>
           <div class="tum-item" onclick="document.getElementById('import-file').click()">⬆️ &nbsp;Import Backup</div>
           <div class="tum-sep"></div>
@@ -1316,10 +1556,7 @@ tbody tr:hover .del-btn{opacity:1}
         <span class="sb-util-label">Calendar</span>
       </div>
       <div class="sb-util-sep"></div>
-      <div class="sb-util-item" id="sb-controls" onclick="showUtilView('controls')" style="display:none">
-        <span class="sb-util-icon">⚙️</span>
-        <span class="sb-util-label">Controls</span>
-      </div>
+
       <div class="sb-util-item" onclick="exportBackup()">
         <span class="sb-util-icon">💾</span>
         <span class="sb-util-label">Backup</span>
@@ -1359,11 +1596,11 @@ tbody tr:hover .del-btn{opacity:1}
               onblur="this.style.borderColor='var(--border)'">
             <div class="dash-seg" id="dash-filter-btns">
               <button class="dsb on" data-f="all"  onclick="dashSetFilter('all',this)">All</button>
-              <button class="dsb" data-f="acc"  onclick="dashSetFilter('acc',this)">📒</button>
-              <button class="dsb" data-f="gst"  onclick="dashSetFilter('gst',this)">🔵</button>
-              <button class="dsb" data-f="tds"  onclick="dashSetFilter('tds',this)">🟡</button>
-              <button class="dsb" data-f="comp" onclick="dashSetFilter('comp',this)">🟣</button>
-              <button class="dsb" data-f="reg"  onclick="dashSetFilter('reg',this)">🏢</button>
+              <button class="dsb" data-f="acc"  onclick="dashSetFilter('acc',this)">📒 Accounting</button>
+              <button class="dsb" data-f="gst"  onclick="dashSetFilter('gst',this)">🔵 GST</button>
+              <button class="dsb" data-f="tds"  onclick="dashSetFilter('tds',this)">🟡 TDS</button>
+              <button class="dsb" data-f="comp" onclick="dashSetFilter('comp',this)">🟣 Compliance</button>
+              <button class="dsb" data-f="reg"  onclick="dashSetFilter('reg',this)">🏢 Reg</button>
             </div>
             <button class="dash-add-btn" onclick="openAddClient()">＋ Add Client</button>
             <button class="dash-export-btn" onclick="exportAllClientsExcel()" title="Export Excel">📊 Excel</button>
@@ -1373,7 +1610,16 @@ tbody tr:hover .del-btn{opacity:1}
           <!-- Summary strip -->
           <div id="dash-summary-strip"></div>
 
-          <!-- Client service cards -->
+          <!-- Legend row -->
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:10px;padding:8px 12px;background:#fff;border-radius:9px;border:1px solid var(--border)">
+            <span style="font-size:.62rem;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.4px">Legend:</span>
+            <span style="display:flex;align-items:center;gap:5px;font-size:.65rem;font-weight:600;color:var(--sub)"><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#00c875"></span>Done / Filed / Paid</span>
+            <span style="display:flex;align-items:center;gap:5px;font-size:.65rem;font-weight:600;color:var(--sub)"><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#f59e0b"></span>In Progress</span>
+            <span style="display:flex;align-items:center;gap:5px;font-size:.65rem;font-weight:600;color:var(--sub)"><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#e8e3dd"></span>Pending</span>
+            <span style="margin-left:auto;font-size:.62rem;font-weight:600;color:var(--sub)" id="dash-client-count"></span>
+          </div>
+
+          <!-- Client roster -->
           <div id="dash-client-grid"></div>
 
           <!-- Activity (collapsible) -->
@@ -1423,17 +1669,21 @@ tbody tr:hover .del-btn{opacity:1}
         </div>
 
         <div class="view" id="view-audit">
-          <div class="audit-filters">
-            <select class="audit-sel" id="af-user"   onchange="renderAudit()"><option value="">All Users</option></select>
-            <select class="audit-sel" id="af-client" onchange="renderAudit()"><option value="">All Clients</option></select>
-            <select class="audit-sel" id="af-type"   onchange="renderAudit()">
-              <option value="">All Types</option>
-              <option value="gst">GST</option><option value="tds">TDS</option>
-              <option value="comp">Compliance</option><option value="reg">Regulatory</option>
-              <option value="acc">Accounting</option>
-            </select>
-            <select class="audit-sel" id="af-fy" onchange="renderAudit()"><option value="">All FYs</option></select>
-            <button class="export-btn" onclick="exportAudit()">⬇ Export CSV</button>
+          <div style="background:#fff;border-radius:12px;border:1px solid var(--border);padding:14px 18px;margin-bottom:14px;box-shadow:var(--s1)">
+            <div style="font-size:.82rem;font-weight:800;color:var(--ink);margin-bottom:12px;letter-spacing:-.2px">🔍 Filter by team member or client</div>
+            <div class="audit-filters">
+              <select class="audit-sel" id="af-user"   onchange="renderAudit()"><option value="">All Team Members</option></select>
+              <select class="audit-sel" id="af-client" onchange="renderAudit()"><option value="">All Clients</option></select>
+              <select class="audit-sel" id="af-type"   onchange="renderAudit()">
+                <option value="">All Types</option>
+                <option value="gst">GST</option><option value="tds">TDS</option>
+                <option value="comp">Compliance</option><option value="reg">Regulatory</option>
+                <option value="acc">Accounting</option>
+              </select>
+              <select class="audit-sel" id="af-fy" onchange="renderAudit()"><option value="">All FYs</option></select>
+              <button class="export-btn" onclick="exportAudit()">⬇ Export CSV</button>
+            </div>
+            <div id="audit-stats-row" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px"></div>
           </div>
           <div id="audit-body"><div style="padding:40px;text-align:center;color:var(--sub);font-size:.77rem">No audit records yet.</div></div>
         </div>
@@ -1608,124 +1858,13 @@ function showAuthErr(panel, msg) {
 }
 
 // ── SIGN IN ───────────────────────────────────────────────
-function authSignIn() {
-  if (!users.length) initUsers();
-  var email = (document.getElementById('auth-email') || {value:''}).value.trim().toLowerCase();
-  var pw    = (document.getElementById('auth-pw')    || {value:''}).value;
-  if (!email) { showAuthErr('signin','Please enter your email.'); return; }
-  if (!pw)    { showAuthErr('signin','Please enter your password.'); return; }
 
-  var user = users.find(function(u){ return u.email.toLowerCase() === email && u.active; });
-  if (!user) { showAuthErr('signin','No account found. Please create an account first.'); return; }
-  if (!checkPW(pw, user.pwHash)) {
-    showAuthErr('signin','Incorrect password. Try again or use Forgot Password.');
-    document.getElementById('auth-pw').value = '';
-    return;
-  }
-  // First login after password reset — must set new password
-  if (user.mustChange) {
-    _authUser = user;
-    var hint = document.getElementById('auth-reset-hint');
-    if (hint) hint.textContent = 'Hi ' + user.name.split(' ')[0] + '! Please set a new password to continue.';
-    authSwitchPanel('reset');
-    return;
-  }
-  authComplete(user);
-}
 
 // ── CREATE ACCOUNT — anyone can register freely ──────────
-function authSignUp() {
-  var name  = (document.getElementById('auth-signup-name')  || {value:''}).value.trim();
-  var email = (document.getElementById('auth-signup-email') || {value:''}).value.trim().toLowerCase();
-  var pw    = (document.getElementById('auth-signup-pw')    || {value:''}).value;
-  var conf  = (document.getElementById('auth-signup-conf')  || {value:''}).value;
 
-  if (!name)  { showAuthErr('signup','Please enter your full name.'); return; }
-  if (!email || email.indexOf('@') < 1) { showAuthErr('signup','Please enter a valid email.'); return; }
-  if (pw.length < 8) { showAuthErr('signup','Password must be at least 8 characters.'); return; }
-  if (pw !== conf)   { showAuthErr('signup','Passwords do not match.'); return; }
-
-  if (!users.length) initUsers();
-
-  // Check duplicate email
-  var existing = users.find(function(u){ return u.email.toLowerCase() === email; });
-  if (existing && existing.active) {
-    showAuthErr('signup','An account with this email already exists. Please sign in.');
-    return;
-  }
-  if (existing && !existing.active) {
-    showAuthErr('signup','This account is deactivated. Contact your team admin.');
-    return;
-  }
-
-  // Create account — first user gets admin role, rest get member
-  var isFirst = !users.some(function(u){ return u.active; });
-  var newUser = {
-    id: 'u' + Date.now(),
-    name: name,
-    email: email,
-    role: 'member',  // everyone equal access
-    pwHash: hashPW(pw),
-    mustChange: false,
-    active: true,
-    createdAt: Date.now(),
-    createdBy: 'self'
-  };
-  users.push(newUser);
-  try { localStorage.setItem('ct4_users', JSON.stringify(users)); } catch(e) {}
-  authComplete(newUser);
-}
 
 // ── FORGOT PASSWORD — generate reset code, email it or show on screen ──
-function authForgot() {
-  var email = (document.getElementById('auth-fp-email') || {value:''}).value.trim().toLowerCase();
-  if (!email) { showAuthErr('forgot','Please enter your email address.'); return; }
-  if (!users.length) initUsers();
 
-  var user = users.find(function(u){ return u.email.toLowerCase() === email && u.active; });
-  if (!user) {
-    // Don't reveal if email exists — generic message
-    showForgotInfo('If this email is registered, a reset code has been sent.');
-    return;
-  }
-
-  // Generate 6-digit OTP reset code
-  var code = Math.floor(100000 + Math.random() * 900000).toString();
-  var expiry = Date.now() + 15 * 60 * 1000; // 15 min expiry
-  user.resetCode   = code;
-  user.resetExpiry = expiry;
-  user.mustChange  = true;
-  _authUser = user;
-  try { localStorage.setItem('ct4_users', JSON.stringify(users)); } catch(e) {}
-
-  // Try sending via EmailJS if configured
-  var ejsCfg = (function(){ try { var v=localStorage.getItem('ct4_ejs'); return v ? JSON.parse(v) : {}; } catch(e){ return {}; } })();
-  var emailSent = false;
-  if (ejsCfg.publicKey && ejsCfg.serviceId && ejsCfg.templateId && window.emailjs) {
-    try {
-      emailjs.send(ejsCfg.serviceId, ejsCfg.templateId, {
-        to_email: email,
-        to_name:  user.name,
-        reset_code: code,
-        expiry_mins: '15',
-        subject:  'Password Reset Code — Your Practice'
-      });
-      emailSent = true;
-    } catch(e) {}
-  }
-
-  // Show OTP entry panel
-  showForgotInfo(emailSent
-    ? '📧 A 6-digit reset code has been sent to ' + email + '. Check your inbox.'
-    : '🔑 Your reset code is: <strong style="font-size:1.4rem;letter-spacing:.2em;color:#7c3aed">' + code + '</strong><br><span style="font-size:.72rem;color:#6b6560">This code expires in 15 minutes. Use it below.</span>'
-  );
-
-  // Show OTP input
-  var otpWrap = document.getElementById('auth-otp-wrap');
-  if (otpWrap) otpWrap.style.display = 'block';
-  var otpInp = document.getElementById('auth-fp-otp');
-  if (otpInp) { otpInp.value = ''; setTimeout(function(){ otpInp.focus(); }, 80); }
-}
 
 function showForgotInfo(html) {
   var el = document.getElementById('auth-fp-info');
@@ -1735,78 +1874,16 @@ function showForgotInfo(html) {
 }
 
 // ── VERIFY OTP and go to reset screen ────────────────────
-function authVerifyOTP() {
-  var entered = (document.getElementById('auth-fp-otp') || {value:''}).value.trim();
-  if (!entered) { showAuthErr('forgot','Please enter the 6-digit code.'); return; }
-  if (!_authUser) { authSwitchPanel('forgot'); return; }
 
-  if (_authUser.resetCode !== entered) {
-    showAuthErr('forgot','Incorrect code. Please try again.');
-    return;
-  }
-  if (Date.now() > (_authUser.resetExpiry || 0)) {
-    showAuthErr('forgot','This code has expired. Request a new one.');
-    _authUser = null;
-    return;
-  }
-
-  // Code valid — go to reset password panel
-  var hint = document.getElementById('auth-reset-hint');
-  if (hint) hint.textContent = 'Create a new password for ' + _authUser.email + '.';
-  authSwitchPanel('reset');
-}
 
 // ── SET NEW PASSWORD ──────────────────────────────────────
-function authResetPw() {
-  var pw   = (document.getElementById('auth-reset-pw')   || {value:''}).value;
-  var conf = (document.getElementById('auth-reset-conf') || {value:''}).value;
 
-  if (pw.length < 8) { showAuthErr('reset','Minimum 8 characters required.'); return; }
-  if (pw !== conf)   { showAuthErr('reset','Passwords do not match.'); return; }
-  if (!_authUser)    { authSwitchPanel('signin'); return; }
-
-  _authUser.pwHash      = hashPW(pw);
-  _authUser.mustChange  = false;
-  delete _authUser.resetCode;
-  delete _authUser.resetExpiry;
-  try { localStorage.setItem('ct4_users', JSON.stringify(users)); } catch(e) {}
-  authComplete(_authUser);
-}
 
 // ── COMPLETE LOGIN ────────────────────────────────────────
-function authComplete(user) {
-  currentUser = { id:user.id, name:user.name, email:user.email, role:user.role };
-  _authUser   = null;
-  _fpEmail    = null;
 
-  var ls = document.getElementById('login-screen');
-  var app = document.getElementById('app');
-  if (ls)  ls.style.display = 'none';
-  if (app) { app.style.display = 'flex'; }
-
-  LS.load();
-  syncFYUI();
-  updateUserUI();
-  applyRoleRestrictions();
-  renderAll();
-  populateAuditFilters();
-  setTimeout(initDueDateReminder, 1200);
-  toast('Welcome back, ' + user.name.split(' ')[0] + '! 👋', 'success');
-}
 
 // ── LOGOUT ────────────────────────────────────────────────
-function doLogout() {
-  currentUser = { id:'', name:'', email:'', role:'' };
-  var app = document.getElementById('app');
-  var ls  = document.getElementById('login-screen');
-  if (app) app.style.display = 'none';
-  if (ls)  { ls.style.display = 'flex'; authShow('signin'); }
-  document.getElementById('auth-email').value = '';
-  document.getElementById('auth-pw').value    = '';
-  clearAuthErrors();
-  var menu = document.getElementById('user-menu');
-  if (menu) menu.classList.remove('open');
-}
+
 
 // ── PASSWORD STRENGTH ──────────────────────────────────────
 function authPwStrength(pw, barId, lblId) {
@@ -2054,35 +2131,7 @@ function renderAll() {
   }
 }
 
-function updateUserUI() {
-  const u = currentUser;
-  if (!u || !u.name) return;
-  const roleColors = { superadmin:'#7c3aed', admin:'#7c3aed', member:'#7c3aed' };
-  const roleLabels = { superadmin:'Team Member', admin:'Team Member', member:'Team Member' };
-  const col = roleColors[u.role] || '#64748b';
-  const initials = u.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
-  const av = document.getElementById('top-av');
-  if (av) { av.textContent = initials; av.style.background = col; }
-  const who = document.getElementById('top-who');
-  if (who) who.textContent = u.name.split(' ')[0];
-  const role = document.getElementById('top-role');
-  if (role) role.textContent = roleLabels[u.role] || u.role;
-  const tn = document.getElementById('tum-name');
-  const te = document.getElementById('tum-email');
-  const tb = document.getElementById('tum-badge');
-  if (tn) tn.textContent = u.name;
-  if (te) te.textContent = u.email;
-  if (tb) { tb.textContent = roleLabels[u.role] || u.role; tb.style.cssText = `background:${col}18;color:${col};border:1px solid ${col}30`; }
-  const sn = document.getElementById('sb-user-name');
-  const se = document.getElementById('sb-user-email');
-  const sa = document.getElementById('sb-user-av');
-  if (sn) sn.textContent = u.name;
-  if (se) se.textContent = u.email;
-  if (sa) { sa.textContent = initials; sa.style.background = col; }
-  // Update FY label
-  const fyLbl = document.getElementById('tn-fy-lbl');
-  if (fyLbl) fyLbl.textContent = 'FY ' + currentFY;
-}
+
 
 function updTopbarCounts() {
   const ids = [
@@ -2197,7 +2246,7 @@ let compClients = [], regClients  = [];
 let state    = {}; // state[fy][ret][module][clientIndex][period] = {...}
 let auditLog = [];
 let currentFY   = '2026-27';
-let currentUser = { id:'sa1', name:'Super Admin', email:'csraghavendrakarpoor@gmail.com', role:'superadmin' };
+let currentUser = { id:'', name:'', email:'', role:'user' };
 
 // ── AUTH HELPERS ─────────────────────────────────────────
 function hashPW(pw) {
@@ -2338,6 +2387,8 @@ function logChange(ret, ci, period, field, fromVal, toVal) {
     userId:      currentUser.id   || '',
     userName:    currentUser.name || 'Unknown',
     userEmail:   currentUser.email|| '',
+    userRole:    'user',
+    sub:         field,
     clientName:  cl ? cl.name : '?',
     clientId:    cl ? (cl.id||'') : '',
     type:        ret.includes('gst')||ret==='gstr1'||ret==='gstr2b'||ret==='gstr3b'?'gst':
@@ -2449,8 +2500,8 @@ function closeUserMgmt() { (document.getElementById('um-overlay')||{innerHTML:''
 
 function renderUserMgmt() {
   const body = (document.getElementById('um-body-inner')||{innerHTML:'',classList:{add:()=>{},remove:()=>{},toggle:()=>{}}});
-  const roleIcon = { superadmin:'👑', admin:'🛡', member:'👤' };
-  const roleLbl  = { superadmin:'Super Admin', admin:'Admin', member:'Member' };
+  const roleIcon = {};
+  const roleLbl  = {};
 
   // Work stats per user (count assigned clients)
   const statsHtml = users.map(u => {
@@ -2499,7 +2550,7 @@ function renderUserMgmt() {
         return `<tr>
           <td>
             <div style="display:flex;align-items:center;gap:8px">
-              <div style="width:30px;height:30px;border-radius:8px;background:${bg};color:#fff;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:800;border:${u.role==='superadmin'?'2px solid #fbbf24':'none'}">${av}</div>
+              <div style="width:30px;height:30px;border-radius:8px;background:${bg};color:#fff;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:800;border:none">${av}</div>
               <div>
                 <div style="font-weight:700;color:#fff">${u.name} ${isSelf?'<span style="font-size:.58rem;color:#00ffa3">(you)</span>':''}</div>
                 <div style="font-size:.6rem;color:rgba(255,255,255,.3)">${u.email||'—'}</div>
@@ -2519,7 +2570,7 @@ function renderUserMgmt() {
           <td>
             <div style="display:flex;gap:4px;flex-wrap:wrap">
               ${!isSelf ? `<button class="um-action-btn reset-btn" onclick="resetUserPW('${u.id}')">🔑 Reset PW</button>` : ''}
-              ${!isSelf && u.role!=='superadmin' ? `
+              ${!isSelf ? `
                 <button class="um-action-btn edit-btn" onclick="toggleUserActive('${u.id}')">${u.active?'🔒 Deactivate':'✅ Activate'}</button>
                 <button class="um-action-btn del-btn2" onclick="deleteUser('${u.id}')">🗑 Delete</button>
               ` : ''}
@@ -2618,9 +2669,9 @@ function countUserDone(uid) {
 // ── WORK OVERVIEW (Super Admin dashboard panel) ───────────
 function renderWorkOverview() {
   const el = (document.getElementById('work-overview-panel')||{style:{display:''},innerHTML:''});
-  if (!el || currentUser.role !== 'superadmin') return;
+  if (!el) return; // flat team, no role check
 
-  const members = users.filter(u=>u.active && u.role!=='superadmin');
+  const members = users.filter(u=>u.active);
   if (!members.length) { el.innerHTML = '<div style="color:rgba(255,255,255,.3);font-size:.75rem;text-align:center;padding:20px">No staff added yet. Use User Management to add Admins/Members.</div>'; return; }
 
   const roleIcon = { admin:'🛡', member:'👤' };
@@ -2802,18 +2853,96 @@ function buildClientCard(c, ci, type) {
 //   AUDIT
 // ╚══════════════════════════════════════════════════════╝
 function populateAuditFilters() {
-  const us = document.getElementById('af-user');
-  const uv = us.value;
-  const users = [...new Set(auditLog.map(l => l.userName).filter(Boolean))];
-  us.innerHTML = '<option value="">All Users</option>' + users.map(u => `<option>${u}</option>`).join('');
-  us.value = uv;
+  // User dropdown: email-based
+  var us = document.getElementById('af-user');
+  var uv = us ? us.value : '';
+  var userEmails = [];
+  var seen = {};
+  auditLog.forEach(function(l){
+    if (l.userEmail && !seen[l.userEmail] && l.type !== 'system') {
+      seen[l.userEmail] = true;
+      userEmails.push({ email: l.userEmail, name: l.userName || l.userEmail });
+    }
+  });
+  if (us) {
+    us.innerHTML = '<option value="">All Team Members</option>' +
+      userEmails.map(function(u){
+        return '<option value="'+u.email+'">'+u.name+' — '+u.email+'</option>';
+      }).join('');
+    us.value = uv;
+  }
 
-  const fy = document.getElementById('af-fy');
-  const fv = fy.value;
-  const fys = [...new Set(auditLog.map(l => l.fy))].sort();
-  fy.innerHTML = '<option value="">All FYs</option>' + fys.map(f => `<option>${f}</option>`).join('');
-  fy.value = fv;
+  // Client dropdown
+  var cf = document.getElementById('af-client');
+  var cv = cf ? cf.value : '';
+  var clients = [];
+  var cseen = {};
+  auditLog.forEach(function(l){
+    if (l.clientName && l.clientName !== '—' && !cseen[l.clientName] && l.type !== 'system') {
+      cseen[l.clientName] = true;
+      clients.push(l.clientName);
+    }
+  });
+  clients.sort();
+  if (cf) {
+    cf.innerHTML = '<option value="">All Clients</option>' +
+      clients.map(function(c){ return '<option>'+c+'</option>'; }).join('');
+    cf.value = cv;
+  }
+
+  // FY dropdown
+  var fy = document.getElementById('af-fy');
+  var fv = fy ? fy.value : '';
+  var fys = [];
+  var fyseen = {};
+  auditLog.forEach(function(l){
+    if (l.fy && !fyseen[l.fy]) { fyseen[l.fy] = true; fys.push(l.fy); }
+  });
+  fys.sort();
+  if (fy) {
+    fy.innerHTML = '<option value="">All FYs</option>' +
+      fys.map(function(f){ return '<option>'+f+'</option>'; }).join('');
+    fy.value = fv;
+  }
+
+  renderAuditStatRow();
 }
+
+function renderAuditStatRow() {
+  var el = document.getElementById('audit-stats-row');
+  if (!el) return;
+  var AV_COLS = ['#6c47ff','#0891b2','#059669','#d97706','#e2445c','#8b5cf6','#06b6d4'];
+  function avColor(email) {
+    var n = 0;
+    for (var i=0; i<(email||'').length; i++) n += (email||'').charCodeAt(i);
+    return AV_COLS[n % AV_COLS.length];
+  }
+  var actByEmail = {};
+  auditLog.forEach(function(l){
+    if (l.type === 'system') return;
+    var k = l.userEmail || l.userName || 'Unknown';
+    if (!actByEmail[k]) actByEmail[k] = { name: l.userName || k, email: l.userEmail || '', count: 0 };
+    actByEmail[k].count++;
+  });
+  var sorted = Object.values(actByEmail).sort(function(a,b){ return b.count - a.count; });
+  el.innerHTML = sorted.slice(0, 8).map(function(item){
+    var col = avColor(item.email);
+    var init = (item.name||'?').split(' ').map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase();
+    return '<div onclick="filterAuditByUser(\''+item.email+'\')" style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:#fff;border:1.5px solid var(--border);border-radius:20px;cursor:pointer;transition:all .13s" onmouseover="this.style.borderColor=\''+col+'\'" onmouseout="this.style.borderColor=\'var(--border)\'">' +
+      '<div style="width:24px;height:24px;border-radius:7px;background:'+col+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:.57rem;font-weight:900;flex-shrink:0">'+init+'</div>' +
+      '<div>' +
+        '<div style="font-size:.68rem;font-weight:800;color:var(--ink);line-height:1.2">'+item.name.split(' ')[0]+'</div>' +
+        '<div style="font-size:.57rem;color:'+col+';font-weight:700">'+item.count+' changes</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function filterAuditByUser(email) {
+  var sel = document.getElementById('af-user');
+  if (sel) { sel.value = email; renderAudit(); }
+}
+
 
 
 
@@ -3562,6 +3691,12 @@ function calcFiledPct(ret, arr, periods, field, doneVals) {
 }
 
 function chgStat(sel, ret, ci, period, field) {
+  if (!canEdit()) {
+    toast('View-only access. Contact your admin to make changes.', 'warn');
+    // revert
+    renderAll();
+    return;
+  }
   const s = gs(ret, ci, period);
   const old = s[field] || '';
   s[field] = sel.value;
@@ -3655,292 +3790,14 @@ document.addEventListener('click', () => {
 //   CONTROLS VIEW — SUPER ADMIN ONLY
 // ╚══════════════════════════════════════════════════════╝
 
-function renderControls() {
-  const el = document.getElementById('controls-inner');
-  if (!el) return;
-  if (currentUser.role !== 'superadmin') {
-    el.innerHTML = '<div class="placeholder-view"><div class="placeholder-icon">🔒</div><div class="placeholder-title">Super Admin Only</div></div>';
-    return;
-  }
+function renderControls() { /* removed */ }
 
-  const team       = users.filter(u => u.active);
-  const admins     = team.filter(u => u.role === 'admin').length;
-  const members    = team.filter(u => u.role === 'member').length;
-  const totalEdits = auditLog.length;
 
-  // Per-user activity counts
-  const actByUser = {};
-  auditLog.forEach(l => {
-    const k = l.userEmail || l.userName || 'Unknown';
-    actByUser[k] = (actByUser[k] || 0) + 1;
-  });
 
-  const roleColors = { superadmin:'#d97706', admin:'var(--acc-gst)', member:'var(--acc-comp)' };
 
-  el.innerHTML = `
-  <!-- Page header -->
-  <div class="mod-view-hd">
-    <div class="mod-view-title">
-      <div class="mod-view-icon" style="background:rgba(0,255,163,.1);font-size:1.3rem">⚙</div>
-      <div>
-        <div class="mod-view-name">Controls & Team Management</div>
-        <div class="mod-view-desc">Super Admin · Manage access, roles, and monitor team activity</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Stats row -->
-  <div class="ctrl-stats">
-    <div class="ctrl-stat-card" style="border-top:3px solid var(--neon)">
-      <div class="ctrl-stat-num" style="color:var(--neon)">${team.length}</div>
-      <div class="ctrl-stat-lbl">Total Members</div>
-      <div class="ctrl-stat-sub">${admins} admin · ${members} member</div>
-    </div>
-    <div class="ctrl-stat-card" style="border-top:3px solid var(--acc-gst)">
-      <div class="ctrl-stat-num" style="color:var(--acc-gst)">${totalEdits}</div>
-      <div class="ctrl-stat-lbl">Total Changes</div>
-      <div class="ctrl-stat-sub">Across all modules</div>
-    </div>
-    <div class="ctrl-stat-card" style="border-top:3px solid var(--acc-tds)">
-      <div class="ctrl-stat-num" style="color:var(--acc-tds)">${Object.keys(actByUser).length}</div>
-      <div class="ctrl-stat-lbl">Active Users</div>
-      <div class="ctrl-stat-sub">Made at least 1 edit</div>
-    </div>
-    <div class="ctrl-stat-card" style="border-top:3px solid var(--acc-comp)">
-      <div class="ctrl-stat-num" style="color:var(--acc-comp)">${gstClients.length + tdsClients.length + accClients.length + compClients.length + regClients.length}</div>
-      <div class="ctrl-stat-lbl">Total Clients</div>
-      <div class="ctrl-stat-sub">All modules combined</div>
-    </div>
-  </div>
 
-  <div class="ctrl-grid">
 
-    <!-- ── TEAM MEMBERS TABLE ── -->
-    <div class="ctrl-card" style="grid-column:1/-1">
-      <div class="ctrl-card-hd">
-        <div class="ctrl-card-icon" style="background:var(--brand-l)">👥</div>
-        <div>
-          <div class="ctrl-card-title">Team Members</div>
-          <div class="ctrl-card-desc">Manage access, roles, and permissions</div>
-        </div>
-      </div>
-      <div class="ctrl-card-body" style="padding:0">
-        <table class="team-table">
-          <thead>
-            <tr>
-              <th>Member</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Changes Made</th>
-              <th>Last Active</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="team-tbody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ── INVITE NEW MEMBER ── -->
-    <div class="ctrl-card">
-      <div class="ctrl-card-hd">
-        <div class="ctrl-card-icon" style="background:var(--acc-comp-l)">✉️</div>
-        <div>
-          <div class="ctrl-card-title">Invite Team Member</div>
-          <div class="ctrl-card-desc">Add by email · they set their own password</div>
-        </div>
-      </div>
-      <div class="ctrl-card-body">
-        <div class="invite-form">
-          <div class="inv-form-row">
-            <div class="inv-fg">
-              <label class="inv-lbl">Full Name</label>
-              <input class="inv-inp" id="inv-name" placeholder="e.g. Priya Sharma">
-            </div>
-            <div class="inv-fg">
-              <label class="inv-lbl">Role</label>
-              <select class="inv-select" id="inv-role" style="width:100%">
-                <option value="admin">🛡 Admin — Full Access</option>
-                <option value="member" selected>👤 Member — View & Update</option>
-              </select>
-            </div>
-          </div>
-          <div class="inv-fg">
-            <label class="inv-lbl">Work Email Address</label>
-            <input class="inv-inp" id="inv-email" type="email" placeholder="priya@yourfirm.com">
-          </div>
-          <div class="inv-fg">
-            <label class="inv-lbl">Temporary Password</label>
-            <div style="display:flex;gap:8px">
-              <input class="inv-inp" id="inv-pass" type="text" placeholder="e.g. Welcome@2627" style="flex:1">
-              <button onclick="genInvitePass()" style="padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;background:var(--surf2);font-size:.7rem;cursor:pointer;color:var(--sub);white-space:nowrap;font-weight:700">🎲 Generate</button>
-            </div>
-            <div style="font-size:.62rem;color:var(--muted);margin-top:3px">They will be forced to change this on first login</div>
-          </div>
-
-          <!-- EmailJS Config panel -->
-          <div id="emailjs-config-row" style="background:rgba(37,99,235,.04);border:1.5px solid rgba(37,99,235,.15);border-radius:11px;padding:14px 16px">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-              <div style="font-size:.74rem;font-weight:800;color:var(--acc-gst)">📧 Email Delivery via EmailJS</div>
-              <span id="ejs-status-badge" style="font-size:.6rem;font-weight:700;padding:3px 9px;border-radius:20px;background:#fef3c7;color:#92400e;border:1px solid #fde68a">Not configured</span>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-              <div class="inv-fg">
-                <label class="inv-lbl">Service ID</label>
-                <input class="inv-inp" id="ejs-service" placeholder="service_xxxxxxx" style="font-size:.69rem">
-              </div>
-              <div class="inv-fg">
-                <label class="inv-lbl">Template ID</label>
-                <input class="inv-inp" id="ejs-template" placeholder="template_xxxxxxx" style="font-size:.69rem">
-              </div>
-            </div>
-            <div class="inv-fg" style="margin-bottom:8px">
-              <label class="inv-lbl">Public Key</label>
-              <input class="inv-inp" id="ejs-pubkey" placeholder="paste your EmailJS public key" style="font-size:.69rem">
-            </div>
-            <div style="display:flex;gap:8px;align-items:center">
-              <button onclick="saveEmailJSConfig()" style="padding:7px 14px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border:none;border-radius:8px;font-size:.68rem;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(37,99,235,.25)">Save Config</button>
-              <span style="font-size:.61rem;color:var(--sub)">Free at <strong>emailjs.com</strong> → Email Services → Add Service</span>
-            </div>
-          </div>
-
-          <button class="inv-btn" onclick="inviteUser()">➕ Add Member &amp; Send Credentials →</button>
-          <div class="invite-code-box" id="invite-result"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── ACTIVITY MONITOR ── -->
-    <div class="ctrl-card">
-      <div class="ctrl-card-hd">
-        <div class="ctrl-card-icon" style="background:var(--acc-tds-l)">📊</div>
-        <div>
-          <div class="ctrl-card-title">Team Activity</div>
-          <div class="ctrl-card-desc">Recent changes by team members</div>
-        </div>
-      </div>
-      <div class="ctrl-card-body" style="padding:10px 14px;max-height:340px;overflow-y:auto">
-        <div id="ctrl-activity-feed"></div>
-      </div>
-    </div>
-
-  </div>`;
-
-  renderTeamTable(actByUser, roleColors);
-  renderCtrlActivity();
-}
-
-function renderTeamTable(actByUser, roleColors) {
-  const tb = document.getElementById('team-tbody');
-  if (!tb) return;
-  const roleColors2 = { superadmin:'#d97706', admin:'var(--acc-gst)', member:'var(--acc-comp)' };
-
-  tb.innerHTML = users.filter(u => u.active).map(u => {
-    const init  = u.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
-    const col   = roleColors2[u.role] || '#64748b';
-    const edits = actByUser[u.email] || actByUser[u.name] || 0;
-    const isSelf = u.id === currentUser.id;
-
-    // Last active — from audit log
-    const lastLog = [...auditLog].reverse().find(l => l.userEmail === u.email || l.userName === u.name);
-    const lastActive = lastLog ? timeAgo(new Date(lastLog.ts)) : 'Never';
-
-    const roleMap  = { superadmin:'👑 Super Admin', admin:'🛡 Admin', member:'👤 Member' };
-    const rpClass  = 'rp-' + u.role;
-
-    const canPromote  = !isSelf && u.role === 'member';
-    const canDemote   = !isSelf && u.role === 'admin';
-    const canRevoke   = !isSelf && u.role !== 'superadmin';
-
-    return `<tr>
-      <td>
-        <div style="display:flex;align-items:center;gap:8px">
-          <div class="member-av" style="background:${col}">${init}</div>
-          <div>
-            <div style="font-weight:800;color:var(--ink);font-size:.75rem">${u.name}</div>
-            ${isSelf ? '<div style="font-size:.58rem;color:var(--neon);font-weight:700">● You</div>' : ''}
-          </div>
-        </div>
-      </td>
-      <td style="color:var(--sub);font-size:.7rem">${u.email}</td>
-      <td><span class="role-pill ${rpClass}">${roleMap[u.role]||u.role}</span></td>
-      <td>
-        <div style="display:flex;align-items:center;gap:6px">
-          <div style="font-weight:900;font-size:.88rem;color:var(--ink)">${edits}</div>
-          ${edits > 0 ? `<div style="flex:1;max-width:60px;height:5px;background:var(--surf3);border-radius:10px;overflow:hidden"><div style="height:100%;background:${col};border-radius:10px;width:${Math.min(100,edits*5)}%"></div></div>` : ''}
-        </div>
-      </td>
-      <td style="font-size:.68rem;color:var(--sub)">${lastActive}</td>
-      <td>
-        ${canPromote ? `<button class="team-action-btn promote" onclick="changeRole('${u.id}','admin')" title="Promote to Admin">⬆ Admin</button>` : ''}
-        ${canDemote  ? `<button class="team-action-btn" onclick="changeRole('${u.id}','member')" title="Demote to Member">⬇ Member</button>` : ''}
-        ${canRevoke  ? `<button class="team-action-btn danger" onclick="revokeUser('${u.id}')" title="Revoke access">🚫 Revoke</button>` : ''}
-        ${isSelf     ? `<span style="font-size:.62rem;color:var(--muted)">Your account</span>` : ''}
-      </td>
-    </tr>`;
-  }).join('');
-}
-
-function renderCtrlActivity() {
-  const el = document.getElementById('ctrl-activity-feed');
-  if (!el) return;
-  const recent = [...auditLog].reverse().slice(0, 30);
-  if (!recent.length) {
-    el.innerHTML = '<div style="text-align:center;padding:20px;color:var(--sub);font-size:.75rem">No activity yet.</div>';
-    return;
-  }
-  const roleColors = { superadmin:'#d97706', admin:'var(--acc-gst)', member:'var(--acc-comp)' };
-  el.innerHTML = recent.map(l => {
-    const u = users.find(u => u.email === l.userEmail || u.name === l.userName);
-    const col   = u ? (roleColors[u.role] || '#64748b') : '#64748b';
-    const init  = (l.userName||'?').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
-    const modCol = modColor(l.type);
-    const retLabel = RET_META[l.ret]?.l || l.ret || '';
-    return `<div class="ctrl-activity-item">
-      <div class="ctrl-av-sm" style="background:${col}">${init}</div>
-      <div style="flex:1;min-width:0">
-        <div class="ctrl-act-main">${l.userName} <span style="font-weight:500;color:var(--sub)">updated</span> ${l.clientName}</div>
-        <div class="ctrl-act-sub">
-          <span style="background:${modCol};color:#fff;padding:1px 6px;border-radius:4px;font-size:.57rem;font-weight:800">${retLabel}</span>
-          &nbsp;${l.period} &nbsp;·&nbsp;
-          <span style="color:var(--red)">${l.fromVal||'—'}</span>
-          <span style="color:var(--sub)"> → </span>
-          <span style="color:var(--green);font-weight:700">${l.toVal||'—'}</span>
-        </div>
-      </div>
-      <div class="ctrl-act-time">${timeAgo(new Date(l.ts))}</div>
-    </div>`;
-  }).join('');
-}
-
-function genInvitePass() {
-  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789@#!';
-  let p = '';
-  for (let i=0; i<10; i++) p += chars[Math.floor(Math.random()*chars.length)];
-  document.getElementById('inv-pass').value = p;
-}
-
-function changeRole(uid, newRole) {
-  const u = users.find(x => x.id === uid);
-  if (!u) return;
-  const oldRole = u.role;
-  u.role = newRole;
-  LS.save();
-  toast(`${u.name} → ${newRole}`, 'success');
-  renderControls();
-  logChange('controls', 0, 'role', 'role', oldRole, newRole);
-}
-
-function revokeUser(uid) {
-  const u = users.find(x => x.id === uid);
-  if (!u) return;
-  confirmDel(`Revoke access for ${u.name} (${u.email})?`, () => {
-    u.active = false;
-    LS.save();
-    toast(`${u.name}'s access revoked`, 'warn');
-    renderControls();
-  });
-}
 
 
 // ╔══════════════════════════════════════════════════════╗
@@ -3948,21 +3805,6 @@ function revokeUser(uid) {
 // ╚══════════════════════════════════════════════════════╝
 let ejsConfig = (function(){ try { var v=localStorage.getItem('ct4_ejs'); return v ? JSON.parse(v) : {}; } catch(e){ return {}; } })();
 
-function saveEmailJSConfig() {
-  const svc = document.getElementById('ejs-service').value.trim();
-  const tpl = document.getElementById('ejs-template').value.trim();
-  const key = document.getElementById('ejs-pubkey').value.trim();
-  if (!svc || !tpl || !key) { toast('Fill all 3 EmailJS fields','error'); return; }
-  ejsConfig = { serviceId: svc, templateId: tpl, publicKey: key };
-  localStorage.setItem('ct4_ejs', JSON.stringify(ejsConfig));
-  if (window.emailjs) emailjs.init(key);
-  const badge = document.getElementById('ejs-status-badge');
-  if (badge) {
-    badge.textContent = '✅ Configured';
-    badge.style.cssText = 'font-size:.6rem;font-weight:700;padding:3px 9px;border-radius:20px;background:#d1fae5;color:#065f46;border:1px solid #a7f3d0';
-  }
-  toast('EmailJS configured! Invites will now be emailed.', 'success');
-}
 
 function loadEJSConfig() {
   const saved = localStorage.getItem('ct4_ejs');
@@ -3985,86 +3827,8 @@ function loadEJSConfig() {
   }
 }
 
-async function sendInviteEmail(name, email, role, tempPass) {
-  if (!ejsConfig.serviceId || !ejsConfig.templateId || !ejsConfig.publicKey) {
-    return { sent: false, reason: 'EmailJS not configured' };
-  }
-  try {
-    if (window.emailjs) emailjs.init(ejsConfig.publicKey);
-    const roleLabels = { admin:'Admin', member:'Team Member' };
-    await emailjs.send(ejsConfig.serviceId, ejsConfig.templateId, {
-      to_name:    name,
-      to_email:   email,
-      from_name:  currentUser.name + ' (Your Practice)',
-      role_label: roleLabels[role] || role,
-      temp_pass:  tempPass,
-      login_url:  window.location.href,
-      firm_name:  'Your Practice',
-      message:    `You have been added to Your Practice as ${roleLabels[role]||role}. Login with your email: ${email} and temporary password: ${tempPass}. You will be asked to set a new password on first login.`
-    });
-    return { sent: true };
-  } catch(e) {
-    return { sent: false, reason: e.text || e.message || 'Send failed' };
-  }
-}
 
 // ── Override inviteUser to send email ────────────────────
-async function inviteUser() {
-  const name  = document.getElementById('inv-name').value.trim();
-  const email = document.getElementById('inv-email').value.trim().toLowerCase();
-  const role  = document.getElementById('inv-role').value;
-  const pass  = document.getElementById('inv-pass').value.trim();
-  const res   = document.getElementById('invite-result');
-
-  if (!name)  { toast('Enter member name','error'); return; }
-  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { toast('Enter valid email','error'); return; }
-  if (!pass || pass.length < 6) { toast('Temporary password must be 6+ characters','error'); return; }
-  if (users.find(u => u.email.toLowerCase() === email)) { toast('This email already has access','error'); return; }
-
-  const btn = document.querySelector('.inv-btn');
-  if (btn) { btn.disabled = true; btn.textContent = 'Adding...'; }
-
-  const newUser = {
-    id: 'u_' + Date.now(),
-    name, email, role,
-    pwHash: hashPW(pass),
-    mustChange: true,
-    active: true,
-    createdAt: Date.now(),
-    createdBy: currentUser.id
-  };
-  users.push(newUser);
-  LS.save();
-
-  // Try to send email
-  const emailResult = await sendInviteEmail(name, email, role, pass);
-
-  const roleLabels = { admin:'🛡 Admin', member:'👤 Member' };
-  const emailStatus = emailResult.sent
-    ? '<span class="email-status email-sent">✅ Email sent to ' + email + '</span>'
-    : '<span class="email-status email-pending">⚠ Email not sent — ' + (emailResult.reason || 'share manually') + '</span>';
-
-  res.style.display = 'block';
-  res.innerHTML = `
-    <div style="font-weight:800;color:#065f46;font-size:.8rem;margin-bottom:10px">✅ ${name} added successfully!</div>
-    ${emailStatus}
-    <div style="margin-top:10px;background:#fff;border:1px solid #d1fae5;border-radius:9px;padding:10px 13px;font-family:'JetBrains Mono',monospace;font-size:.71rem;line-height:1.9">
-      <div>📧 Email: <strong style="color:var(--ink)">${email}</strong></div>
-      <div>🔑 Temp password: <strong style="color:var(--acc-gst)">${pass}</strong></div>
-      <div>🛡 Role: <strong>${roleLabels[role]||role}</strong></div>
-    </div>
-    <div style="font-size:.61rem;color:var(--muted);margin-top:8px">⚠ They must change their password on first login.</div>`;
-
-  document.getElementById('inv-name').value  = '';
-  document.getElementById('inv-email').value = '';
-  document.getElementById('inv-pass').value  = '';
-
-  if (btn) { btn.disabled = false; btn.innerHTML = '➕ Add Member &amp; Send Credentials →'; }
-
-  toast(emailResult.sent ? `✅ ${name} added & email sent!` : `${name} added — share credentials manually`, emailResult.sent ? 'success' : 'warn');
-  renderControls();
-  setTimeout(loadEJSConfig, 100);
-}
 
 // ── Init EmailJS on page load ────────────────────────────
 // EmailJS init handled in main DOMContentLoaded
@@ -4221,228 +3985,31 @@ document.addEventListener('DOMContentLoaded', function() {
   applyRoleRestrictions();
   renderAll();
   populateAuditFilters();
-  setTimeout(initDueDateReminder, 1200);
+  // Due date popup triggered on login
 });
-function renderCalendar() {
-  const el = document.getElementById('calendar-inner');
-  if (!el) return;
-  const allEvs = buildCalEvents();
-  const MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const FILTER_CFG = [
-    { key:'tds',     label:'TDS',         color:'#d97706' },
-    { key:'gst',     label:'GST',         color:'#0096c7' },
-    { key:'esi',     label:'ESI/PF/PT',   color:'#6c47ff' },
-    { key:'invoice', label:'Billing',     color:'#0891b2' },
-    { key:'data',    label:'Data',        color:'#059669' },
-    { key:'qret',    label:'Quarterly',   color:'#f59e0b' },
-    { key:'adv',     label:'Advance Tax', color:'#e11d48' },
-    { key:'annual',  label:'Annual',      color:'#6c47ff' },
-  ];
-  el.innerHTML =
-    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:12px">' +
-      '<div>' +
-        '<div style="font-size:1.1rem;font-weight:900;color:var(--ink);letter-spacing:-.3px">Compliance Calendar</div>' +
-        '<div style="font-size:.64rem;color:var(--sub);margin-top:2px;font-weight:500">FY 2026\u201327 \xb7 Click filters to show/hide categories</div>' +
-      '</div>' +
-    '</div>' +
-    '<div class="cal-filters" id="cal-filters">' +
-      FILTER_CFG.map(function(f) {
-        return '<div class="cal-filter-pill on" data-key="' + f.key + '" style="border-color:' + f.color + '20;background:' + f.color + '10;color:' + f.color + '" onclick="calToggleFilter(\'' + f.key + '\',this)">' +
-          '<span style="width:7px;height:7px;border-radius:50%;background:' + f.color + ';flex-shrink:0;display:inline-block"></span>' + f.label + '</div>';
-      }).join('') +
-    '</div>' +
-    '<div class="cal-shell">' +
-      '<div class="cal-main">' +
-        '<div class="cal-header">' +
-          '<div class="cal-header-left">' +
-            '<div class="cal-nav">' +
-              '<button class="cal-nav-btn" onclick="calPrev()">\u2039</button>' +
-              '<button class="cal-nav-btn" onclick="calNext()">\u203a</button>' +
-            '</div>' +
-            '<div id="cal-month-display" class="cal-month-display">' + MN[calMonth] + ' ' + calYear + '</div>' +
-          '</div>' +
-          '<button class="cal-today-btn" onclick="calToday()">Today</button>' +
-        '</div>' +
-        '<div class="cal-grid-wrap">' +
-          '<div class="cal-dow-row">' +
-            ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(function(d,i){
-              return '<div class="cal-dow-cell' + (i===0||i===6?' wknd':'') + '">' + d + '</div>';
-            }).join('') +
-          '</div>' +
-          '<div class="cal-days-grid" id="cal-days-grid"></div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="cal-right">' +
-        '<div class="cal-stats-card" id="cal-stats-card"></div>' +
-        '<div class="cal-upcoming-card">' +
-          '<div class="cal-upcoming-hd">' +
-            '<span class="cal-upcoming-title">Upcoming Deadlines</span>' +
-            '<span class="cal-upcoming-sub">Next 45 days</span>' +
-          '</div>' +
-          '<div class="cal-upcoming-list" id="cal-upcoming-list"></div>' +
-        '</div>' +
-      '</div>' +
-    '</div>';
 
-  calRenderGrid(allEvs, null);
-  calRenderStats(allEvs);
-  calRenderUpcoming(allEvs);
-}
 
-function renderCalGrid(allEvents) {
-  calRenderGrid(allEvents, null);
-}
 
-function calRenderGrid(allEvents, filters) {
-  var grid = document.getElementById('cal-days-grid');
-  var lbl  = document.getElementById('cal-month-display');
-  if (!grid) return;
-  var MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  if (lbl) lbl.textContent = MN[calMonth] + ' ' + calYear;
 
-  var CHIP = { tds:'chip-tds',gst:'chip-gst',esi:'chip-esi',invoice:'chip-invoice',data:'chip-data',qret:'chip-qret',adv:'chip-adv',annual:'chip-annual' };
-  var DOTC = { tds:'#d97706',gst:'#0096c7',esi:'#6c47ff',invoice:'#0891b2',data:'#059669',qret:'#f59e0b',adv:'#e11d48',annual:'#6c47ff' };
 
-  var firstDay    = new Date(calYear, calMonth, 1).getDay();
-  var daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
-  var today = new Date(); today.setHours(0,0,0,0);
-  var html = '';
 
-  for (var i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
 
-  for (var d = 1; d <= daysInMonth; d++) {
-    var date    = new Date(calYear, calMonth, d);
-    var isToday = date.getTime() === today.getTime();
-    var dow     = date.getDay();
-    var isWknd  = dow === 0 || dow === 6;
 
-    var dayDeadlines = allEvents.filter(function(e){ return e.day===d && e.month===calMonth && e.year===calYear && e.isDeadline; });
-    var isPrepDay    = allEvents.some(function(e){ return e.day===d && e.month===calMonth && e.year===calYear && e.isPrepDay; });
-    var isPostDay    = allEvents.some(function(e){ return e.day===d && e.month===calMonth && e.year===calYear && e.isPostDay; });
 
-    var visible = filters ? dayDeadlines.filter(function(e){ return filters[e.type] !== false; }) : dayDeadlines;
 
-    var cls = 'cal-day' + (isToday?' is-today':'') + (isPrepDay?' is-prep-day':'') + (isPostDay?' is-post-day':'');
-    var numCls = 'cal-day-num' + (isWknd?' wknd':'');
 
-    var shown  = visible.slice(0, 3);
-    var moreN  = visible.length - shown.length;
 
-    var chips = shown.map(function(ev){
-      var cc  = CHIP[ev.type] || 'chip-data';
-      var dc  = DOTC[ev.type] || '#64748b';
-      var lbl2 = ev.title.replace(/^[^\w\s\u20B9\-]+\s*/u, '').replace(/\s*[\u2014\-].*$/, '').trim();
-      return '<div class="cal-ev-chip ' + cc + '" title="' + (ev.note||ev.title).replace(/"/g,"'") + '">' +
-        '<span class="ev-dot" style="background:' + dc + '"></span>' +
-        '<span class="ev-txt">' + lbl2 + '</span></div>';
-    }).join('');
 
-    var moreChip = moreN > 0 ? '<div class="cal-more-chip">+' + moreN + ' more</div>' : '';
-    var strip    = '';
-    if (isPrepDay && !isToday) strip += '<div style="position:absolute;top:0;left:0;right:0;height:3px;background:rgba(251,191,36,.5);border-radius:0"></div>';
-    if (isPostDay && !isToday) strip += '<div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(239,68,68,.35)"></div>';
 
-    var noteVal = calGetNote(d, calMonth, calYear);
-    var noteIndicator = noteVal ? '<div style="font-size:.55rem;color:#7c3aed;padding:1px 4px;background:#f5f3ff;border-radius:4px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+noteVal+'">📝 '+noteVal.slice(0,18)+(noteVal.length>18?'…':'')+'</div>' : '';
-    var noteBtn = '<div onclick="event.stopPropagation();calOpenNoteModal('+d+','+calMonth+','+calYear+')" style="font-size:.5rem;color:#c0b9b2;cursor:pointer;text-align:right;padding-top:2px" title="Add team note">+ note</div>';
-    html += '<div class="' + cls + '">' + strip + '<div class="' + numCls + '">' + d + '</div>' + chips + moreChip + noteIndicator + noteBtn + '</div>';
-  }
-  grid.innerHTML = html;
-}
 
-function renderUpcoming(allEvents) { calRenderUpcoming(allEvents); }
 
-function calRenderUpcoming(allEvents) {
-  var el = document.getElementById('cal-upcoming-list');
-  if (!el) return;
-  var today = new Date(); today.setHours(0,0,0,0);
-  var cutoff = new Date(today.getTime() + 45*86400000);
-  var MO    = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var COLORS = {tds:'#d97706',gst:'#0096c7',esi:'#6c47ff',invoice:'#0891b2',data:'#059669',qret:'#f59e0b',adv:'#e11d48',annual:'#6c47ff'};
-  var LABELS = {tds:'TDS',gst:'GST',esi:'ESI/PF',invoice:'Billing',data:'Data',qret:'Quarterly',adv:'Adv.Tax',annual:'Annual'};
 
-  var items = allEvents
-    .filter(function(e){ return e.isDeadline||e.isQuarterly||e.isAnnual; })
-    .map(function(e){ var d=new Date(e.year,e.month,e.day); return Object.assign({},e,{date:d,diff:Math.round((d-today)/86400000)}); })
-    .filter(function(e){ return e.date>=new Date(today.getTime()-2*86400000) && e.date<=cutoff; })
-    .sort(function(a,b){ return a.date-b.date; })
-    .slice(0,18);
 
-  if (!items.length) { el.innerHTML='<div style="padding:28px;text-align:center;color:var(--sub);font-size:.73rem">No deadlines in the next 45 days</div>'; return; }
 
-  el.innerHTML = items.map(function(e){
-    var col = COLORS[e.type]||'#64748b';
-    var leftHtml;
-    if (e.diff===0)      leftHtml='<span class="dl-today">Today</span>';
-    else if(e.diff<0)    leftHtml='<span class="dl-past">'+(-e.diff)+'d ago</span>';
-    else if(e.diff<=3)   leftHtml='<span class="dl-urgent">'+e.diff+'d</span>';
-    else if(e.diff<=7)   leftHtml='<span class="dl-warn">'+e.diff+'d</span>';
-    else                 leftHtml='<span class="dl-ok">'+e.diff+'d</span>';
-    var cleanTitle = e.title.replace(/^[^\w\s\u20B9]+\s*/u,'').replace(/\s*[\u2014].*$/,'').trim();
-    return '<div class="cal-dl">' +
-      '<div class="cal-dl-badge"><div class="cal-dl-d">'+e.day+'</div><div class="cal-dl-m">'+MO[e.month]+'</div></div>' +
-      '<div class="cal-dl-info">' +
-        '<div class="cal-dl-name">'+cleanTitle+'</div>' +
-        '<div class="cal-dl-note">'+(e.note||'')+'</div>' +
-        '<span class="cal-dl-tag" style="background:'+col+'15;color:'+col+';border:1px solid '+col+'25">'+(LABELS[e.type]||e.type)+'</span>' +
-      '</div>' +
-      '<div class="cal-dl-left">'+leftHtml+'</div>' +
-    '</div>';
-  }).join('');
-}
 
-function renderMonthStats(allEvents) { calRenderStats(allEvents); }
 
-function calRenderStats(allEvents) {
-  var el = document.getElementById('cal-stats-card');
-  if (!el) return;
-  var MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  var deadlines = allEvents.filter(function(e){ return e.month===calMonth && e.year===calYear && e.isDeadline; });
-  var COLORS = {tds:'#d97706',gst:'#0096c7',esi:'#6c47ff',invoice:'#0891b2',data:'#059669',qret:'#f59e0b',adv:'#e11d48',annual:'#6c47ff'};
-  var LABELS = {tds:'TDS',gst:'GST',esi:'ESI / PF / PT',invoice:'Client Billing',data:'Data Collection',qret:'Quarterly Returns',adv:'Advance Tax',annual:'Annual Filings'};
-  var byType = {};
-  deadlines.forEach(function(e){ byType[e.type]=(byType[e.type]||0)+1; });
-  var rows = Object.entries(byType).map(function(kv){
-    var col=COLORS[kv[0]]||'#64748b';
-    return '<div class="cal-stat-row"><div class="cal-stat-label"><div class="cal-stat-dot" style="background:'+col+'"></div>'+(LABELS[kv[0]]||kv[0])+'</div><div class="cal-stat-val" style="color:'+col+'">'+kv[1]+'</div></div>';
-  }).join('');
-  el.innerHTML =
-    '<div class="cal-stats-hd">'+MN[calMonth]+' '+calYear+'<span style="float:right;font-size:.72rem;color:var(--acc-comp);font-weight:900">'+deadlines.length+' deadlines</span></div>' +
-    (rows||'<div style="padding:14px 16px;font-size:.72rem;color:var(--sub)">No deadlines this month</div>') +
-    '<div style="padding:10px 16px;border-top:1px solid var(--border);background:var(--surf2);font-size:.61rem;color:var(--sub);line-height:1.8">' +
-      '<span style="color:rgba(251,191,36,.9);font-weight:900">\u2501</span> Yellow = prep day (T\u22122)<br>' +
-      '<span style="color:rgba(239,68,68,.6);font-weight:900">\u2501</span> Red = verify day (T+1)' +
-    '</div>';
-}
 
-function calToggleFilter(key, el) {
-  el.classList.toggle('off');
-  el.classList.toggle('on');
-  var filters = {};
-  document.querySelectorAll('.cal-filter-pill').forEach(function(p){ filters[p.dataset.key]=p.classList.contains('on'); });
-  calRenderGrid(buildCalEvents(), filters);
-}
 
-function getActiveFilters() {
-  var f={};
-  document.querySelectorAll('.cal-filter-pill').forEach(function(p){ f[p.dataset.key]=p.classList.contains('on'); });
-  return Object.keys(f).length?f:null;
-}
-
-function calPrev() {
-  calMonth--; if(calMonth<0){calMonth=11;calYear--;}
-  var ev=buildCalEvents(); calRenderGrid(ev,getActiveFilters()); calRenderStats(ev); calRenderUpcoming(ev);
-}
-
-function calNext() {
-  calMonth++; if(calMonth>11){calMonth=0;calYear++;}
-  var ev=buildCalEvents(); calRenderGrid(ev,getActiveFilters()); calRenderStats(ev); calRenderUpcoming(ev);
-}
-
-function calToday() {
-  var n=new Date(); calMonth=n.getMonth(); calYear=n.getFullYear();
-  var ev=buildCalEvents(); calRenderGrid(ev,getActiveFilters()); calRenderStats(ev); calRenderUpcoming(ev);
-}
 
 // ╔══════════════════════════════════════════════════════════════╗
 //   AI ASSISTANT — OFFLINE CA EXPERT (No API key needed)
@@ -4643,7 +4210,7 @@ function saveClientNew() {
   closeModal('add-client-modal');
   renderAll();
   populateAuditFilters();
-  setTimeout(initDueDateReminder, 1200);
+  // Due date popup triggered on login
   LS.save();
   toast(name + ' added to: ' + addedTo.join(', '), 'success');
 }
@@ -4869,6 +4436,12 @@ function renderDashboard() {
   renderDashClientList();
   var countEl = document.getElementById('dash-act-count');
   if (countEl) countEl.textContent = auditLog.length ? auditLog.length + ' changes' : '';
+  // Set client count label in legend row
+  var ccEl = document.getElementById('dash-client-count');
+  if (ccEl) {
+    var allCl = buildClientMap();
+    ccEl.textContent = allCl.length + ' client' + (allCl.length!==1?'s':'') + ' total';
+  }
 }
 
 function renderDashSummary() {
@@ -4878,20 +4451,65 @@ function renderDashSummary() {
   var total   = clients.length;
   var svcs    = accClients.length + gstClients.length + tdsClients.length + compClients.length + regClients.length;
   var week    = auditLog.filter(function(l){ return Date.now()-l.ts < 7*86400000; }).length;
-  el.innerHTML =
-    '<div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">' +
-    [
-      { n:total, l:'Total Clients', c:'#7c3aed' },
-      { n:svcs,  l:'Service Engagements', c:'#0096c7' },
-      { n:accClients.length, l:'Accounting', c:'#0096c7' },
-      { n:gstClients.length, l:'GST',       c:'#7c3aed' },
-      { n:tdsClients.length, l:'TDS',        c:'#d97706' },
-      { n:compClients.length,l:'Compliance', c:'#059669' },
-      { n:week,  l:"This Week's Changes", c:'#e11d48' },
-    ].map(function(s) {
-      return '<div style="flex:1;min-width:100px;background:#fff;border-radius:12px;border:1.5px solid #ede8e3;padding:13px 15px;border-top:3px solid '+s.c+'">' +
-        '<div style="font-size:1.5rem;font-weight:900;color:'+s.c+';letter-spacing:-1px">'+s.n+'</div>' +
-        '<div style="font-size:.65rem;font-weight:700;color:#6b6560;margin-top:2px">'+s.l+'</div>' +
+
+  var MONTHS_12 = Array.from({length:12},function(_,i){return 'M'+(i+1);});
+  function modPct(arr, ret, periods, statusKey, doneVals) {
+    var tot=0,done=0;
+    arr.forEach(function(c,ci){
+      periods.forEach(function(p){
+        var s=gs(ret,ci,p); var v=s[statusKey]||s.status||s.filStatus||''; tot++;
+        if(doneVals.some(function(d){return v.includes(d);})) done++;
+      });
+    });
+    return tot?Math.round(done/tot*100):0;
+  }
+  var pAcc  = modPct(accClients,  'accounting', MONTHS_12, 'status', ['Reports Shared','Reviewed']);
+  var pGst  = modPct(gstClients,  'gstr3b',     MONTHS_12, 'status', ['Filed \u2713','Matched \u2713']);
+  var pTds  = modPct(tdsClients,  '26q',        ['Q1','Q2','Q3','Q4'], 'filStatus', ['Filed \u2713']);
+  var pComp = modPct(compClients, 'esi',        MONTHS_12, 'status', ['Paid \u2713']);
+
+  var tiles = [
+    { n:total,              l:'Total Clients',   sub: svcs+' engagements', c:'#6c47ff', pct:null },
+    { n:accClients.length,  l:'Accounting',       sub:pAcc+'% complete',   c:'#0891b2', pct:pAcc },
+    { n:gstClients.length,  l:'GST',              sub:pGst+'% filed',      c:'#6c47ff', pct:pGst },
+    { n:tdsClients.length,  l:'TDS',              sub:pTds+'% filed',      c:'#f59e0b', pct:pTds },
+    { n:compClients.length, l:'Compliance',       sub:pComp+'% paid',      c:'#00c875', pct:pComp },
+    { n:week,               l:'This Week',        sub:'changes logged',     c:'#e2445c', pct:null },
+  ];
+
+  el.innerHTML = '<div class="kpi-strip">' +
+    tiles.map(function(t){
+      var barHtml = t.pct !== null ?
+        '<div class="kpi-tile-bar"><div class="kpi-tile-fill" style="width:'+t.pct+'%;background:'+t.c+'"></div></div>' : '';
+      return '<div class="kpi-tile">' +
+        '<div class="kpi-tile-accent" style="background:'+t.c+'"></div>' +
+        '<div class="kpi-tile-num" style="color:'+t.c+'">'+t.n+'</div>' +
+        '<div class="kpi-tile-lbl">'+t.l+'</div>' +
+        '<div class="kpi-tile-sub">'+t.sub+'</div>' +
+        barHtml +
+      '</div>';
+    }).join('') + '</div>';
+
+  var SVC_CONF_H = [
+    { key:'acc',  icon:'\uD83D\uDCD2', label:'Accounting', color:'#0891b2', bg:'#e0f9ff', clients:accClients,  pct:pAcc  },
+    { key:'gst',  icon:'\uD83D\uDD35', label:'GST Returns', color:'#6c47ff', bg:'#ede9fe', clients:gstClients,  pct:pGst  },
+    { key:'tds',  icon:'\uD83D\uDFE1', label:'TDS',          color:'#f59e0b', bg:'#fef9ec', clients:tdsClients,  pct:pTds  },
+    { key:'comp', icon:'\uD83D\uDFE3', label:'Compliance',   color:'#00c875', bg:'#e6faf0', clients:compClients, pct:pComp },
+    { key:'reg',  icon:'\uD83C\uDFE2', label:'Regulatory',   color:'#e2445c', bg:'#fde8ec', clients:regClients,  pct:null  },
+  ];
+
+  el.innerHTML += '<div class="mod-health-row">' +
+    SVC_CONF_H.map(function(m){
+      var pct = m.pct !== null ? m.pct : (m.clients.length ? 100 : 0);
+      var pctColor = pct>=80?'#00c875':pct>=50?'#f59e0b':'#e2445c';
+      return '<div class="mod-health-card" onclick="dashSetFilter(\''+m.key+'\',null)">' +
+        '<div class="mod-health-icon-wrap" style="background:'+m.bg+'">'+m.icon+'</div>' +
+        '<div class="mod-health-body">' +
+          '<div class="mod-health-name">'+m.label+'</div>' +
+          '<div class="mod-health-count">'+m.clients.length+' client'+(m.clients.length!==1?'s':'')+'</div>' +
+          '<div class="mod-health-bar-wrap"><div class="mod-health-bar-fill" style="width:'+pct+'%;background:'+m.color+'"></div></div>' +
+        '</div>' +
+        '<div class="mod-health-pct" style="color:'+pctColor+'">'+(m.pct!==null?pct+'%':'--')+'</div>' +
       '</div>';
     }).join('') + '</div>';
 }
@@ -4909,131 +4527,171 @@ function renderDashClientList() {
   });
 
   if (!filtered.length) {
-    el.innerHTML = '<div style="text-align:center;padding:60px;color:#6b6560">' +
-      '<div style="font-size:2.5rem;opacity:.2;margin-bottom:12px">🔍</div>' +
-      '<div style="font-weight:800;color:#1a1612;margin-bottom:8px">No clients found</div>' +
-      '<button onclick="openAddClient()" style="padding:10px 20px;border:none;border-radius:10px;background:#7c3aed;color:#fff;font-weight:700;cursor:pointer;font-size:.78rem">＋ Add First Client</button>' +
+    el.style.display = 'block';
+    el.innerHTML = '<div style="text-align:center;padding:60px;color:var(--sub)">' +
+      '<div style="font-size:2rem;opacity:.2;margin-bottom:10px">\uD83D\uDD0D</div>' +
+      '<div style="font-weight:800;color:var(--ink);margin-bottom:8px;font-size:.85rem">No clients found</div>' +
+      '<button onclick="openAddClient()" style="padding:9px 18px;border:none;border-radius:10px;background:var(--brand);color:#fff;font-weight:700;cursor:pointer;font-size:.76rem">\uFF0B Add First Client</button>' +
     '</div>';
     return;
   }
 
-  var AVC = ['#7c3aed','#0096c7','#059669','#d97706','#e11d48','#8b5cf6','#06b6d4','#475569'];
+  var AVC = ['#6c47ff','#0891b2','#059669','#d97706','#e2445c','#8b5cf6','#06b6d4','#475569'];
   var MONTHS_12 = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+  var MK = Array.from({length:12},function(_,i){return 'M'+(i+1);});
   var SVC_CONF = {
-    acc:  { icon:'📒', label:'Accounting', color:'#0096c7', bg:'#e0f4ff' },
-    gst:  { icon:'🔵', label:'GST',        color:'#7c3aed', bg:'#f5f3ff' },
-    tds:  { icon:'🟡', label:'TDS',        color:'#d97706', bg:'#fef9ec' },
-    comp: { icon:'🟣', label:'Compliance', color:'#059669', bg:'#ecfdf5' },
-    reg:  { icon:'🏢', label:'Regulatory', color:'#e11d48', bg:'#fff0f3' },
+    acc:  { icon:'\uD83D\uDCD2', label:'Accounting', color:'#0891b2', bg:'#e0f9ff' },
+    gst:  { icon:'\uD83D\uDD35', label:'GST',        color:'#6c47ff', bg:'#ede9fe' },
+    tds:  { icon:'\uD83D\uDFE1', label:'TDS',        color:'#d97706', bg:'#fef9ec' },
+    comp: { icon:'\uD83D\uDFE3', label:'Compliance', color:'#059669', bg:'#ecfdf5' },
+    reg:  { icon:'\uD83C\uDFE2', label:'Regulatory', color:'#e2445c', bg:'#fff0f3' },
   };
+  var ALL_SVCS = ['acc','gst','tds','comp','reg'];
 
-  el.style.display = 'flex';
-  el.style.flexDirection = 'column';
-  el.style.gap = '10px';
+  // Helper: compute client-level completion pct for a service
+  function clPct(cl, svc) {
+    var sv = SVC_CONF[svc]; if(!sv) return null;
+    var arr = {acc:accClients,gst:gstClients,tds:tdsClients,comp:compClients,reg:regClients}[svc]||[];
+    var clIdx = arr.findIndex(function(x){return x.name===cl.name;});
+    if (clIdx===-1) return null;
+    var tot=0, done=0;
+    var checkDone = function(v){ return (v||'').includes('\u2713')||(v||'').toLowerCase().includes('filed')||(v||'').includes('Paid')||(v||'').includes('Shared')||(v||'').includes('Reviewed'); };
+    if (svc==='acc') {
+      MK.forEach(function(p){ var s=gs('accounting',clIdx,p); tot++; if(checkDone(s.status)) done++; });
+    } else if (svc==='gst') {
+      ['gstr3b'].forEach(function(r){ MK.forEach(function(p){ var s=gs(r,clIdx,p); tot++; if(checkDone(s.status)||checkDone(s.filStatus)) done++; }); });
+    } else if (svc==='tds') {
+      ['26q'].forEach(function(r){ ['Q1','Q2','Q3','Q4'].forEach(function(q2){ var s=gs(r,clIdx,q2); tot++; if(checkDone(s.filStatus)) done++; }); });
+    } else if (svc==='comp') {
+      ['esi'].forEach(function(r){ MK.forEach(function(p){ var s=gs(r,clIdx,p); tot++; if(checkDone(s.status)) done++; }); });
+    } else { return null; }
+    return tot?Math.round(done/tot*100):0;
+  }
 
-  el.innerHTML = filtered.map(function(cl, idx) {
-    var col = AVC[idx % AVC.length];
-    var initials = cl.name.split(' ').map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase();
-    var svcPills = cl.services.map(function(s) {
-      var sv = SVC_CONF[s]; if(!sv) return '';
-      return '<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 9px;border-radius:20px;font-size:.58rem;font-weight:800;background:'+sv.bg+';color:'+sv.color+';border:1px solid '+sv.color+'25">'+sv.icon+' '+sv.label+'</span>';
-    }).join('');
-
-    // Build service status rows (expanded details)
-    var svcRows = cl.services.map(function(svc) {
+  // Build detail panel for a client
+  function buildDetailPanel(cl) {
+    return cl.services.map(function(svc) {
       var sv = SVC_CONF[svc]; if(!sv) return '';
       var arr = {acc:accClients,gst:gstClients,tds:tdsClients,comp:compClients,reg:regClients}[svc]||[];
       var clIdx = arr.findIndex(function(x){ return x.name===cl.name; });
-      if (clIdx === -1) return '';
-      var raw = arr[clIdx] || {};
+      if (clIdx===-1) return '';
+      var raw = arr[clIdx]||{};
+      var dots = '';
+      var checkDone = function(v){ return (v||'').includes('\u2713')||(v||'').toLowerCase().includes('filed')||(v||'').includes('Paid')||(v||'').includes('Shared')||(v||'').includes('Reviewed'); };
+      var checkWip  = function(v){ return !!(v||'').trim() && !checkDone(v); };
 
-      // Status summary for each month
-      var statusDots = '';
-      if (svc === 'acc') {
-        statusDots = MONTHS_12.map(function(mn, mi) {
-          var s = gs('accounting', clIdx, 'M'+(mi+1));
-          var st = s.status||''; var done = st.includes('Shared')||st.includes('Signed')||st.includes('Filed');
-          return '<span title="'+mn+': '+(st||'Pending')+'" style="display:inline-block;width:10px;height:10px;border-radius:3px;background:'+(done?'#059669':st?'#f59e0b':'#e8e3dd')+';cursor:default;margin:1px"></span>';
+      if (svc==='acc') {
+        dots = MONTHS_12.map(function(mn,mi){
+          var s=gs('accounting',clIdx,'M'+(mi+1)); var v=s.status||'';
+          var col=checkDone(v)?'#00c875':checkWip(v)?'#f59e0b':'#e8e3dd';
+          return '<span class="cl-svc-dot" title="'+mn+': '+(v||'Pending')+'" style="background:'+col+'"></span>';
         }).join('');
-      } else if (svc === 'gst') {
-        statusDots = ['gstr1','gstr2b','gstr3b'].map(function(ret,ri) {
-          var label = ['GSTR-1','GSTR-2B','GSTR-3B'][ri];
-          return '<div style="font-size:.6rem;color:#6b6560;margin-bottom:3px">'+label+': ' +
+      } else if (svc==='gst') {
+        dots = ['gstr1','gstr2b','gstr3b'].map(function(ret,ri){
+          var lbl=['GSTR-1','2B','3B'][ri];
+          return '<div style="display:flex;align-items:center;gap:4px;margin-bottom:3px"><span style="font-size:.55rem;font-weight:700;color:var(--sub);min-width:36px">'+lbl+'</span>' +
             MONTHS_12.map(function(mn,mi){
-              var s = gs(ret,clIdx,'M'+(mi+1));
-              var st = s.status||s.filStatus||'';
-              var done = st.includes('✓')||st.toLowerCase().includes('filed')||st.toLowerCase().includes('matched');
-              return '<span title="'+mn+': '+(st||'—')+'" style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+(done?'#059669':st?'#f59e0b':'#e8e3dd')+';cursor:default;margin:1px"></span>';
-            }).join('') + '</div>';
+              var s=gs(ret,clIdx,'M'+(mi+1)); var v=s.status||s.filStatus||'';
+              var col=checkDone(v)?'#00c875':checkWip(v)?'#f59e0b':'#e8e3dd';
+              return '<span class="cl-svc-dot" title="'+mn+': '+(v||'—')+'" style="background:'+col+'"></span>';
+            }).join('')+'</div>';
         }).join('');
-      } else if (svc === 'tds') {
-        var scope = raw.scope === 'both' ? 'Pay + File' : 'Filing Only';
-        statusDots = '<div style="font-size:.6rem;color:#6b6560;margin-bottom:3px">Scope: '+scope+'</div>';
-        statusDots += ['24q','26q','27q'].map(function(ret,ri){
-          var label = ['24Q','26Q','27Q'][ri];
-          return '<div style="font-size:.6rem;color:#6b6560;margin-bottom:2px">'+label+': ' +
-            ['Q1','Q2','Q3','Q4'].map(function(q){
-              var s = gs(ret,clIdx,q);
-              var st = s.filStatus||s.status||'';
-              var done = st.includes('✓')||st.toLowerCase().includes('filed');
-              return '<span title="'+q+': '+(st||'—')+'" style="display:inline-block;width:12px;height:12px;border-radius:3px;background:'+(done?'#059669':st?'#f59e0b':'#e8e3dd')+';cursor:default;margin:1px;font-size:.5rem"></span>';
-            }).join('') + '</div>';
+      } else if (svc==='tds') {
+        var scope=raw.scope==='both'?'Pay+File':'Filing Only';
+        dots='<div style="font-size:.6rem;color:var(--sub);margin-bottom:5px">Scope: <strong>'+scope+'</strong></div>';
+        dots+=(['24q','26q','27q']).map(function(ret,ri){
+          var lbl=['24Q','26Q','27Q'][ri];
+          return '<div style="display:flex;align-items:center;gap:4px;margin-bottom:3px"><span style="font-size:.55rem;font-weight:700;color:var(--sub);min-width:32px">'+lbl+'</span>'+
+            ['Q1','Q2','Q3','Q4'].map(function(q2){
+              var s=gs(ret,clIdx,q2); var v=s.filStatus||s.status||'';
+              var col=checkDone(v)?'#00c875':checkWip(v)?'#f59e0b':'#e8e3dd';
+              return '<span class="cl-svc-dot" style="width:14px;height:14px;border-radius:4px;background:'+col+'" title="'+q2+': '+(v||'—')+'"></span>';
+            }).join('')+'</div>';
         }).join('');
-      } else if (svc === 'comp') {
-        statusDots = ['esi','pf','pt'].map(function(ret,ri){
-          var label = ['ESI','PF','PT'][ri];
-          return '<div style="font-size:.6rem;color:#6b6560;margin-bottom:2px">'+label+': ' +
+      } else if (svc==='comp') {
+        dots=['esi','pf','pt'].map(function(ret,ri){
+          var lbl=['ESI','PF','PT'][ri];
+          return '<div style="display:flex;align-items:center;gap:4px;margin-bottom:3px"><span style="font-size:.55rem;font-weight:700;color:var(--sub);min-width:26px">'+lbl+'</span>'+
             MONTHS_12.map(function(mn,mi){
-              var s = gs(ret,clIdx,'M'+(mi+1));
-              var st = s.status||'';
-              var done = st.includes('✓')||st.includes('Paid')||st.includes('Filed');
-              return '<span title="'+mn+': '+(st||'—')+'" style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+(done?'#059669':st?'#f59e0b':'#e8e3dd')+';cursor:default;margin:1px"></span>';
-            }).join('') + '</div>';
+              var s=gs(ret,clIdx,'M'+(mi+1)); var v=s.status||'';
+              var col=checkDone(v)?'#00c875':checkWip(v)?'#f59e0b':'#e8e3dd';
+              return '<span class="cl-svc-dot" title="'+mn+': '+(v||'—')+'" style="background:'+col+'"></span>';
+            }).join('')+'</div>';
         }).join('');
       } else {
-        statusDots = '<div style="font-size:.63rem;color:#6b6560">'+((raw.regType||'company').replace(/-/g,' '))+'</div>';
+        dots='<div style="font-size:.7rem;color:var(--sub)">Type: <strong>'+((raw.regType||'company').replace(/-/g,' '))+'</strong></div>';
       }
 
-      return '<div style="border-left:3px solid '+sv.color+';padding:8px 12px;background:'+sv.bg+';border-radius:0 8px 8px 0;margin-bottom:6px">' +
-        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">' +
-          '<div style="font-size:.72rem;font-weight:800;color:'+sv.color+'">'+sv.icon+' '+sv.label+'</div>' +
-          '<button onclick="event.stopPropagation();dashGoToService(\''+svc+'\',\''+cl.name.replace(/'/g,"\\'")+'\')" style="font-size:.6rem;padding:3px 9px;border-radius:6px;border:1px solid '+sv.color+';background:#fff;color:'+sv.color+';cursor:pointer;font-weight:700">Open →</button>' +
+      return '<div class="cl-svc-panel" style="background:'+sv.bg+';border-color:'+sv.color+'">' +
+        '<div class="cl-svc-panel-hd">' +
+          '<div class="cl-svc-panel-lbl" style="color:'+sv.color+'">'+sv.icon+' '+sv.label+'</div>' +
+          '<button class="cl-svc-open-btn" style="color:'+sv.color+';border-color:'+sv.color+'20" onclick="event.stopPropagation();dashGoToService(\''+svc+'\',\''+cl.name.replace(/'/g,"\\'")+'\')">' +
+            'Open \u2192</button>' +
         '</div>' +
-        '<div>'+statusDots+'</div>' +
-        // Remarks field
-        '<div style="margin-top:5px">' +
-          '<textarea placeholder="Add remark for '+sv.label+'…" ' +
-            'style="width:100%;border:1px solid #e8e3dd;border-radius:6px;padding:5px 8px;font-size:.67rem;resize:none;height:38px;outline:none;font-family:inherit;background:#fff;color:#1a1612" ' +
-            'oninput="dashSaveRemark(\''+svc+'\','+clIdx+',this.value)">' +
-            (raw.dashRemark||'') +
-          '</textarea>' +
-        '</div>' +
+        '<div class="cl-svc-dots">'+dots+'</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  // Build roster table HTML
+  var tableHdr = '<div class="cl-roster-wrap">' +
+    '<div class="cl-roster-hd">' +
+      '<div>Client</div>' +
+      ALL_SVCS.map(function(s){ return '<div style="text-align:center">'+SVC_CONF[s].icon+'</div>'; }).join('') +
+      '<div></div>' +
+    '</div>';
+
+  var rows = filtered.map(function(cl, idx) {
+    var col = AVC[idx % AVC.length];
+    var initials = cl.name.split(' ').map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase();
+    var rowId = 'dcr-' + idx;
+    var detId = 'dcd-' + idx;
+
+    var svcCells = ALL_SVCS.map(function(svc){
+      var has = cl.services.indexOf(svc) !== -1;
+      if (!has) return '<div style="text-align:center"><span class="svc-dot inactive">'+SVC_CONF[svc].icon+'</span></div>';
+      var pct = clPct(cl, svc);
+      var pctColor = pct===null?'#64748b':pct>=80?'#00c875':pct>=50?'#f59e0b':'#e2445c';
+      var pctStr = pct!==null ? '<div style="font-size:.53rem;font-weight:700;color:'+pctColor+'">'+pct+'%</div>' : '';
+      return '<div style="text-align:center">' +
+        '<span class="svc-dot active" title="'+SVC_CONF[svc].label+'">'+SVC_CONF[svc].icon+'</span>' +
+        pctStr +
       '</div>';
     }).join('');
 
-    var cardId = 'dc-' + idx;
-    return '<div style="background:#fff;border-radius:14px;border:1px solid #ede8e3;box-shadow:0 1px 4px rgba(26,22,18,.06);overflow:hidden">' +
-      // Header — always visible
-      '<div style="display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;transition:background .12s" onclick="dashToggleClient(\''+cardId+'\')" onmouseover="this.style.background=\'#faf9f7\'" onmouseout="this.style.background=\'#fff\'">' +
-        '<div style="width:38px;height:38px;border-radius:11px;background:'+col+';display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;color:#fff;flex-shrink:0">'+initials+'</div>' +
-        '<div style="flex:1;min-width:0">' +
-          '<div style="font-size:.84rem;font-weight:800;color:#1a1612">'+cl.name+'</div>' +
-          (cl.id ? '<div style="font-size:.62rem;color:#6b6560;font-family:\'JetBrains Mono\',monospace;margin-top:1px">'+cl.id+'</div>' : '') +
+    return '<div>' +
+      '<div class="cl-roster-row" id="'+rowId+'" onclick="openClientDash(\''+cl.name.replace(/'/g,"\\'")+'\')">' +
+        '<div class="cl-name-cell">' +
+          '<div class="cl-av-sm" style="background:'+col+'">'+initials+'</div>' +
+          '<div>' +
+            '<div class="cl-roster-name">'+cl.name+'</div>' +
+            (cl.id?'<div class="cl-roster-pan">'+cl.id+'</div>':'') +
+          '</div>' +
         '</div>' +
-        '<div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:160px">'+svcPills+'</div>' +
-        '<div id="'+cardId+'-arr" style="font-size:.65rem;color:#a09a94;transition:transform .2s;margin-left:8px;flex-shrink:0">▼</div>' +
-      '</div>' +
-      // Detail section
-      '<div id="'+cardId+'" style="display:none;padding:0 16px 14px;border-top:1px solid #f0ede9">' +
-        '<div style="padding-top:12px">'+svcRows+'</div>' +
-        // Export row
-        '<div style="display:flex;gap:8px;margin-top:8px">' +
-          '<button onclick="event.stopPropagation();exportClientExcel(\''+cl.name.replace(/'/g,'\\\'')+'\')" style="flex:1;padding:7px;border:1.5px solid #ede8e3;border-radius:8px;background:#fff;font-size:.67rem;font-weight:700;color:#6b6560;cursor:pointer">📊 Export Excel</button>' +
-          '<button onclick="event.stopPropagation();exportClientPDF(\''+cl.name.replace(/'/g,'\\\'')+'\')" style="flex:1;padding:7px;border:1.5px solid #ede8e3;border-radius:8px;background:#fff;font-size:.67rem;font-weight:700;color:#6b6560;cursor:pointer">📄 Export PDF</button>' +
+        svcCells +
+        '<div style="text-align:right">' +
+          '<span class="cl-expand-btn">Dashboard →</span>' +
         '</div>' +
       '</div>' +
     '</div>';
   }).join('');
+
+  el.style.display = 'block';
+  el.innerHTML = tableHdr + rows + '</div>';
+}
+
+function dashExpandRow(detId, rowId) {
+  var det = document.getElementById(detId);
+  var row = document.getElementById(rowId);
+  if (!det) return;
+  var isOpen = det.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.cl-detail-row').forEach(function(d){ d.classList.remove('open'); });
+  document.querySelectorAll('.cl-roster-row').forEach(function(r){ r.classList.remove('expanded'); });
+  if (!isOpen) {
+    det.classList.add('open');
+    if (row) row.classList.add('expanded');
+  }
 }
 
 function dashSaveRemark(svc, clIdx, val) {
@@ -5331,147 +4989,819 @@ function renderDeployGuide() {
 
 
 // ── Equal access for all users ─────────────────────────────
-function applyRoleRestrictions() {
-  // Everyone has equal full access — no role restrictions
-}
+
 
 // ── Calendar note modal ────────────────────────────────────
-var calendarNotes = (function() {
-  try { var v=localStorage.getItem('ct4_cal_notes'); return v?JSON.parse(v):{} } catch(e){return{}}
-})();
-function saveCalendarNotes() {
-  try { localStorage.setItem('ct4_cal_notes', JSON.stringify(calendarNotes)); } catch(e) {}
-}
+
 function getCalendarNotes(date) {
   var key = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
   return calendarNotes[key]||[];
 }
-function openCalNoteModal(year, month, day) {
-  var mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var key=year+'-'+(month+1)+'-'+day;
-  var existing=(calendarNotes[key]||[]).join('\n');
-  var el=document.getElementById('cal-note-modal');
-  if(!el) return;
-  var lbl=document.getElementById('cal-note-date-lbl');
-  if(lbl) lbl.textContent=day+' '+mo[month]+' '+year;
-  var inp=document.getElementById('cal-note-inp');
-  if(inp) inp.value=existing;
-  el.classList.add('open');
-  el._saveData={year:year,month:month,day:day};
-  setTimeout(function(){if(inp)inp.focus();},80);
-}
-function saveCalNote() {
-  var el=document.getElementById('cal-note-modal');
-  if(!el||!el._saveData) return;
-  var d=el._saveData;
-  var val=(document.getElementById('cal-note-inp')||{value:''}).value;
-  var key=d.year+'-'+(d.month+1)+'-'+d.day;
-  if(val&&val.trim()){
-    calendarNotes[key]=val.split('\n').filter(function(n){return n.trim();});
-  } else { delete calendarNotes[key]; }
-  saveCalendarNotes();
-  el.classList.remove('open');
-  var ev=buildCalEvents?buildCalEvents():[];
-  calRenderGrid(ev,getActiveFilters?getActiveFilters():null);
-  toast('Note saved ✓','success');
-}
+
+
 
 // ── Due date daily reminder ────────────────────────────────
-function initDueDateReminder() {
-  var today=new Date().toDateString();
-  if(localStorage.getItem('ct4_due_shown')===today) return;
-  var allEvs=buildCalEvents?buildCalEvents():[];
-  var now=new Date(); now.setHours(0,0,0,0);
-  var cut=new Date(now.getTime()+7*86400000);
-  var upcoming=allEvs.filter(function(e){
-    if(!e.isDeadline&&!e.isQuarterly&&!e.isAnnual) return false;
-    var d=new Date(e.year,e.month,e.day);
-    return d>=now&&d<=cut;
-  }).sort(function(a,b){return new Date(a.year,a.month,a.day)-new Date(b.year,b.month,b.day);}).slice(0,8);
-  var wrap=document.getElementById('due-date-popup');
-  if(!wrap||!upcoming.length) return;
-  var TC={tds:'#d97706',gst:'#7c3aed',esi:'#059669',invoice:'#0096c7',data:'#059669',qret:'#f59e0b',adv:'#e11d48',annual:'#6366f1'};
-  var items=upcoming.map(function(e){
-    var d=new Date(e.year,e.month,e.day);
-    var diff=Math.round((d-now)/86400000);
-    var urg=diff===0?'#e11d48':diff<=3?'#d97706':'#059669';
-    var lbl=diff===0?'TODAY':diff===1?'Tomorrow':'In '+diff+'d';
-    var title=e.title.replace(/^[^\w\s₹]+\s*/u,'').replace(/\s*[—\-].*$/,'').trim();
-    return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f0ede9">'+
-      '<div style="width:8px;height:8px;border-radius:3px;background:'+(TC[e.type]||'#64748b')+';flex-shrink:0"></div>'+
-      '<div style="flex:1;font-size:.72rem;font-weight:600;color:#1a1612;line-height:1.3">'+title+'</div>'+
-      '<span style="font-size:.62rem;font-weight:800;color:'+urg+';white-space:nowrap">'+lbl+'</span></div>';
-  }).join('');
-  wrap.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'+
-    '<div style="font-size:.78rem;font-weight:900;color:#1a1612">📌 Upcoming Deadlines</div>'+
-    '<div style="display:flex;gap:6px"><button onclick="showUtilView(\x27calendar\x27)" style="font-size:.62rem;color:#7c3aed;background:none;border:none;cursor:pointer;font-weight:700">View all \u2192</button>'+
-    '<button onclick="document.getElementById(\x27due-date-popup\x27).style.display=\x27none\x27" style="width:22px;height:22px;border-radius:5px;border:none;background:#f0ede9;color:#6b6560;cursor:pointer;font-size:.72rem">✕</button></div></div>'+items;
-  wrap.style.display='block';
-  localStorage.setItem('ct4_due_shown',today);
-}
+
 
 // ── Enhanced Audit Trail ───────────────────────────────────
-function renderAuditFull() {
-  var el=document.getElementById('audit-body');
-  if(!el) return;
-  var uF=(document.getElementById('af-user')||{value:''}).value;
-  var cF=(document.getElementById('af-client')||{value:''}).value;
-  var tF=(document.getElementById('af-type')||{value:''}).value;
-  var fF=(document.getElementById('af-fy')||{value:''}).value;
-  var logs=auditLog.slice().reverse().filter(function(l){
-    if(uF&&l.userId!==uF) return false;
-    if(cF&&l.clientName!==cF) return false;
-    if(tF&&l.type!==tF) return false;
-    if(fF&&l.fy!==fF) return false;
+function renderAuditFull(){
+  var el = document.getElementById('audit-body');
+  if (!el) return;
+
+  var uF = (document.getElementById('af-user')  ||{value:''}).value;
+  var cF = (document.getElementById('af-client')||{value:''}).value;
+  var tF = (document.getElementById('af-type')  ||{value:''}).value;
+  var fF = (document.getElementById('af-fy')    ||{value:''}).value;
+
+  var logs = auditLog.slice().reverse().filter(function(l){
+    if (l.type === 'system') return false;
+    if (uF && l.userEmail !== uF) return false;
+    if (cF && l.clientName !== cF) return false;
+    if (tF && l.type !== tF) return false;
+    if (fF && l.fy !== fF) return false;
     return true;
   });
-  if(!logs.length){
-    el.innerHTML='<div style="text-align:center;padding:40px;color:#6b6560;font-size:.77rem">No activity records match filters.</div>';
+
+  var TC = {acc:'#0891b2',gst:'#6c47ff',tds:'#d97706',comp:'#059669',reg:'#e2445c',calendar:'#8b5cf6'};
+  var TL = {acc:'Accounting',gst:'GST',tds:'TDS',comp:'Compliance',reg:'Regulatory',calendar:'Calendar'};
+  var AV_COLS = ['#6c47ff','#0891b2','#059669','#d97706','#e2445c','#8b5cf6','#06b6d4'];
+
+  function avatarColor(email) {
+    var n = 0;
+    for (var i=0; i<(email||'').length; i++) n += (email||'').charCodeAt(i);
+    return AV_COLS[n % AV_COLS.length];
+  }
+
+  var changeHtml = '';
+  if (!logs.length) {
+    changeHtml = '<div style="text-align:center;padding:60px 20px">' +
+      '<div style="font-size:2.5rem;opacity:.15;margin-bottom:12px">📋</div>' +
+      '<div style="font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:4px">No changes recorded yet</div>' +
+      '<div style="font-size:.72rem;color:var(--sub)">Changes made by any team member will appear here.</div>' +
+    '</div>';
+  } else {
+    // Group by date
+    var byDate = {};
+    logs.forEach(function(l){
+      var d = l.date || new Date(l.ts).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+      if (!byDate[d]) byDate[d] = [];
+      byDate[d].push(l);
+    });
+
+    changeHtml = '<div style="padding:0 2px">' +
+      Object.keys(byDate).map(function(date){
+        var dayItems = byDate[date].map(function(l){
+          var col    = TC[l.type] || '#64748b';
+          var lbl    = TL[l.type] || l.type || '';
+          var avCol  = avatarColor(l.userEmail);
+          var init   = (l.userName||l.userEmail||'?').split(' ').map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase();
+          var retLbl = (RET_META && RET_META[l.ret] && RET_META[l.ret].l) ? RET_META[l.ret].l : (l.ret||'');
+          var fromV  = l.fromVal || '—';
+          var toV    = l.toVal   || '—';
+
+          return '<div style="display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px solid #f5f0eb">' +
+            // Avatar
+            '<div style="width:34px;height:34px;border-radius:10px;background:'+avCol+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0;letter-spacing:-.3px">'+init+'</div>' +
+            '<div style="flex:1;min-width:0">' +
+              // Name + action + client
+              '<div style="font-size:.76rem;font-weight:800;color:#1a1612;margin-bottom:3px;line-height:1.4">' +
+                '<span style="color:#1a1612">'+(l.userName||'Team Member')+'</span>' +
+                '<span style="font-weight:500;color:#9ca3af;margin:0 5px">updated</span>' +
+                '<span style="color:#1a1612">'+(l.clientName||'?')+'</span>' +
+                '&nbsp;<span style="display:inline-block;padding:2px 8px;border-radius:8px;font-size:.58rem;font-weight:800;background:'+col+'15;color:'+col+';border:1px solid '+col+'25">'+lbl+'</span>' +
+              '</div>' +
+              // Email line
+              '<div style="font-size:.63rem;color:#9ca3af;margin-bottom:5px">📧&nbsp;'+(l.userEmail||'')+'</div>' +
+              // Module + period
+              (retLbl ? '<div style="font-size:.67rem;color:#6b7280;margin-bottom:5px">'+retLbl+(l.period?' &nbsp;·&nbsp; <strong>'+l.period+'</strong>':'')+'</div>' : '') +
+              // Change pill
+              '<div style="display:inline-flex;align-items:center;gap:6px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:4px 10px">' +
+                '<span style="font-size:.64rem;color:#9ca3af;text-decoration:line-through">'+fromV+'</span>' +
+                '<span style="font-size:.6rem;color:#d1d5db">→</span>' +
+                '<span style="font-size:.68rem;font-weight:800;color:#1a1612">'+toV+'</span>' +
+              '</div>' +
+            '</div>' +
+            // Time
+            '<div style="font-size:.6rem;color:#c0b9b2;text-align:right;flex-shrink:0;line-height:1.7;padding-top:2px">'+(l.time||'')+'</div>' +
+          '</div>';
+        }).join('');
+
+        return '<div style="margin-bottom:4px">' +
+          '<div style="font-size:.59rem;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#c0b9b2;padding:12px 0 6px;border-bottom:2px solid #f5f0eb;margin-bottom:2px">'+date+'</div>' +
+          dayItems +
+        '</div>';
+      }).join('') +
+    '</div>';
+  }
+
+  // ── Login History ────────────────────────────────────────
+  var loginLogs = auditLog.slice().reverse().filter(function(l){
+    return l.type === 'system' && l.isLogin;
+  });
+  if (uF) loginLogs = loginLogs.filter(function(l){ return l.userEmail === uF; });
+
+  var loginHtml = '';
+  if (loginLogs.length) {
+    loginHtml =
+      '<div style="background:#fff;border-radius:12px;border:1px solid var(--border);margin-top:20px;overflow:hidden;box-shadow:var(--s1)">' +
+        '<div style="padding:14px 18px;background:var(--surf2);border-bottom:1px solid var(--border);font-size:.76rem;font-weight:800;color:var(--ink)">🔐 Login History</div>' +
+        '<div style="padding:0 18px">' +
+          loginLogs.slice(0,60).map(function(l){
+            var avCol = avatarColor(l.userEmail);
+            var init  = (l.userName||'?').split(' ').map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase();
+            return '<div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid #f5f0eb">' +
+              '<div style="width:30px;height:30px;border-radius:9px;background:'+avCol+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:900;flex-shrink:0">'+init+'</div>' +
+              '<div style="flex:1;min-width:0">' +
+                '<div style="font-size:.73rem;font-weight:800;color:var(--ink)">'+(l.userName||'?')+'</div>' +
+                '<div style="font-size:.62rem;color:var(--sub)">📧 '+(l.userEmail||'')+'</div>' +
+              '</div>' +
+              '<div style="font-size:.62rem;color:var(--muted);text-align:right;line-height:1.6">'+(l.time||'')+'<br><span style="font-size:.57rem">'+(l.date||'')+'</span></div>' +
+            '</div>';
+          }).join('') +
+        '</div>' +
+      '</div>';
+  }
+
+  el.innerHTML = changeHtml + loginHtml;
+}
+function renderAudit(){ renderAuditFull(); }
+function renderAuditEnhanced(){ renderAuditFull(); }
+function renderAuditEnhanced(){renderAuditFull();}
+
+
+// ╔══════════════════════════════════════════════════════════╗
+//   MULTI-USER SYSTEM
+//   - Each user signs up freely
+//   - All changes tagged with user name + timestamp
+//   - logChange records userName from currentUser
+//   - Audit trail shows who did what
+//   - Data shared via localStorage (same device) or Backup/Restore
+// ╚══════════════════════════════════════════════════════════╝
+
+function authSignIn() {
+  if (!users.length) initUsers();
+  var email = ((document.getElementById('auth-email')||{}).value||'').trim().toLowerCase();
+  var pw    = ((document.getElementById('auth-pw')   ||{}).value||'');
+  if (!email) { showAuthErr('signin','Please enter your email.'); return; }
+  if (!pw)    { showAuthErr('signin','Please enter your password.'); return; }
+  var user = users.find(function(u){ return u.email.toLowerCase()===email && u.active; });
+  if (!user) { showAuthErr('signin','No account found for this email. Please create an account.'); return; }
+  if (!checkPW(pw, user.pwHash)) {
+    showAuthErr('signin','Incorrect password.');
+    document.getElementById('auth-pw').value = '';
     return;
   }
-  var TC={acc:'#0096c7',gst:'#7c3aed',tds:'#d97706',comp:'#059669',reg:'#e11d48',calendar:'#8b5cf6'};
-  var TL={acc:'Accounting',gst:'GST',tds:'TDS',comp:'Compliance',reg:'Regulatory',calendar:'Calendar'};
-  var byDate={};
-  logs.forEach(function(l){
-    var d=l.date||new Date(l.ts).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
-    if(!byDate[d]) byDate[d]=[];
-    byDate[d].push(l);
-  });
-  var html=Object.keys(byDate).map(function(date){
-    var items=byDate[date].map(function(l){
-      var col=TC[l.type]||'#64748b';
-      var lbl=TL[l.type]||l.type;
-      var initials=(l.userName||'?').split(' ').map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase();
-      var avC=['#7c3aed','#0096c7','#059669','#d97706','#e11d48'];
-      var avCol=avC[(l.userId||'x').charCodeAt((l.userId||'x').length-1)%avC.length];
-      var retLabel=(RET_META&&RET_META[l.ret]&&RET_META[l.ret].l)?RET_META[l.ret].l:(l.ret||'');
-      return '<div style="display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-bottom:1px solid #f5f0eb">'+
-        '<div style="width:32px;height:32px;border-radius:9px;background:'+avCol+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:800;flex-shrink:0">'+initials+'</div>'+
-        '<div style="flex:1;min-width:0">'+
-          '<div style="font-size:.76rem;font-weight:800;color:#1a1612;margin-bottom:2px">'+
-            (l.userName||'Unknown')+
-            '<span style="font-weight:400;color:#a09a94;font-size:.68rem"> updated </span>'+
-            (l.clientName||'?')+
-            ' <span style="padding:2px 7px;border-radius:10px;font-size:.58rem;font-weight:800;background:'+col+'15;color:'+col+';border:1px solid '+col+'30">'+lbl+'</span>'+
-          '</div>'+
-          (retLabel?'<div style="font-size:.69rem;color:#6b6560">'+retLabel+(l.period?' · '+l.period:'')+'</div>':'') +
-          '<div style="font-size:.69rem;margin-top:3px;display:flex;gap:6px">'+
-            '<span style="color:#c0b9b2;text-decoration:line-through">'+(l.fromVal||'—')+'</span>'+
-            '<span style="color:#a09a94">→</span>'+
-            '<span style="color:#1a1612;font-weight:700">'+(l.toVal||'—')+'</span>'+
-          '</div>'+
-        '</div>'+
-        '<div style="font-size:.61rem;color:#a09a94;text-align:right;flex-shrink:0;line-height:1.5">'+(l.time||'')+'<br>'+(l.userEmail?l.userEmail.split('@')[0]:'')+'</div>'+
-      '</div>';
-    }).join('');
-    return '<div style="margin-bottom:2px">'+
-      '<div style="font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#a09a94;padding:9px 0 5px;border-bottom:2px solid #f0ede9;margin-bottom:2px">'+date+'</div>'+
-      items+'</div>';
-  }).join('');
-  el.innerHTML='<div style="padding:0 2px">'+html+'</div>';
+  if (user.mustChange) {
+    _authUser = user;
+    var h = document.getElementById('auth-reset-hint');
+    if(h) h.textContent = 'Set a new password for ' + user.name.split(' ')[0] + '.';
+    authSwitchPanel('reset');
+    return;
+  }
+  authComplete(user);
 }
-function renderAudit(){renderAuditFull();}
-function renderAuditEnhanced(){renderAuditFull();}
+
+function authSignUp() {
+  var name  = ((document.getElementById('auth-signup-name') ||{}).value||'').trim();
+  var email = ((document.getElementById('auth-signup-email')||{}).value||'').trim().toLowerCase();
+  var pw    = ((document.getElementById('auth-signup-pw')   ||{}).value||'');
+  var conf  = ((document.getElementById('auth-signup-conf') ||{}).value||'');
+  if (!name)                   { showAuthErr('signup','Enter your full name.'); return; }
+  if (email.indexOf('@')<1)    { showAuthErr('signup','Enter a valid email.'); return; }
+  if (pw.length < 8)           { showAuthErr('signup','Password must be 8+ characters.'); return; }
+  if (pw !== conf)             { showAuthErr('signup','Passwords do not match.'); return; }
+  if (!users.length) initUsers();
+  var existing = users.find(function(u){ return u.email.toLowerCase()===email; });
+  if (existing && existing.active) { showAuthErr('signup','Account exists. Please sign in.'); return; }
+  if (existing && !existing.active){ showAuthErr('signup','Account deactivated. Contact your admin.'); return; }
+  var isFirst = !users.some(function(u){ return u.active; });
+  var newUser = {
+    id: 'u' + Date.now(),
+    name: name, email: email,
+    role: 'user',
+    pwHash: hashPW(pw),
+    mustChange: false, active: true,
+    createdAt: Date.now(), createdBy: 'self'
+  };
+  users.push(newUser);
+  try { localStorage.setItem('ct4_users', JSON.stringify(users)); } catch(e) {}
+  authComplete(newUser);
+}
+
+function authForgot() {
+  var email = ((document.getElementById('auth-fp-email')||{}).value||'').trim().toLowerCase();
+  if (!email) { showAuthErr('forgot','Enter your registered email.'); return; }
+  if (!users.length) initUsers();
+  var user = users.find(function(u){ return u.email.toLowerCase()===email && u.active; });
+  if (!user) { showAuthErr('forgot','No account found for this email.'); return; }
+  // Generate OTP
+  var code = Math.floor(100000 + Math.random()*900000).toString();
+  user.resetCode = code; user.resetExpiry = Date.now() + 15*60*1000; user.mustChange = true;
+  _authUser = user;
+  try { localStorage.setItem('ct4_users', JSON.stringify(users)); } catch(e) {}
+  // Try EmailJS
+  var sent = false;
+  var ejsCfg = (function(){try{var v=localStorage.getItem('ct4_ejs');return v?JSON.parse(v):{};}catch(e){return{};}})();
+  if (ejsCfg.publicKey && ejsCfg.serviceId && ejsCfg.templateId && window.emailjs) {
+    try {
+      emailjs.send(ejsCfg.serviceId, ejsCfg.templateId, {
+        to_email:email, to_name:user.name, reset_code:code, expiry_mins:'15',
+        subject:'Password Reset — Your Practice'
+      });
+      sent = true;
+    } catch(e){}
+  }
+  var info = document.getElementById('auth-fp-info');
+  if (info) {
+    info.style.display = 'block';
+    info.innerHTML = sent
+      ? '📧 Reset code sent to <strong>' + email + '</strong>. Check your inbox.'
+      : '🔑 Your reset code: <span style="font-size:1.4rem;font-weight:900;letter-spacing:.2em;color:#7c3aed">' + code + '</span><br><span style="font-size:.7rem;color:#6b6560">Valid for 15 minutes. Enter below.</span>';
+  }
+  var otp = document.getElementById('auth-otp-wrap');
+  if (otp) { otp.style.display = 'block'; document.getElementById('auth-fp-otp').value=''; }
+}
+
+function authVerifyOTP() {
+  var entered = ((document.getElementById('auth-fp-otp')||{}).value||'').trim();
+  if (!entered) { showAuthErr('forgot','Enter the 6-digit code.'); return; }
+  if (!_authUser) { authSwitchPanel('forgot'); return; }
+  if (_authUser.resetCode !== entered) { showAuthErr('forgot','Incorrect code.'); return; }
+  if (Date.now() > (_authUser.resetExpiry||0)) { showAuthErr('forgot','Code expired. Request a new one.'); _authUser=null; return; }
+  var h = document.getElementById('auth-reset-hint');
+  if(h) h.textContent = 'New password for ' + (_authUser.email||'') + '.';
+  authSwitchPanel('reset');
+}
+
+function authResetPw() {
+  var pw   = ((document.getElementById('auth-reset-pw')  ||{}).value||'');
+  var conf = ((document.getElementById('auth-reset-conf')||{}).value||'');
+  if (pw.length<8) { showAuthErr('reset','Min 8 characters.'); return; }
+  if (pw!==conf)   { showAuthErr('reset','Passwords do not match.'); return; }
+  if (!_authUser)  { authSwitchPanel('signin'); return; }
+  _authUser.pwHash = hashPW(pw); _authUser.mustChange = false;
+  delete _authUser.resetCode; delete _authUser.resetExpiry;
+  try { localStorage.setItem('ct4_users', JSON.stringify(users)); } catch(e) {}
+  authComplete(_authUser);
+}
+
+function authComplete(user) {
+  currentUser = { id:user.id, name:user.name, email:user.email, role:user.role };
+  _authUser = null;
+  var ls = document.getElementById('login-screen');
+  var app = document.getElementById('app');
+  if (ls)  ls.style.display = 'none';
+  if (app) app.style.display = 'flex';
+  LS.load();
+  syncFYUI();
+  updateUserUI();
+  applyRoleRestrictions();
+
+  // Flat team — no banners needed
+  var existBanner = document.getElementById('readonly-banner');
+  if (existBanner) existBanner.remove();
+  if (app) app.style.marginTop = '';
+
+  renderAll();
+  populateAuditFilters();
+  setTimeout(initDueDatePopup, 1500);
+
+  // ── Log the login event ──────────────────────────────────
+  var _now = new Date();
+  auditLog.push({
+    ts:        _now.getTime(),
+    date:      _now.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}),
+    time:      _now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),
+    fy:        currentFY,
+    ret:       'system', ci:-1, period:'', field:'login', sub:'login',
+    fromVal:   '', toVal:'Signed in',
+    userId:    user.id,   userName:  user.name,
+    userEmail: user.email, userRole:  'user',
+    clientName:'—', clientId:'', type:'system', isLogin:true,
+  });
+  LS.save();
+  populateAuditFilters();
+
+  toast('Welcome, ' + user.name.split(' ')[0] + '! 👋', 'success');
+}
+
+function doLogout() {
+  // Log logout
+  var _now2 = new Date();
+  if (currentUser && currentUser.id) {
+    auditLog.push({
+      ts:_now2.getTime(),
+      date:_now2.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}),
+      time:_now2.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),
+      fy:currentFY, ret:'system', ci:-1, period:'', field:'logout', sub:'logout',
+      fromVal:'', toVal:'Signed out',
+      userId:currentUser.id, userName:currentUser.name,
+      userEmail:currentUser.email, userRole:'user',
+      clientName:'—', clientId:'', type:'system', isLogin:false,
+    });
+    LS.save();
+  }
+  currentUser = {id:'',name:'',email:'',role:''};
+  window._readOnlyMode = false;
+  var app = document.getElementById('app');
+  var ls  = document.getElementById('login-screen');
+  if (app) { app.style.display = 'none'; app.style.marginTop = ''; }
+  if (ls)  { ls.style.display = 'flex'; authSwitchPanel('signin'); }
+  var e = document.getElementById('auth-email'), p = document.getElementById('auth-pw');
+  if(e) e.value=''; if(p) p.value='';
+  clearAuthErrors();
+  var m = document.getElementById('user-menu'); if(m) m.classList.remove('open');
+}
+
+function applyRoleRestrictions() {
+  // Flat team — everyone has equal access
+  var ctrlBtn = document.getElementById('sb-controls');
+  if (ctrlBtn) ctrlBtn.style.display = 'none'; // Controls section removed
+  window._readOnlyMode = false;
+}
+
+function canEdit() { return true; }
+
+// ── User display ─────────────────────────────────────────
+function updateUserUI() {
+  var u = currentUser; if (!u||!u.name) return;
+  var col = '#6c47ff'; // single brand colour for everyone
+  var init = u.name.split(' ').map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase();
+  var el;
+  el=document.getElementById('top-av');       if(el){el.textContent=init;el.style.background=col;}
+  el=document.getElementById('top-who');      if(el) el.textContent=u.name.split(' ')[0];
+  el=document.getElementById('top-role');     if(el) el.textContent=u.email.split('@')[0];
+  el=document.getElementById('tum-name');     if(el) el.textContent=u.name;
+  el=document.getElementById('tum-email');    if(el) el.textContent=u.email;
+  el=document.getElementById('tum-badge');    if(el){el.textContent='Team Member';el.style.cssText='background:#ede9fe;color:#6c47ff;border:1px solid #c4b5fd;padding:3px 9px;border-radius:20px;font-size:.57rem;font-weight:800;display:inline-block;margin-top:6px';}
+  el=document.getElementById('sb-user-name'); if(el) el.textContent=u.name;
+  el=document.getElementById('sb-user-email');if(el) el.textContent=u.email;
+  el=document.getElementById('sb-user-av');   if(el){el.textContent=init;el.style.background=col;}
+  var fyLbl=document.getElementById('tn-fy-lbl'); if(fyLbl) fyLbl.textContent='FY '+currentFY;
+}
+
+
+// ╔══════════════════════════════════════════════════════════╗
+//   CALENDAR — MONDAY.COM STYLE
+//   - Full grid, click any day to view/edit
+//   - Custom notes per day
+//   - Due date floating popup bottom-right
+//   - Prep day (T-2) / verify day (T+1) strips
+// ╚══════════════════════════════════════════════════════════╝
+
+var calendarNotes = (function() {
+  try { var v=localStorage.getItem('ct4_cal_notes'); return v?JSON.parse(v):{}; } catch(e){return{};}
+})();
+function saveCalendarNotes() {
+  try { localStorage.setItem('ct4_cal_notes', JSON.stringify(calendarNotes)); } catch(e){}
+}
+
+var _calActiveFilters = { tds:true,gst:true,esi:true,invoice:true,data:true,qret:true,adv:true,annual:true };
+var _calDayModalDate  = null;
+var _calDayEditor     = null;
+
+// ── Filter colours ────────────────────────────────────────
+var CAL_FILTER_CFG = [
+  { key:'tds',     label:'TDS',         color:'#d97706' },
+  { key:'gst',     label:'GST',         color:'#0096c7' },
+  { key:'esi',     label:'ESI/PF/PT',   color:'#7c3aed' },
+  { key:'invoice', label:'Billing',     color:'#0891b2' },
+  { key:'data',    label:'Data',        color:'#059669' },
+  { key:'qret',    label:'Quarterly',   color:'#f59e0b' },
+  { key:'adv',     label:'Advance Tax', color:'#e11d48' },
+  { key:'annual',  label:'Annual',      color:'#6366f1' },
+];
+var TYPE_COL = { tds:'#d97706',gst:'#0096c7',esi:'#7c3aed',invoice:'#0891b2',
+                 data:'#059669',qret:'#f59e0b',adv:'#e11d48',annual:'#6366f1' };
+var TYPE_LBL = { tds:'TDS',gst:'GST',esi:'ESI/PF',invoice:'Billing',
+                 data:'Data',qret:'Quarterly',adv:'Advance Tax',annual:'Annual' };
+
+// ── Main render ───────────────────────────────────────────
+function renderCalendar() {
+  var el = document.getElementById('calendar-inner');
+  if (!el) return;
+  var allEvs = buildCalEvents();
+  var MN = ['January','February','March','April','May','June',
+            'July','August','September','October','November','December'];
+
+  var filterPills = CAL_FILTER_CFG.map(function(f) {
+    var on = _calActiveFilters[f.key] !== false;
+    return '<div class="cal-fpill' + (on?'':' off') + '" data-key="' + f.key + '"' +
+      ' style="border-color:' + f.color + ';color:' + f.color + ';background:' + f.color + (on?'12':'06') + '"' +
+      ' onclick="calToggleFilter(\'' + f.key + '\',this)">' +
+      '<span style="width:6px;height:6px;border-radius:50%;background:' + f.color + ';flex-shrink:0;display:inline-block"></span>' +
+      f.label + '</div>';
+  }).join('');
+
+  el.innerHTML =
+    '<div class="cal-full-layout">' +
+      '<div class="cal-main-area">' +
+        // Toolbar
+        '<div class="cal-monday-toolbar">' +
+          '<div class="cal-monday-nav">' +
+            '<button class="cal-mnav-btn" onclick="calPrev()">&#8249;</button>' +
+            '<button class="cal-mnav-btn" onclick="calNext()">&#8250;</button>' +
+          '</div>' +
+          '<div class="cal-month-title" id="cal-month-display">' + MN[calMonth] + ' ' + calYear + '</div>' +
+          '<button class="cal-today-pill" onclick="calToday()">Today</button>' +
+          '<div class="cal-filter-row">' + filterPills + '</div>' +
+        '</div>' +
+        // Grid
+        '<div class="cal-grid-container">' +
+          '<div class="cal-grid-header">' +
+            ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(function(d,i) {
+              return '<div class="cal-grid-dow' + (i===0||i===6?' wknd':'') + '">' + d + '</div>';
+            }).join('') +
+          '</div>' +
+          '<div class="cal-grid-body" id="cal-days-grid"></div>' +
+        '</div>' +
+      '</div>' +
+      // Right panel
+      '<div class="cal-right-panel">' +
+        '<div class="cal-panel-card" id="cal-stats-card"></div>' +
+        '<div class="cal-panel-card">' +
+          '<div class="cal-panel-hd">📌 Upcoming — Next 45 Days</div>' +
+          '<div id="cal-upcoming-list" style="max-height:320px;overflow-y:auto"></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    // Day detail modal
+    '<div class="cal-day-modal" id="cal-day-modal" onclick="if(event.target===this)calCloseDayModal()">' +
+      '<div class="cal-day-modal-box">' +
+        '<div class="cal-day-modal-hd">' +
+          '<div class="cal-day-modal-title" id="cal-modal-title">Day</div>' +
+          '<button class="modal-close" onclick="calCloseDayModal()">✕</button>' +
+        '</div>' +
+        '<div class="cal-day-modal-body" id="cal-modal-body"></div>' +
+      '</div>' +
+    '</div>';
+
+  calRenderGrid(allEvs);
+  calRenderStats(allEvs);
+  calRenderUpcoming(allEvs);
+}
+
+// ── Grid render ───────────────────────────────────────────
+function calRenderGrid(allEvs, _unused) {
+  var grid = document.getElementById('cal-days-grid');
+  var lbl  = document.getElementById('cal-month-display');
+  if (!grid) return;
+  var MN = ['January','February','March','April','May','June',
+            'July','August','September','October','November','December'];
+  if (lbl) lbl.textContent = MN[calMonth] + ' ' + calYear;
+
+  var CHIP = { tds:'ev-tds',gst:'ev-gst',esi:'ev-esi',invoice:'ev-invoice',
+               data:'ev-data',qret:'ev-qret',adv:'ev-adv',annual:'ev-annual' };
+
+  // Build date grid including prev/next month days
+  var firstDow = new Date(calYear, calMonth, 1).getDay();
+  var daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  var prevMonthDays = new Date(calYear, calMonth, 0).getDate();
+  var today = new Date(); today.setHours(0,0,0,0);
+
+  var cells = [];
+  // Leading days from prev month
+  for (var i = firstDow-1; i >= 0; i--) {
+    var d = prevMonthDays - i;
+    var m = calMonth-1, y = calYear;
+    if (m < 0) { m = 11; y--; }
+    cells.push({ d:d, m:m, y:y, other:true });
+  }
+  // Current month
+  for (var d = 1; d <= daysInMonth; d++) {
+    cells.push({ d:d, m:calMonth, y:calYear, other:false });
+  }
+  // Trailing days
+  var remaining = 42 - cells.length;
+  for (var d = 1; d <= remaining; d++) {
+    var m = calMonth+1, y = calYear;
+    if (m > 11) { m = 0; y++; }
+    cells.push({ d:d, m:m, y:y, other:true });
+  }
+
+  var html = cells.map(function(cell) {
+    var date = new Date(cell.y, cell.m, cell.d);
+    var isToday = !cell.other && date.getTime() === today.getTime();
+    var isWknd  = date.getDay() === 0 || date.getDay() === 6;
+    var noteKey = cell.y + '-' + (cell.m+1) + '-' + cell.d;
+    var notes   = calendarNotes[noteKey] || [];
+
+    // Get events
+    var dayEvs = allEvs.filter(function(e) {
+      return e.day===cell.d && e.month===cell.m && e.year===cell.y;
+    });
+    var deadlines = dayEvs.filter(function(e) { return e.isDeadline; });
+    var isPrepDay = dayEvs.some(function(e) { return e.isPrepDay; });
+    var isPostDay = dayEvs.some(function(e) { return e.isPostDay; });
+
+    // Apply filters
+    var visDeadlines = deadlines.filter(function(e) {
+      return _calActiveFilters[e.type] !== false;
+    });
+
+    var cls = 'cal-day-cell' +
+      (cell.other ? ' other-month' : '') +
+      (isToday    ? ' is-today'    : '') +
+      (isWknd     ? ' is-weekend'  : '') +
+      (notes.length ? ' has-notes' : '');
+
+    var numHtml = '<div class="cal-dn">' + cell.d + '</div>';
+    var strips = (isPrepDay && !cell.other ? '<div class="cal-prep-strip"></div>' : '') +
+                 (isPostDay && !cell.other ? '<div class="cal-lock-strip"></div>' : '');
+
+    var MAX = 3;
+    var shown = visDeadlines.slice(0, MAX);
+    var more  = visDeadlines.length - shown.length;
+
+    var evHtml = shown.map(function(ev) {
+      var chipCls = CHIP[ev.type] || 'ev-data';
+      var col = TYPE_COL[ev.type] || '#64748b';
+      var label = ev.title.replace(/^[^\w\s₹]+\s*/u,'').replace(/\s*—.*$/,'').trim();
+      if (label.length > 18) label = label.slice(0,16) + '…';
+      return '<div class="cal-ev-chip ' + chipCls + '" title="' + (ev.note||ev.title).replace(/"/g,"'") + '">' +
+        '<span class="ev-dot" style="background:' + col + '"></span>' +
+        label + '</div>';
+    }).join('');
+
+    var noteHtml = notes.slice(0,1).map(function(n) {
+      return '<div class="cal-note-chip" title="' + n.replace(/"/g,"'") + '">' +
+        '✏ ' + (n.length>16?n.slice(0,14)+'…':n) + '</div>';
+    }).join('');
+    if (notes.length > 1) noteHtml += '<div class="cal-more">+' + (notes.length-1) + ' notes</div>';
+
+    var moreHtml = more > 0 ? '<div class="cal-more">+' + more + ' more</div>' : '';
+    var addNoteHtml = !cell.other ? '<div class="cal-add-note">✎ note</div>' : '';
+
+    return '<div class="' + cls + '"' +
+      (cell.other ? '' : ' onclick="calOpenDay(' + cell.y + ',' + cell.m + ',' + cell.d + ')"') +
+      '>' +
+      strips + numHtml + evHtml + noteHtml + moreHtml + addNoteHtml +
+      '</div>';
+  }).join('');
+
+  grid.innerHTML = html;
+}
+
+// ── Stats card ────────────────────────────────────────────
+function calRenderStats(allEvs) {
+  var el = document.getElementById('cal-stats-card');
+  if (!el) return;
+  var MN = ['January','February','March','April','May','June',
+            'July','August','September','October','November','December'];
+  var dead = allEvs.filter(function(e){return e.month===calMonth&&e.year===calYear&&e.isDeadline;});
+  var byType = {};
+  dead.forEach(function(e){byType[e.type]=(byType[e.type]||0)+1;});
+  var rows = Object.entries(byType).map(function(kv) {
+    var col = TYPE_COL[kv[0]]||'#64748b', lbl = TYPE_LBL[kv[0]]||kv[0];
+    return '<div class="cal-stats-row">' +
+      '<span class="cal-stats-dot" style="background:' + col + '"></span>' +
+      '<span class="cal-stats-lbl">' + lbl + '</span>' +
+      '<span class="cal-stats-val" style="color:' + col + '">' + kv[1] + '</span>' +
+    '</div>';
+  }).join('');
+  el.innerHTML = '<div class="cal-panel-hd">' + MN[calMonth] + ' ' + calYear +
+    ' <span style="float:right;color:#7c3aed;font-size:.75rem">' + dead.length + ' deadlines</span></div>' +
+    (rows||'<div style="padding:12px 14px;font-size:.72rem;color:#a09a94">No deadlines this month</div>') +
+    '<div style="padding:9px 14px;background:#fffbeb;border-top:1px solid #fde68a;font-size:.62rem;color:#92400e;line-height:1.6">' +
+    '<span style="font-weight:800">⟵</span> Amber strip = prep day (T−2)<br>' +
+    '<span style="font-weight:800">⟶</span> Red strip = verify day (T+1)</div>';
+}
+
+// ── Upcoming list ─────────────────────────────────────────
+function calRenderUpcoming(allEvs) {
+  var el = document.getElementById('cal-upcoming-list');
+  if (!el) return;
+  var today = new Date(); today.setHours(0,0,0,0);
+  var cutoff = new Date(today.getTime() + 45*86400000);
+  var MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var items = allEvs
+    .filter(function(e){return e.isDeadline||e.isQuarterly||e.isAnnual;})
+    .map(function(e){ var d=new Date(e.year,e.month,e.day); return Object.assign({},e,{date:d,diff:Math.round((d-today)/86400000)}); })
+    .filter(function(e){ return e.date>=new Date(today.getTime()-2*86400000) && e.date<=cutoff; })
+    .sort(function(a,b){return a.date-b.date;})
+    .slice(0,20);
+
+  if (!items.length) {
+    el.innerHTML='<div class="cal-empty">No deadlines in 45 days</div>';
+    return;
+  }
+  var TCOL = TYPE_COL;
+  el.innerHTML = items.map(function(e) {
+    var col=TCOL[e.type]||'#64748b', lbl=TYPE_LBL[e.type]||e.type;
+    var diff=e.diff;
+    var daysHtml = diff===0 ? '<span class="due-today">Today</span>' :
+      diff<0 ? '<span class="due-past">' + (-diff) + 'd ago</span>' :
+      diff<=3 ? '<span class="due-urgent">' + diff + 'd</span>' :
+      diff<=7 ? '<span class="due-warn">' + diff + 'd</span>' :
+      '<span class="due-ok">' + diff + 'd</span>';
+    var title = e.title.replace(/^[^\w\s₹]+\s*/u,'').replace(/\s*—.*$/,'').trim();
+    return '<div class="cal-dl-item-sm" onclick="calOpenDay(' + e.year + ',' + e.month + ',' + e.day + ')">' +
+      '<div class="cal-dl-date-sm"><div class="cal-dl-d-sm">' + e.day + '</div><div class="cal-dl-m-sm">' + MO[e.month] + '</div></div>' +
+      '<div class="cal-dl-info-sm">' +
+        '<div class="cal-dl-title-sm">' + title + '</div>' +
+        '<span class="cal-dl-tag-sm" style="background:' + col + '15;color:' + col + ';border:1px solid ' + col + '25">' + lbl + '</span>' +
+      '</div>' +
+      '<div class="cal-dl-days">' + daysHtml + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// ── Day detail modal ──────────────────────────────────────
+function calOpenDay(year, month, day) {
+  _calDayModalDate = { year:year, month:month, day:day };
+  var MN = ['January','February','March','April','May','June',
+            'July','August','September','October','November','December'];
+  var DN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var date = new Date(year, month, day);
+  var key  = year + '-' + (month+1) + '-' + day;
+  var notes = calendarNotes[key] || [];
+  var allEvs = buildCalEvents();
+  var dayEvs = allEvs.filter(function(e){return e.day===day&&e.month===month&&e.year===year&&e.isDeadline;});
+
+  var modal = document.getElementById('cal-day-modal');
+  var title = document.getElementById('cal-modal-title');
+  var body  = document.getElementById('cal-modal-body');
+  if (!modal) return;
+
+  if (title) title.textContent = DN[date.getDay()] + ', ' + day + ' ' + MN[month] + ' ' + year;
+
+  var evSection = '';
+  if (dayEvs.length) {
+    evSection = '<div style="margin-bottom:16px">' +
+      '<div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#a09a94;margin-bottom:8px">Deadlines</div>' +
+      dayEvs.map(function(ev) {
+        var col = TYPE_COL[ev.type]||'#64748b', lbl = TYPE_LBL[ev.type]||ev.type;
+        return '<div style="display:flex;align-items:flex-start;gap:9px;padding:8px 10px;border-radius:9px;background:' + col + '08;border:1px solid ' + col + '20;margin-bottom:6px">' +
+          '<span style="width:10px;height:10px;border-radius:3px;background:' + col + ';flex-shrink:0;margin-top:3px"></span>' +
+          '<div><div style="font-size:.76rem;font-weight:700;color:#1a1612">' + ev.title.replace(/^[^\w\s₹]+\s*/u,'') + '</div>' +
+          (ev.note?'<div style="font-size:.66rem;color:#6b6560;margin-top:2px">' + ev.note + '</div>':'') +
+          '</div></div>';
+      }).join('') +
+    '</div>';
+  }
+
+  var noteSection = '<div>' +
+    '<div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#a09a94;margin-bottom:8px">Notes</div>' +
+    '<div id="cal-note-list" style="margin-bottom:10px">' +
+      (notes.length ? notes.map(function(n,i) {
+        return '<div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;margin-bottom:6px">' +
+          '<span style="font-size:.85rem;flex-shrink:0">✏️</span>' +
+          '<div style="flex:1;font-size:.74rem;color:#1a1612;line-height:1.5">' + n + '</div>' +
+          '<button onclick="calDeleteNote(' + i + ')" style="border:none;background:none;color:#c0b9b2;cursor:pointer;font-size:.75rem;flex-shrink:0">✕</button>' +
+        '</div>';
+      }).join('') : '<div style="font-size:.73rem;color:#a09a94;padding:8px 0">No notes for this day yet.</div>') +
+    '</div>' +
+    '<textarea id="cal-new-note-inp" placeholder="Add a note for this day — visible to all team members…" ' +
+      'style="width:100%;min-height:72px;border:1.5px solid #e8e3dd;border-radius:9px;padding:9px 11px;font-size:.75rem;font-family:inherit;outline:none;resize:vertical;line-height:1.5;color:#1a1612" ' +
+      'onfocus="this.style.borderColor=\'#7c3aed\'" onblur="this.style.borderColor=\'#e8e3dd\'"></textarea>' +
+    '<div style="display:flex;gap:8px;margin-top:8px;justify-content:flex-end">' +
+      '<button onclick="calAddNote()" style="padding:7px 16px;border:none;border-radius:8px;background:#7c3aed;color:#fff;font-size:.73rem;font-weight:700;cursor:pointer">Save Note</button>' +
+    '</div>' +
+  '</div>';
+
+  if (body) body.innerHTML = evSection + noteSection;
+  modal.classList.add('open');
+}
+
+function calCloseDayModal() {
+  var modal = document.getElementById('cal-day-modal');
+  if (modal) modal.classList.remove('open');
+  _calDayModalDate = null;
+}
+
+function calAddNote() {
+  if (!_calDayModalDate) return;
+  var inp = document.getElementById('cal-new-note-inp');
+  if (!inp || !inp.value.trim()) return;
+  var d = _calDayModalDate;
+  var key = d.year + '-' + (d.month+1) + '-' + d.day;
+  if (!calendarNotes[key]) calendarNotes[key] = [];
+  calendarNotes[key].push(inp.value.trim());
+  saveCalendarNotes();
+  logChange('calendar', 0, key, 'note', '', 'Added: ' + inp.value.trim().slice(0,30));
+  inp.value = '';
+  // Re-open to refresh
+  calOpenDay(d.year, d.month, d.day);
+  // Re-render grid to show note indicator
+  calRenderGrid(buildCalEvents());
+  toast('Note saved ✓', 'success');
+}
+
+function calDeleteNote(idx) {
+  if (!_calDayModalDate) return;
+  var d = _calDayModalDate;
+  var key = d.year + '-' + (d.month+1) + '-' + d.day;
+  if (calendarNotes[key]) {
+    calendarNotes[key].splice(idx, 1);
+    if (!calendarNotes[key].length) delete calendarNotes[key];
+    saveCalendarNotes();
+    logChange('calendar', 0, key, 'note', '', 'Deleted note');
+  }
+  calOpenDay(d.year, d.month, d.day);
+  calRenderGrid(buildCalEvents());
+}
+
+// ── Toggle filter ─────────────────────────────────────────
+function calToggleFilter(key, el) {
+  _calActiveFilters[key] = !_calActiveFilters[key];
+  el.classList.toggle('off', !_calActiveFilters[key]);
+  el.style.background = TYPE_COL[key] + (_calActiveFilters[key]?'12':'06');
+  calRenderGrid(buildCalEvents());
+}
+function getActiveFilters() { return _calActiveFilters; }
+
+// ── Nav ───────────────────────────────────────────────────
+function calPrev() {
+  calMonth--; if(calMonth<0){calMonth=11;calYear--;}
+  var ev=buildCalEvents(); calRenderGrid(ev); calRenderStats(ev); calRenderUpcoming(ev);
+}
+function calNext() {
+  calMonth++; if(calMonth>11){calMonth=0;calYear++;}
+  var ev=buildCalEvents(); calRenderGrid(ev); calRenderStats(ev); calRenderUpcoming(ev);
+}
+function calToday() {
+  var n=new Date(); calMonth=n.getMonth(); calYear=n.getFullYear();
+  var ev=buildCalEvents(); calRenderGrid(ev); calRenderStats(ev); calRenderUpcoming(ev);
+}
+function renderCalGrid(allEvents){ calRenderGrid(allEvents,null); }
+function renderUpcoming(allEvents){ calRenderUpcoming(allEvents); }
+function renderMonthStats(allEvents){ calRenderStats(allEvents); }
+
+// ╔══════════════════════════════════════════════════════════╗
+//   DUE DATE FLOATING POPUP — bottom-right, daily
+// ╚══════════════════════════════════════════════════════════╝
+function initDueDatePopup() {
+  var today = new Date().toDateString();
+  // Show every time the app loads (not just once per day)
+  var allEvs = buildCalEvents ? buildCalEvents() : [];
+  var now = new Date(); now.setHours(0,0,0,0);
+  var cut = new Date(now.getTime() + 7*86400000);
+  var MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  var items = allEvs.filter(function(e) {
+    if (!e.isDeadline && !e.isQuarterly && !e.isAnnual) return false;
+    var d = new Date(e.year, e.month, e.day);
+    return d >= now && d <= cut;
+  }).sort(function(a,b){
+    return new Date(a.year,a.month,a.day) - new Date(b.year,b.month,b.day);
+  }).slice(0, 8);
+
+  var wrap = document.getElementById('due-popup');
+  if (!wrap) return;
+
+  if (!items.length) {
+    // Check next 30 days
+    var cut30 = new Date(now.getTime() + 30*86400000);
+    items = allEvs.filter(function(e){
+      var d=new Date(e.year,e.month,e.day);
+      return (e.isDeadline||e.isQuarterly||e.isAnnual) && d>cut && d<=cut30;
+    }).sort(function(a,b){return new Date(a.year,a.month,a.day)-new Date(b.year,b.month,b.day);}).slice(0,5);
+    if (!items.length) return;
+  }
+
+  var itemsHtml = items.map(function(e) {
+    var d    = new Date(e.year, e.month, e.day);
+    var diff = Math.round((d-now)/86400000);
+    var col  = TYPE_COL[e.type]||'#64748b';
+    var lbl  = TYPE_LBL[e.type]||e.type;
+    var daysHtml = diff===0 ? '<span class="due-today">Today</span>' :
+      diff<0 ? '<span class="due-past">'+(-diff)+'d ago</span>' :
+      diff<=3 ? '<span class="due-urgent">'+diff+'d</span>' :
+      diff<=7 ? '<span class="due-warn">'+diff+'d</span>' :
+      '<span class="due-ok">'+diff+'d</span>';
+    var title = e.title.replace(/^[^\w\s₹]+\s*/u,'').replace(/\s*—.*$/,'').trim();
+    if (title.length > 28) title = title.slice(0,26)+'…';
+    return '<div class="due-item">' +
+      '<div class="due-badge"><div class="due-badge-d">' + e.day + '</div><div class="due-badge-m">' + MO[e.month] + '</div></div>' +
+      '<div class="due-info">' +
+        '<div class="due-info-title">' + title + '</div>' +
+        '<span class="due-info-type" style="background:' + col + '15;color:' + col + '">' + lbl + '</span>' +
+      '</div>' +
+      '<div class="due-days">' + daysHtml + '</div>' +
+    '</div>';
+  }).join('');
+
+  wrap.innerHTML =
+    '<div class="due-popup-hd">' +
+      '<div>' +
+        '<div class="due-popup-title">📌 Upcoming Deadlines</div>' +
+        '<div style="font-size:.6rem;opacity:.7;margin-top:1px">Next 7 days</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:5px;align-items:center">' +
+        '<button onclick="showUtilView(\'calendar\')" style="font-size:.62rem;color:rgba(255,255,255,.8);background:rgba(255,255,255,.15);border:none;padding:4px 9px;border-radius:6px;cursor:pointer;font-weight:700">View Calendar</button>' +
+        '<button class="due-popup-close" onclick="document.getElementById(\'due-popup\').classList.remove(\'show\')">✕</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="due-popup-list">' + itemsHtml + '</div>';
+
+  wrap.classList.add('show');
+}
+
+// openCalNoteModal — legacy compat wrapper
+function openCalNoteModal(year, month, day) {
+  calOpenDay(year, month, day);
+}
+function saveCalNote() {} // handled inline in modal
 
 </script>
 
@@ -5598,6 +5928,274 @@ function renderAuditEnhanced(){renderAuditFull();}
     </div>
   </div>
 </div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CLIENT SERVICE DASHBOARD — Full slide-in panel
+════════════════════════════════════════════════════════════ -->
+<div id="cl-dash-overlay" style="display:none;position:fixed;inset:0;background:rgba(27,31,59,.55);backdrop-filter:blur(4px);z-index:700;animation:fadeIn .18s ease" onclick="if(event.target===this)closeClDash()"></div>
+<div id="cl-dash-panel" style="display:none;position:fixed;top:0;right:0;bottom:0;width:780px;max-width:98vw;background:#f5f6fa;z-index:701;overflow-y:auto;box-shadow:-8px 0 40px rgba(27,31,59,.18);animation:slideInRight .22s cubic-bezier(.2,0,.2,1)">
+  <div id="cl-dash-inner" style="padding:0"></div>
+</div>
+
+<style>
+@keyframes slideInRight{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}
+
+/* ── Client Dash Panel ──────────────────────────────────── */
+.cld-header{padding:20px 24px 16px;background:linear-gradient(135deg,#2b1055,#4a1d96);border-bottom:1px solid rgba(255,255,255,.08)}
+.cld-title{font-size:1.1rem;font-weight:900;color:#fff;letter-spacing:-.3px;margin-bottom:3px}
+.cld-sub{font-size:.72rem;color:rgba(255,255,255,.55);font-weight:500}
+.cld-close{position:absolute;top:18px;right:20px;width:32px;height:32px;border-radius:9px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:all .14s}
+.cld-close:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}
+.cld-body{padding:18px 20px}
+.cld-svc-block{background:#fff;border-radius:12px;border:1px solid var(--border);margin-bottom:14px;overflow:hidden;box-shadow:var(--s1)}
+.cld-svc-hd{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
+.cld-svc-hd:hover{background:var(--surf2)}
+.cld-svc-hd-left{display:flex;align-items:center;gap:11px}
+.cld-svc-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.cld-svc-name{font-size:.82rem;font-weight:800;color:var(--ink)}
+.cld-svc-desc{font-size:.62rem;color:var(--sub);margin-top:1px}
+.cld-pct-pill{padding:3px 10px;border-radius:20px;font-size:.65rem;font-weight:800}
+.cld-month-grid{padding:14px 16px;overflow-x:auto}
+.cld-month-table{width:100%;border-collapse:collapse;font-size:.69rem}
+.cld-month-table th{padding:6px 5px;font-size:.57rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--sub);background:var(--surf2);text-align:center;border:1px solid var(--border);white-space:nowrap}
+.cld-month-table th:first-child{text-align:left;padding-left:10px;min-width:90px}
+.cld-month-table td{padding:5px 4px;border:1px solid var(--border);text-align:center;vertical-align:middle;font-size:.62rem}
+.cld-month-table td:first-child{text-align:left;padding-left:10px;font-weight:700;color:var(--ink);font-size:.68rem;white-space:nowrap}
+.cld-status-chip{display:inline-block;padding:2px 7px;border-radius:5px;font-size:.58rem;font-weight:700;white-space:nowrap}
+.cld-done{background:#e6faf0;color:#047857}
+.cld-wip{background:#fef9ec;color:#92400e}
+.cld-na{background:#f3f4f6;color:#9ca3af}
+.cld-pend{background:#fff;color:#d1d5db;border:1px solid #e5e7eb}
+.cld-info-row{display:flex;gap:14px;padding:12px 16px;background:var(--surf2);border-top:1px solid var(--border);flex-wrap:wrap}
+.cld-info-chip{display:flex;align-items:center;gap:5px;font-size:.67rem;color:var(--sub)}
+.cld-info-chip strong{color:var(--ink)}
+.cld-toggle-arrow{transition:transform .2s;font-size:.75rem;color:var(--sub)}
+.cld-section-collapsed .cld-month-grid,.cld-section-collapsed .cld-info-row{display:none}
+.cld-section-collapsed .cld-toggle-arrow{transform:rotate(-90deg)}
+
+/* Role badge in audit */
+.audit-role-pill{display:inline-block;padding:1px 6px;border-radius:10px;font-size:.55rem;font-weight:800;text-transform:uppercase;vertical-align:middle;margin-left:4px}
+.arp-admin{background:var(--brand-l);color:var(--brand);border:1px solid rgba(108,71,255,.2)}
+.arp-member{background:var(--acc-comp-l);color:#047857;border:1px solid rgba(0,200,117,.2)}
+</style>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  CLIENT SERVICE DASHBOARD
+// ═══════════════════════════════════════════════════════════
+function openClientDash(clientName) {
+  var cl = buildClientMap().find(function(c){ return c.name === clientName; });
+  if (!cl) return;
+  var panel = document.getElementById('cl-dash-panel');
+  var overlay = document.getElementById('cl-dash-overlay');
+  var inner = document.getElementById('cl-dash-inner');
+  if (!panel) return;
+
+  var MONTHS_12  = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+  var MK         = MONTHS_12.map(function(_,i){ return 'M'+(i+1); });
+  var QUARTERS   = ['Q1','Q2','Q3','Q4'];
+  var AVC        = ['#6c47ff','#0891b2','#059669','#d97706','#e2445c','#8b5cf6'];
+  var initials   = cl.name.split(' ').map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase();
+  var avColor    = AVC[cl.name.charCodeAt(0) % AVC.length];
+
+  function statusChip(v) {
+    if (!v) return '<span class="cld-status-chip cld-pend">—</span>';
+    if (v === 'N/A') return '<span class="cld-status-chip cld-na">N/A</span>';
+    var done = v.includes('✓') || v.toLowerCase().includes('filed') || v.includes('Paid') || v.includes('Shared') || v.includes('Reviewed') || v.includes('Matched') || v.includes('Approved') || v.includes('Registered') || v.includes('Complete') || v.includes('Certificate');
+    var cls = done ? 'cld-done' : 'cld-wip';
+    // Shorten label
+    var short = v.replace(/^[^\w₹]+\s*/,'').replace(/\s*[✓✗⚠]\s*$/,'').trim();
+    if (short.length > 14) short = short.slice(0,13) + '…';
+    return '<span class="cld-status-chip '+cls+'" title="'+v+'">'+short+(v.includes('✓')?' ✓':'')+'</span>';
+  }
+
+  function calcPct(values) {
+    if (!values.length) return 0;
+    var done = values.filter(function(v){ return v && v.includes('✓') || (v||'').toLowerCase().includes('filed') || (v||'').includes('Paid') || (v||'').includes('Shared') || (v||'').includes('Reviewed'); });
+    return Math.round(done.length / values.length * 100);
+  }
+
+  function pctPill(pct) {
+    var col = pct >= 80 ? '#047857' : pct >= 50 ? '#92400e' : '#b91c1c';
+    var bg  = pct >= 80 ? '#e6faf0' : pct >= 50 ? '#fef9ec' : '#fde8ec';
+    return '<span class="cld-pct-pill" style="background:'+bg+';color:'+col+'">'+pct+'%</span>';
+  }
+
+  function svcBlock(svc, label, icon, color, bg, renderFn) {
+    var html = renderFn();
+    return '<div class="cld-svc-block"><div class="cld-svc-hd" onclick="cldToggleSection(this.parentElement)">' +
+      '<div class="cld-svc-hd-left">' +
+        '<div class="cld-svc-icon" style="background:'+bg+'">'+icon+'</div>' +
+        '<div><div class="cld-svc-name" style="color:'+color+'">'+label+'</div>' +
+        '<div class="cld-svc-desc">FY '+currentFY+'</div></div>' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:10px">' + html.pill +
+        '<button onclick="event.stopPropagation();dashGoToService(\''+svc+'\',\'\')" style="padding:4px 11px;border:1.5px solid '+color+'30;border-radius:7px;background:'+bg+';color:'+color+';font-size:.63rem;font-weight:800;cursor:pointer">Open →</button>' +
+        '<span class="cld-toggle-arrow">▼</span>' +
+      '</div>' +
+    '</div>' + html.body + '</div>';
+  }
+
+  function buildAccBlock() {
+    var arr = accClients; var clIdx = arr.findIndex(function(x){return x.name===cl.name;});
+    if (clIdx===-1) return {pill:'',body:''};
+    var vals = MK.map(function(p){ return gs('accounting',clIdx,p).status||''; });
+    var pct = calcPct(vals);
+    var rows = '<tr><td>Status</td>'+MK.map(function(p,i){ return '<td>'+statusChip(gs('accounting',clIdx,'M'+(i+1)).status||'')+'</td>'; }).join('')+'</tr>';
+    var rmk = gs('accounting',clIdx,'remarks').remarks || '';
+    return { pill: pctPill(pct),
+      body: '<div class="cld-month-grid"><table class="cld-month-table"><thead><tr><th>Return</th>'+MONTHS_12.map(function(m,i){return '<th>'+m+'<br><span style="font-size:.5rem;opacity:.6">\''+(i<9?'26':'27')+'</span></th>';}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>' +
+        (rmk?'<div class="cld-info-row"><div class="cld-info-chip">📝 <strong>Remarks:</strong> '+rmk+'</div></div>':'')
+    };
+  }
+
+  function buildGSTBlock() {
+    var arr = gstClients; var clIdx = arr.findIndex(function(x){return x.name===cl.name;});
+    if (clIdx===-1) return {pill:'',body:''};
+    var allVals = [];
+    var rets = [{r:'gstr1',l:'GSTR-1'},{r:'gstr2b',l:'GSTR-2B'},{r:'gstr3b',l:'GSTR-3B'}];
+    var rows = rets.map(function(rt){
+      var cells = MK.map(function(p,i){
+        var s=gs(rt.r,clIdx,'M'+(i+1)); var v=s.status||s.filStatus||'';
+        allVals.push(v);
+        return '<td>'+statusChip(v)+'</td>';
+      }).join('');
+      return '<tr><td>'+rt.l+'</td>'+cells+'</tr>';
+    }).join('');
+    return { pill: pctPill(calcPct(allVals)),
+      body: '<div class="cld-month-grid"><table class="cld-month-table"><thead><tr><th>Return</th>'+MONTHS_12.map(function(m,i){return '<th>'+m+'<br><span style="font-size:.5rem;opacity:.6">\''+(i<9?'26':'27')+'</span></th>';}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>'
+    };
+  }
+
+  function buildTDSBlock() {
+    var arr = tdsClients; var clIdx = arr.findIndex(function(x){return x.name===cl.name;});
+    if (clIdx===-1) return {pill:'',body:''};
+    var raw = arr[clIdx];
+    var allVals = [];
+    var rets = [{r:'24q',l:'24Q (Salary)'},{r:'26q',l:'26Q (Non-Sal)'},{r:'27q',l:'27Q (Foreign)'}];
+    var rows = rets.map(function(rt){
+      var cells = QUARTERS.map(function(q){
+        var s=gs(rt.r,clIdx,q); var v=s.filStatus||s.payStatus||s.status||'';
+        allVals.push(v);
+        return '<td>'+statusChip(v)+'</td>';
+      }).join('');
+      return '<tr><td>'+rt.l+'</td>'+cells+'</tr>';
+    }).join('');
+    return { pill: pctPill(calcPct(allVals)),
+      body: '<div class="cld-month-grid"><table class="cld-month-table"><thead><tr><th>Return</th>'+QUARTERS.map(function(q){return '<th>'+q+'</th>';}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>' +
+        '<div class="cld-info-row"><div class="cld-info-chip">📌 <strong>Scope:</strong> '+(raw.scope==='both'?'Pay + File':'Filing Only')+'</div></div>'
+    };
+  }
+
+  function buildCompBlock() {
+    var arr = compClients; var clIdx = arr.findIndex(function(x){return x.name===cl.name;});
+    if (clIdx===-1) return {pill:'',body:''};
+    var allVals = [];
+    var rets = [{r:'esi',l:'ESI'},{r:'pf',l:'PF/EPF'},{r:'pt',l:'Prof.Tax'}];
+    var rows = rets.map(function(rt){
+      var cells = MK.map(function(p,i){
+        var s=gs(rt.r,clIdx,'M'+(i+1)); var v=s.status||'';
+        allVals.push(v);
+        return '<td>'+statusChip(v)+'</td>';
+      }).join('');
+      return '<tr><td>'+rt.l+'</td>'+cells+'</tr>';
+    }).join('');
+    return { pill: pctPill(calcPct(allVals)),
+      body: '<div class="cld-month-grid"><table class="cld-month-table"><thead><tr><th>Return</th>'+MONTHS_12.map(function(m,i){return '<th>'+m+'<br><span style="font-size:.5rem;opacity:.6">\''+(i<9?'26':'27')+'</span></th>';}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>'
+    };
+  }
+
+  function buildRegBlock() {
+    var arr = regClients; var clIdx = arr.findIndex(function(x){return x.name===cl.name;});
+    if (clIdx===-1) return {pill:'',body:''};
+    var raw = arr[clIdx];
+    var p = gs(raw.regType||'company',clIdx,'status');
+    var v = p.status||p.filStatus||'';
+    return { pill: v.includes('✓')||v.includes('Registered')?pctPill(100):pctPill(50),
+      body: '<div class="cld-info-row"><div class="cld-info-chip">🏢 <strong>Type:</strong> '+((raw.regType||'company').replace(/-/g,' '))+'</div>' +
+        (v?'<div class="cld-info-chip">📌 <strong>Status:</strong> '+v+'</div>':'') +
+      '</div>'
+    };
+  }
+
+  var SVC_BUILDERS = {
+    acc:  { label:'Accounting',  icon:'📒', color:'#0891b2', bg:'#e0f9ff', fn:buildAccBlock  },
+    gst:  { label:'GST Returns', icon:'🔵', color:'#6c47ff', bg:'#ede9fe', fn:buildGSTBlock  },
+    tds:  { label:'TDS',         icon:'🟡', color:'#d97706', bg:'#fef9ec', fn:buildTDSBlock  },
+    comp: { label:'Compliance',  icon:'🟣', color:'#059669', bg:'#ecfdf5', fn:buildCompBlock },
+    reg:  { label:'Regulatory',  icon:'🏢', color:'#e2445c', bg:'#fff0f3', fn:buildRegBlock  },
+  };
+
+  // Build service blocks
+  var blocksHtml = cl.services.map(function(svc) {
+    var cfg = SVC_BUILDERS[svc]; if (!cfg) return '';
+    return svcBlock(svc, cfg.label, cfg.icon, cfg.color, cfg.bg, cfg.fn);
+  }).join('');
+
+  // Recent activity for this client — clean, email-centric
+  var AV_COLS2 = ['#6c47ff','#0891b2','#059669','#d97706','#e2445c','#8b5cf6','#06b6d4'];
+  function avCol2(email) {
+    var n=0; for(var _i=0;_i<(email||'').length;_i++) n+=(email||'').charCodeAt(_i);
+    return AV_COLS2[n%AV_COLS2.length];
+  }
+  var clActivity = auditLog.filter(function(l){ return l.clientName === cl.name && l.type !== 'system'; }).slice(-30).reverse();
+  var actHtml = clActivity.length ? clActivity.map(function(l){
+    var col   = {acc:'#0891b2',gst:'#6c47ff',tds:'#d97706',comp:'#059669',reg:'#e2445c'}[l.type]||'#64748b';
+    var ac    = avCol2(l.userEmail);
+    var init  = (l.userName||l.userEmail||'?').split(' ').map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase();
+    var retLbl= (RET_META&&RET_META[l.ret]&&RET_META[l.ret].l)||l.ret||'';
+    return '<div style="display:flex;align-items:flex-start;gap:9px;padding:10px 0;border-bottom:1px solid var(--border)">' +
+      '<div style="width:28px;height:28px;border-radius:8px;background:'+ac+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:900;flex-shrink:0">'+init+'</div>' +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="font-size:.72rem;font-weight:800;color:var(--ink);line-height:1.3">'+(l.userName||'Team Member')+
+          '<span style="font-weight:400;color:var(--sub);margin:0 4px">·</span>'+
+          '<span style="background:'+col+'15;color:'+col+';padding:1px 6px;border-radius:5px;font-size:.58rem;font-weight:800">'+retLbl+'</span>' +
+          (l.period?'<span style="color:var(--sub);font-size:.62rem;margin-left:4px">'+l.period+'</span>':'') +
+        '</div>' +
+        '<div style="font-size:.61rem;color:var(--sub);margin-top:1px">📧 '+(l.userEmail||'')+'</div>' +
+        '<div style="display:inline-flex;align-items:center;gap:5px;margin-top:4px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:6px;padding:3px 8px">' +
+          '<span style="font-size:.62rem;color:#9ca3af;text-decoration:line-through">'+(l.fromVal||'—')+'</span>' +
+          '<span style="font-size:.58rem;color:#d1d5db">→</span>' +
+          '<span style="font-size:.65rem;font-weight:800;color:var(--ink)">'+(l.toVal||'—')+'</span>' +
+        '</div>' +
+      '</div>' +
+      '<div style="font-size:.59rem;color:var(--muted);white-space:nowrap;padding-top:2px">'+timeAgo(new Date(l.ts))+'</div>' +
+    '</div>';
+  }).join('') : '<div style="padding:24px;text-align:center;color:var(--muted);font-size:.74rem">No changes for this client yet.</div>';
+
+  inner.innerHTML =
+    '<div class="cld-header" style="position:relative">' +
+      '<button class="cld-close" onclick="closeClDash()">✕</button>' +
+      '<div style="display:flex;align-items:center;gap:13px">' +
+        '<div style="width:46px;height:46px;border-radius:13px;background:'+avColor+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:900;flex-shrink:0">'+initials+'</div>' +
+        '<div>' +
+          '<div class="cld-title">'+cl.name+'</div>' +
+          '<div class="cld-sub">' + (cl.id?cl.id+' · ':'') + cl.services.length + ' service'+(cl.services.length!==1?'s':'') + ' · FY '+currentFY + '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="cld-body">' +
+      '<div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--sub);margin-bottom:10px">Services & Status</div>' +
+      (blocksHtml || '<div style="padding:30px;text-align:center;color:var(--sub)">No services found.</div>') +
+      '<div style="background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-top:4px">' +
+        '<div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:.75rem;font-weight:800;color:var(--ink);background:var(--surf2)">🕐 Change History for '+cl.name+'</div>' +
+        '<div style="padding:0 16px;max-height:280px;overflow-y:auto">'+actHtml+'</div>' +
+      '</div>' +
+    '</div>';
+
+  overlay.style.display = 'block';
+  panel.style.display = 'block';
+}
+
+function closeClDash() {
+  document.getElementById('cl-dash-overlay').style.display = 'none';
+  document.getElementById('cl-dash-panel').style.display = 'none';
+}
+
+function cldToggleSection(block) {
+  block.classList.toggle('cld-section-collapsed');
+}
+</script>
 
 </body>
 </html>
