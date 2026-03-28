@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Practice Compliance Tracker</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Firebase v9 compat SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased}
@@ -6195,6 +6199,493 @@ function closeClDash() {
 function cldToggleSection(block) {
   block.classList.toggle('cld-section-collapsed');
 }
+</script>
+
+<!-- ═══════════════════════════════════════════════════════
+     FIREBASE REAL-TIME BRIDGE — Live Sync, Auth, Presence
+════════════════════════════════════════════════════════ -->
+
+<!-- Live Activity Feed Panel (right side) -->
+<div id="fb-live-panel" style="position:fixed;bottom:0;right:20px;width:310px;z-index:888;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)">
+  <div style="background:linear-gradient(135deg,#2b1055,#4a1d96);border-radius:14px 14px 0 0;overflow:hidden;box-shadow:0 -8px 32px rgba(27,31,59,.22)">
+    <div id="fb-live-hdr" style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;transition:background .3s" onclick="_fbToggleLivePanel()">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:8px;height:8px;border-radius:50%;background:#00c875;box-shadow:0 0 0 2px rgba(0,200,117,.3);animation:pulse 2s infinite"></div>
+        <span style="font-size:.72rem;font-weight:800;color:#fff">Live Team Activity</span>
+        <span id="fb-live-count" style="font-size:.58rem;font-weight:700;background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);padding:1px 7px;border-radius:10px">0</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div id="fb-presence-bar" style="display:flex;align-items:center;gap:6px"></div>
+        <span id="fb-panel-arrow" style="color:rgba(255,255,255,.5);font-size:.7rem;transition:transform .2s">▲</span>
+      </div>
+    </div>
+    <div id="fb-live-feed" style="max-height:260px;overflow-y:auto;display:none"></div>
+    <div id="fb-sync-badge" style="font-size:.62rem;font-weight:700;color:rgba(255,255,255,.5);padding:5px 14px;border-top:1px solid rgba(255,255,255,.06);opacity:0;transition:all .4s"></div>
+  </div>
+</div>
+
+<!-- Firebase Not Configured Banner -->
+<div id="fb-setup-banner" style="display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:9990;background:#1a0533;border:1.5px solid rgba(139,92,246,.4);border-radius:14px;padding:14px 20px;box-shadow:0 12px 36px rgba(27,31,59,.35);max-width:460px;width:96vw;align-items:flex-start;gap:12px">
+  <div style="font-size:1.2rem;flex-shrink:0">🔥</div>
+  <div style="flex:1">
+    <div style="font-size:.78rem;font-weight:800;color:#fff;margin-bottom:4px">Connect Firebase for Real-Time Sync</div>
+    <div style="font-size:.67rem;color:rgba(255,255,255,.55);line-height:1.6">Open this file in a text editor, find <code style="background:rgba(255,255,255,.1);padding:1px 5px;border-radius:4px">FIREBASE_CONFIG</code> and paste your Firebase project keys. <a href="https://console.firebase.google.com" target="_blank" style="color:#a78bfa;font-weight:700">Get free keys →</a></div>
+  </div>
+  <button onclick="document.getElementById('fb-setup-banner').style.display='none'" style="background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:.9rem;flex-shrink:0">✕</button>
+</div>
+
+<!-- Firebase Connected Badge -->
+<div id="fb-conn-badge" style="display:none;position:fixed;top:58px;right:16px;z-index:800;background:#e6faf0;border:1.5px solid #86efac;border-radius:20px;padding:4px 12px;font-size:.62rem;font-weight:700;color:#065f46;align-items:center;gap:5px">
+  <span>🔥</span><span>Firebase Synced</span>
+</div>
+
+<style>
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+#fb-live-panel.open { transform:translateY(0) !important; }
+#fb-live-feed { scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.15) transparent; }
+.dash-del-btn:hover { background:#fde8ec!important; border-color:#e2445c!important; }
+</style>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  FIREBASE REAL-TIME BRIDGE
+//  Step 1: Create free Firebase project at console.firebase.google.com
+//  Step 2: Enable Authentication > Email/Password
+//  Step 3: Enable Firestore Database (Start in test mode)
+//  Step 4: Fill in your config below
+// ═══════════════════════════════════════════════════════════
+
+var FIREBASE_CONFIG = {
+  apiKey:            "YOUR_API_KEY",
+  authDomain:        "YOUR_PROJECT.firebaseapp.com",
+  projectId:         "YOUR_PROJECT_ID",
+  storageBucket:     "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId:             "YOUR_APP_ID"
+};
+
+// ─── Internal state ───────────────────────────────────────
+var _fbApp, _fbAuth, _fbDb;
+var _fbEnabled   = false;
+var _suppressUpd = false;
+var _onlineUsers = {};
+var _presInterval = null;
+var _unsubArr    = [];
+
+function _fbValid() {
+  return FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.apiKey !== 'YOUR_API_KEY' && FIREBASE_CONFIG.projectId !== 'YOUR_PROJECT_ID';
+}
+
+// ─── Init ─────────────────────────────────────────────────
+function _fbInit() {
+  if (!_fbValid()) { _showFbBanner(); return; }
+  try {
+    _fbApp  = firebase.initializeApp(FIREBASE_CONFIG);
+    _fbAuth = firebase.auth();
+    _fbDb   = firebase.firestore();
+    _fbEnabled = true;
+    _fbAuth.onAuthStateChanged(_fbAuthChanged);
+    var badge = document.getElementById('fb-conn-badge');
+    if (badge) badge.style.display = 'flex';
+    document.getElementById('fb-setup-banner').style.display = 'none';
+    // Show live panel tab
+    setTimeout(function(){
+      var p = document.getElementById('fb-live-panel');
+      if (p) p.style.transform = 'translateY(calc(100% - 44px))';
+    }, 1000);
+  } catch(e) { console.error('[FB]', e); _showFbBanner(); }
+}
+
+function _fbAuthChanged(fbUser) {
+  if (fbUser) {
+    currentUser = { id: fbUser.uid, name: fbUser.displayName || fbUser.email.split('@')[0], email: fbUser.email, role: 'user' };
+    _fbLoadAll(function() {
+      var ls = document.getElementById('login-screen');
+      var app = document.getElementById('app');
+      if (ls && ls.style.display !== 'none') {
+        ls.style.display = 'none';
+        if (app) app.style.display = 'flex';
+        syncFYUI(); updateUserUI(); applyRoleRestrictions();
+        renderAll(); populateAuditFilters();
+        setTimeout(function(){ if(typeof initDueDatesPopup==='function') initDueDatesPopup(); else if(typeof initDueDatePopup==='function') initDueDatePopup(); }, 1500);
+        toast('Welcome, ' + currentUser.name.split(' ')[0] + '! 👋', 'success');
+        _fbWriteLoginLog();
+      }
+      _fbListeners();
+      _fbPresence(true);
+    });
+  } else {
+    _fbPresence(false);
+    currentUser = {id:'',name:'',email:'',role:''};
+    var app = document.getElementById('app'); var ls = document.getElementById('login-screen');
+    if (app) app.style.display = 'none';
+    if (ls)  { ls.style.display = 'flex'; if(typeof authSwitchPanel==='function') authSwitchPanel('signin'); }
+  }
+}
+
+// ─── LOAD FROM FIRESTORE ──────────────────────────────────
+function _fbLoadAll(cb) {
+  _fbMigrate();
+  var db = _fbDb;
+  db.collection('data').doc('clients').get().then(function(doc) {
+    if (doc.exists) {
+      var d = doc.data();
+      if (d.gstClients)  gstClients  = d.gstClients;
+      if (d.tdsClients)  tdsClients  = d.tdsClients;
+      if (d.accClients)  accClients  = d.accClients;
+      if (d.compClients) compClients = d.compClients;
+      if (d.regClients)  regClients  = d.regClients;
+    }
+    return db.collection('data').doc('state').get();
+  }).then(function(doc) {
+    if (doc.exists) { var d = doc.data(); if(d.state) state=d.state; if(d.currentFY){currentFY=d.currentFY;syncFYUI();} }
+    return db.collection('auditLog').orderBy('ts','asc').limitToLast(500).get();
+  }).then(function(snap) {
+    auditLog = []; snap.forEach(function(doc){ auditLog.push(doc.data()); });
+    if (cb) cb();
+  }).catch(function(e) { console.warn('[FB] Load failed, using local:', e); LS.load(); if(cb) cb(); });
+}
+
+// ─── ONE-TIME MIGRATION localStorage → Firestore ──────────
+function _fbMigrate() {
+  if (localStorage.getItem('ct4_fb_migrated')) return;
+  var hasData = localStorage.getItem('ct4_gst') || localStorage.getItem('ct4_acc');
+  if (!hasData) return;
+  LS.load();
+  _fbSaveAll();
+  localStorage.setItem('ct4_fb_migrated', '1');
+  toast('✓ Existing data synced to cloud!', 'info');
+}
+
+// ─── SAVE TO FIRESTORE ────────────────────────────────────
+function _fbSaveAll() {
+  if (!_fbDb) return;
+  _fbDb.collection('data').doc('clients').set({
+    gstClients:gstClients, tdsClients:tdsClients, accClients:accClients,
+    compClients:compClients, regClients:regClients,
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedBy: currentUser.email||''
+  }).catch(function(e){console.warn('[FB] Save clients:',e);});
+  _fbDb.collection('data').doc('state').set({
+    state:state, currentFY:currentFY,
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedBy: currentUser.email||''
+  }).catch(function(e){console.warn('[FB] Save state:',e);});
+}
+
+// ─── REAL-TIME LISTENERS ──────────────────────────────────
+function _fbListeners() {
+  _unsubArr.forEach(function(u){ u(); }); _unsubArr = [];
+  var db = _fbDb;
+
+  _unsubArr.push(db.collection('data').doc('clients').onSnapshot(function(doc){
+    if (_suppressUpd || !doc.exists) return;
+    var d = doc.data();
+    if (d.updatedBy && d.updatedBy !== currentUser.email) {
+      if(d.gstClients)  gstClients  = d.gstClients;
+      if(d.tdsClients)  tdsClients  = d.tdsClients;
+      if(d.accClients)  accClients  = d.accClients;
+      if(d.compClients) compClients = d.compClients;
+      if(d.regClients)  regClients  = d.regClients;
+      renderAll(); renderDashboard();
+      _syncBadge(d.updatedBy + ' updated clients');
+    }
+  }, function(e){console.warn('[FB] clients listener:',e);}));
+
+  _unsubArr.push(db.collection('data').doc('state').onSnapshot(function(doc){
+    if (_suppressUpd || !doc.exists) return;
+    var d = doc.data();
+    if (d.updatedBy && d.updatedBy !== currentUser.email) {
+      if(d.state){state=d.state; renderAll(); renderDashboard(); _syncBadge(d.updatedBy + ' updated records');}
+    }
+  }, function(e){console.warn('[FB] state listener:',e);}));
+
+  _unsubArr.push(db.collection('auditLog').orderBy('ts','desc').limit(1).onSnapshot(function(snap){
+    snap.docChanges().forEach(function(change){
+      if (change.type !== 'added') return;
+      var entry = change.doc.data();
+      if (entry.userEmail === currentUser.email) return;
+      var dup = auditLog.some(function(l){ return l.ts===entry.ts && l.userEmail===entry.userEmail; });
+      if (!dup) {
+        auditLog.push(entry);
+        if (auditLog.length > 2000) auditLog.splice(0, auditLog.length-2000);
+        _showLiveEntry(entry);
+        var av = document.getElementById('view-audit');
+        if (av && av.classList.contains('active')) { renderAudit(); populateAuditFilters(); }
+        var ce = document.getElementById('dash-act-count'); if(ce) ce.textContent = auditLog.length+' changes';
+      }
+    });
+  }, function(e){console.warn('[FB] audit listener:',e);}));
+}
+
+// ─── OVERRIDE: LS.save → also write to Firestore ──────────
+var _origLsSave = LS.save.bind(LS);
+LS._origSave = _origLsSave;
+LS._localLoad = LS.load.bind(LS);
+LS.save = function() {
+  LS._origSave();
+  if (_fbEnabled && _fbDb) { _fbSaveAll(); }
+};
+
+// ─── OVERRIDE: logChange → also write audit to Firestore ──
+var _origLogChange = logChange;
+logChange = function(ret, ci, period, field, fromVal, toVal) {
+  _origLogChange(ret, ci, period, field, fromVal, toVal);
+  if (_fbEnabled && _fbDb) {
+    var entry = auditLog[auditLog.length-1];
+    if (entry) _fbDb.collection('auditLog').add(entry).catch(function(e){console.warn('[FB] audit write:',e);});
+  }
+};
+
+// ─── OVERRIDE: authSignIn → Firebase Auth ─────────────────
+var _origSignIn = authSignIn;
+authSignIn = function() {
+  if (!_fbEnabled) { _origSignIn(); return; }
+  var email = ((document.getElementById('auth-email')||{}).value||'').trim().toLowerCase();
+  var pw    = ((document.getElementById('auth-pw')   ||{}).value||'');
+  if (!email) { showAuthErr('signin','Please enter your email.'); return; }
+  if (!pw)    { showAuthErr('signin','Please enter your password.'); return; }
+  var btn = document.querySelector('#auth-signin .auth-btn');
+  if (btn) { btn.disabled=true; btn.textContent='Signing in…'; }
+  _fbAuth.signInWithEmailAndPassword(email, pw)
+    .catch(function(err) {
+      if (btn) { btn.disabled=false; btn.textContent='Sign In →'; }
+      var m = err.code==='auth/user-not-found'    ? 'No account found for this email.' :
+               err.code==='auth/wrong-password'   ? 'Incorrect password.' :
+               err.code==='auth/invalid-email'    ? 'Invalid email address.' :
+               err.code==='auth/too-many-requests'? 'Too many attempts. Try again later.' : err.message;
+      showAuthErr('signin', m);
+    });
+};
+
+// ─── OVERRIDE: authSignUp → Firebase Auth ─────────────────
+var _origSignUp = authSignUp;
+authSignUp = function() {
+  if (!_fbEnabled) { _origSignUp(); return; }
+  var name  = ((document.getElementById('auth-signup-name') ||{}).value||'').trim();
+  var email = ((document.getElementById('auth-signup-email')||{}).value||'').trim().toLowerCase();
+  var pw    = ((document.getElementById('auth-signup-pw')   ||{}).value||'');
+  var conf  = ((document.getElementById('auth-signup-conf') ||{}).value||'');
+  if (!name)            { showAuthErr('signup','Enter your full name.'); return; }
+  if (email.indexOf('@')<1){ showAuthErr('signup','Enter a valid email address.'); return; }
+  if (pw.length < 8)    { showAuthErr('signup','Password must be 8+ characters.'); return; }
+  if (pw !== conf)      { showAuthErr('signup','Passwords do not match.'); return; }
+  var btn = document.querySelector('#auth-signup .auth-btn');
+  if (btn) { btn.disabled=true; btn.textContent='Creating account…'; }
+  _fbAuth.createUserWithEmailAndPassword(email, pw)
+    .then(function(cred) { return cred.user.updateProfile({ displayName: name }); })
+    .catch(function(err) {
+      if (btn) { btn.disabled=false; btn.textContent='Create Account →'; }
+      var m = err.code==='auth/email-already-in-use'? 'Account exists. Please sign in.' :
+               err.code==='auth/weak-password'      ? 'Password too weak. Use 8+ characters.' : err.message;
+      showAuthErr('signup', m);
+    });
+};
+
+// ─── OVERRIDE: authForgot → Firebase real email ────────────
+var _origForgot = authForgot;
+authForgot = function() {
+  if (!_fbEnabled) { _origForgot(); return; }
+  var email = ((document.getElementById('auth-fp-email')||{}).value||'').trim().toLowerCase();
+  if (!email) { showAuthErr('forgot','Enter your registered email.'); return; }
+  var btn = document.getElementById('auth-fp-send-btn');
+  if (btn) { btn.disabled=true; btn.textContent='Sending…'; }
+  _fbAuth.sendPasswordResetEmail(email)
+    .then(function() {
+      if (btn) { btn.disabled=false; btn.textContent='Send Reset Code →'; }
+      var info = document.getElementById('auth-fp-info');
+      if (info) { info.style.display='block'; info.innerHTML='📧 Password reset email sent to <strong>'+email+'</strong>. Check your inbox.'; }
+    })
+    .catch(function(err) {
+      if (btn) { btn.disabled=false; btn.textContent='Send Reset Code →'; }
+      showAuthErr('forgot', err.code==='auth/user-not-found'?'No account found for this email.':err.message);
+    });
+};
+
+// ─── OVERRIDE: doLogout → Firebase signOut ────────────────
+var _origLogout = doLogout;
+doLogout = function() {
+  if (!_fbEnabled) { _origLogout(); return; }
+  _fbWriteLogoutLog();
+  _fbPresence(false);
+  _fbAuth.signOut();
+  toast('Signed out.', 'info');
+};
+
+// ─── DELETE CLIENT (dashboard) ────────────────────────────
+function _dashDelClient(clientName) {
+  var cl = buildClientMap().find(function(c){ return c.name===clientName; });
+  if (!cl) return;
+  confirmDel('Remove "'+clientName+'" from '+cl.services.map(function(s){return s.toUpperCase();}).join(', ')+'?\n\nThis will be visible to all team members immediately.', function() {
+    _suppressUpd = true;
+    var now = new Date();
+    cl.services.forEach(function(svc) {
+      var arr = {acc:accClients,gst:gstClients,tds:tdsClients,comp:compClients,reg:regClients}[svc];
+      if (!arr) return;
+      var idx = arr.findIndex(function(x){ return x.name===clientName; });
+      if (idx===-1) return;
+      var entry = {
+        ts: now.getTime()+Math.random(), date: now.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}),
+        time: now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),
+        fy: currentFY, ret: svc, ci: idx, period:'', field:'deleted', sub:'client_deleted',
+        fromVal: clientName, toVal: 'DELETED',
+        userId: currentUser.id||'', userName: currentUser.name||'', userEmail: currentUser.email||'', userRole:'user',
+        clientName: clientName, clientId:(arr[idx]||{}).id||'',
+        type: svc==='acc'?'acc':svc==='gst'?'gst':svc==='tds'?'tds':svc==='comp'?'comp':'reg'
+      };
+      arr.splice(idx, 1);
+      auditLog.push(entry);
+      if (_fbEnabled && _fbDb) _fbDb.collection('auditLog').add(entry).catch(function(){});
+    });
+    LS.save(); renderAll(); renderDashboard(); populateAuditFilters();
+    setTimeout(function(){ _suppressUpd=false; }, 2000);
+    toast('"'+clientName+'" deleted from all services.', 'warn');
+  });
+}
+
+// ─── INJECT Delete buttons into dashboard roster ───────────
+var _origRenderDash = renderDashClientList;
+renderDashClientList = function() {
+  _origRenderDash();
+  setTimeout(function() {
+    document.querySelectorAll('.cl-roster-row').forEach(function(row) {
+      if (row.querySelector('.dash-del-btn')) return;
+      var nameEl = row.querySelector('.cl-roster-name'); if (!nameEl) return;
+      var cName  = nameEl.textContent;
+      var last   = row.querySelector('div:last-child'); if (!last) return;
+      var btn = document.createElement('button');
+      btn.className = 'dash-del-btn';
+      btn.title = 'Delete '+cName;
+      btn.textContent = '🗑';
+      btn.style.cssText = 'margin-left:6px;width:26px;height:26px;border-radius:7px;border:1.5px solid #fde8ec;background:#fff;color:#e2445c;cursor:pointer;font-size:.72rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .13s';
+      btn.onmouseenter = function(){ this.style.background='#fde8ec'; this.style.borderColor='#e2445c'; };
+      btn.onmouseleave = function(){ this.style.background='#fff'; this.style.borderColor='#fde8ec'; };
+      btn.onclick = function(e){ e.stopPropagation(); _dashDelClient(cName); };
+      last.style.display='flex'; last.style.alignItems='center'; last.style.justifyContent='flex-end'; last.style.gap='4px';
+      last.appendChild(btn);
+    });
+  }, 60);
+};
+
+// ─── PRESENCE ─────────────────────────────────────────────
+function _fbPresence(online) {
+  if (!_fbEnabled || !_fbDb || !currentUser.email) return;
+  var ref = _fbDb.collection('presence').doc(currentUser.id||('u_'+btoa(currentUser.email).slice(0,16)));
+  if (online) {
+    ref.set({ name:currentUser.name, email:currentUser.email, online:true, lastSeen:firebase.firestore.FieldValue.serverTimestamp() }, {merge:true});
+    clearInterval(_presInterval);
+    _presInterval = setInterval(function(){ ref.update({ lastSeen:firebase.firestore.FieldValue.serverTimestamp() }); }, 30000);
+    _fbDb.collection('presence').where('online','==',true).onSnapshot(function(snap) {
+      _onlineUsers = {};
+      var cutoff = Date.now() - 12e4;
+      snap.forEach(function(doc) {
+        var d = doc.data();
+        var seen = d.lastSeen ? d.lastSeen.toMillis() : Date.now();
+        if (seen > cutoff) _onlineUsers[doc.id] = d;
+      });
+      _renderPresBar();
+    });
+    window.addEventListener('beforeunload', function(){ ref.update({online:false}); });
+  } else {
+    clearInterval(_presInterval);
+    ref.update({online:false}).catch(function(){});
+  }
+}
+
+function _renderPresBar() {
+  var bar = document.getElementById('fb-presence-bar'); if (!bar) return;
+  var users = Object.values(_onlineUsers);
+  var avs = users.slice(0,5).map(function(u) {
+    var init = (u.name||u.email||'?').split(' ').map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase();
+    var col = _avCol(u.email);
+    var isMe = u.email === currentUser.email;
+    return '<div title="'+(isMe?u.name+' (you)':u.email)+'" style="width:22px;height:22px;border-radius:6px;background:'+col+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:800;flex-shrink:0;border:2px solid rgba(255,255,255,.2);margin-left:-5px">'+(isMe?'★':init)+'</div>';
+  }).join('');
+  bar.innerHTML = '<div style="display:flex;align-items:center">'+avs+'</div><span style="font-size:.6rem;font-weight:700;color:rgba(255,255,255,.65);margin-left:9px">'+users.length+' online</span>';
+}
+
+// ─── LIVE ACTIVITY FEED UI ────────────────────────────────
+var _liveOpen = false;
+function _fbToggleLivePanel() {
+  _liveOpen = !_liveOpen;
+  var p = document.getElementById('fb-live-panel');
+  var feed = document.getElementById('fb-live-feed');
+  var arrow = document.getElementById('fb-panel-arrow');
+  if (_liveOpen) {
+    p.style.transform = 'translateY(0)';
+    if (feed) feed.style.display = 'block';
+    if (arrow) arrow.style.transform = 'rotate(180deg)';
+  } else {
+    p.style.transform = 'translateY(calc(100% - 44px))';
+    if (feed) feed.style.display = 'none';
+    if (arrow) arrow.style.transform = '';
+  }
+}
+
+function _showLiveEntry(entry) {
+  var countEl = document.getElementById('fb-live-count');
+  if (countEl) countEl.textContent = (parseInt(countEl.textContent)||0)+1;
+  var feed = document.getElementById('fb-live-feed'); if (!feed) return;
+  var col  = {acc:'#0891b2',gst:'#6c47ff',tds:'#d97706',comp:'#059669',reg:'#e2445c'}[entry.type]||'#64748b';
+  var init = (entry.userName||'?').split(' ').map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase();
+  var rl   = (typeof RET_META!=='undefined'&&RET_META[entry.ret]&&RET_META[entry.ret].l)||entry.ret||'';
+  var el = document.createElement('div');
+  el.style.cssText = 'display:flex;align-items:flex-start;gap:8px;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.06)';
+  el.innerHTML =
+    '<div style="width:26px;height:26px;border-radius:7px;background:'+_avCol(entry.userEmail)+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:900;flex-shrink:0">'+init+'</div>'+
+    '<div style="flex:1;min-width:0">'+
+      '<div style="font-size:.67rem;font-weight:700;color:#fff;line-height:1.3">'+( entry.userName||'Team Member')+'</div>'+
+      '<div style="font-size:.59rem;color:rgba(255,255,255,.5);margin-top:1px">'+(entry.clientName||'')+' · <span style="color:'+col+'">'+rl+'</span>'+(entry.period?' · '+entry.period:'')+'</div>'+
+      '<div style="font-size:.58rem;color:rgba(255,255,255,.35);margin-top:2px"><del>'+(entry.fromVal||'—')+'</del> → <strong style="color:rgba(255,255,255,.8)">'+(entry.toVal||'—')+'</strong></div>'+
+    '</div>'+
+    '<div style="font-size:.56rem;color:rgba(255,255,255,.3);white-space:nowrap">now</div>';
+  feed.insertBefore(el, feed.firstChild);
+  while (feed.children.length > 12) feed.removeChild(feed.lastChild);
+  // Flash header green
+  var hdr = document.getElementById('fb-live-hdr');
+  if (hdr) { hdr.style.background='rgba(0,200,117,.25)'; setTimeout(function(){hdr.style.background='';},900); }
+}
+
+function _syncBadge(msg) {
+  var b = document.getElementById('fb-sync-badge'); if (!b) return;
+  b.textContent = '⟳ '+msg; b.style.opacity='1';
+  setTimeout(function(){ b.style.opacity='0'; }, 3000);
+}
+
+// ─── LOGIN / LOGOUT AUDIT LOGS ────────────────────────────
+function _fbWriteLoginLog() {
+  var now = new Date();
+  var e = { ts:now.getTime(), date:now.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}), time:now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}), fy:currentFY, ret:'system', ci:-1, period:'', field:'login', sub:'login', fromVal:'', toVal:'Signed in', userId:currentUser.id, userName:currentUser.name, userEmail:currentUser.email, userRole:'user', clientName:'—', clientId:'', type:'system', isLogin:true };
+  auditLog.push(e);
+  if (_fbDb) _fbDb.collection('auditLog').add(e).catch(function(){});
+}
+function _fbWriteLogoutLog() {
+  var now = new Date();
+  var e = { ts:now.getTime(), date:now.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}), time:now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}), fy:currentFY, ret:'system', ci:-1, period:'', field:'logout', sub:'logout', fromVal:'', toVal:'Signed out', userId:currentUser.id, userName:currentUser.name, userEmail:currentUser.email, userRole:'user', clientName:'—', clientId:'', type:'system', isLogin:false };
+  if (_fbDb) _fbDb.collection('auditLog').add(e).catch(function(){});
+}
+
+// ─── UTILS ────────────────────────────────────────────────
+function _avCol(str) {
+  var c=['#6c47ff','#0891b2','#059669','#d97706','#e2445c','#8b5cf6','#06b6d4'], n=0;
+  for(var i=0;i<(str||'').length;i++) n+=str.charCodeAt(i);
+  return c[n%c.length];
+}
+function _showFbBanner() { var b=document.getElementById('fb-setup-banner'); if(b) b.style.display='flex'; }
+
+// ─── BOOT ─────────────────────────────────────────────────
+// Run after all original scripts have loaded
+_fbInit();
+
+// Also inject delete btn when renderDashboard is called
+var _origRenderDashboard = renderDashboard;
+renderDashboard = function() {
+  _origRenderDashboard();
+  // Delay slightly so DOM is updated
+  if (typeof renderDashClientList === 'function') { /* already overridden */ }
+};
+
+console.info('[Practice Tracker] Firebase Bridge loaded. Config valid:', _fbValid());
 </script>
 
 </body>
